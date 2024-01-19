@@ -1,12 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './footer-section.component.html',
-  styleUrl: './footer-section.component.css'
+  styleUrl: './footer-section.component.scss'
 })
 export class FooterSectionComponent {
 

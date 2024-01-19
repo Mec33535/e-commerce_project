@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:e-commerce_project": "node dist/e-commerce_project/server/server.mjs"
+    "serve:ssr:e-commerce-project": "node dist/e-commerce-project/server/server.mjs"
   },
   "private": true,
   "dependencies": {

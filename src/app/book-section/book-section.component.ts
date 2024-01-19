@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-book-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './book-section.component.html',
-  styleUrl: './book-section.component.css'
+  styleUrl: './book-section.component.scss'
 })
 export class BookSectionComponent {
 

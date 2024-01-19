@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { HeroAreaComponent } from './hero-area/hero-area.component';
 import { OfferSectionComponent } from './offer-section/offer-section.component';
 import { FoodSectionComponent } from './food-section/food-section.component';
-import { AboutSectionComponent } from './about-section/about-section.component';
+import { AbsoluteSourceSpan } from '@angular/compiler';
 import { BookSectionComponent } from './book-section/book-section.component';
 import { ClientSectionComponent } from './client-section/client-section.component';
 import { FooterSectionComponent } from './footer-section/footer-section.component';
-import { HeroAreaComponent } from './hero-area/hero-area.component';
+import { AboutSectionComponent } from './about-section/about-section.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     RouterOutlet,
     HeroAreaComponent,
     OfferSectionComponent,
@@ -21,11 +21,10 @@ import { HeroAreaComponent } from './hero-area/hero-area.component';
     AboutSectionComponent,
     BookSectionComponent,
     ClientSectionComponent,
-    FooterSectionComponent,
-  ],
+    FooterSectionComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'e-commerce_project';
+  title = 'e-commerce-project';
 }
