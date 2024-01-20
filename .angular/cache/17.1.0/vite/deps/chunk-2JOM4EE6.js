@@ -13,6 +13,7 @@ import {
   InjectionToken,
   Injector,
   Input,
+  InputFlags,
   IterableDiffers,
   KeyValueDiffers,
   LOCALE_ID,
@@ -58,7 +59,7 @@ import {
   ɵɵinject,
   ɵɵinjectAttribute,
   ɵɵstyleProp
-} from "./chunk-7EWUOI4Z.js";
+} from "./chunk-7UBRETAF.js";
 
 // node_modules/@angular/common/fesm2022/common.mjs
 var _DOM = null;
@@ -2019,7 +2020,7 @@ _NgClass.ɵdir = ɵɵdefineDirective({
   type: _NgClass,
   selectors: [["", "ngClass", ""]],
   inputs: {
-    klass: ["class", "klass"],
+    klass: [InputFlags.None, "class", "klass"],
     ngClass: "ngClass"
   },
   standalone: true
@@ -3637,7 +3638,7 @@ function isPlatformWorkerApp(platformId) {
 function isPlatformWorkerUi(platformId) {
   return platformId === PLATFORM_WORKER_UI_ID;
 }
-var VERSION = new Version("17.0.9");
+var VERSION = new Version("17.1.0");
 var _ViewportScroller = class _ViewportScroller {
 };
 _ViewportScroller.ɵprov = ɵɵdefineInjectable({
@@ -4380,16 +4381,16 @@ _NgOptimizedImage.ɵdir = ɵɵdefineDirective({
     }
   },
   inputs: {
-    ngSrc: ["ngSrc", "ngSrc", unwrapSafeUrl],
+    ngSrc: [InputFlags.HasDecoratorInputTransform, "ngSrc", "ngSrc", unwrapSafeUrl],
     ngSrcset: "ngSrcset",
     sizes: "sizes",
-    width: ["width", "width", numberAttribute],
-    height: ["height", "height", numberAttribute],
+    width: [InputFlags.HasDecoratorInputTransform, "width", "width", numberAttribute],
+    height: [InputFlags.HasDecoratorInputTransform, "height", "height", numberAttribute],
     loading: "loading",
-    priority: ["priority", "priority", booleanAttribute],
+    priority: [InputFlags.HasDecoratorInputTransform, "priority", "priority", booleanAttribute],
     loaderParams: "loaderParams",
-    disableOptimizedSrcset: ["disableOptimizedSrcset", "disableOptimizedSrcset", booleanAttribute],
-    fill: ["fill", "fill", booleanAttribute],
+    disableOptimizedSrcset: [InputFlags.HasDecoratorInputTransform, "disableOptimizedSrcset", "disableOptimizedSrcset", booleanAttribute],
+    fill: [InputFlags.HasDecoratorInputTransform, "fill", "fill", booleanAttribute],
     src: "src",
     srcset: "srcset"
   },
@@ -4793,9 +4794,9 @@ export {
 
 @angular/common/fesm2022/common.mjs:
   (**
-   * @license Angular v17.0.9
+   * @license Angular v17.1.0
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-IBOIJDAZ.js.map
+//# sourceMappingURL=chunk-2JOM4EE6.js.map

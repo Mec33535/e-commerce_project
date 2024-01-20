@@ -8,7 +8,7 @@ import {
   isPlatformServer,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-IBOIJDAZ.js";
+} from "./chunk-2JOM4EE6.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   APP_ID,
@@ -85,7 +85,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-7EWUOI4Z.js";
+} from "./chunk-7UBRETAF.js";
 
 // node_modules/@angular/common/fesm2022/http.mjs
 var HttpHandler = class {
@@ -788,7 +788,7 @@ var HttpResponseBase = class {
    * The single parameter accepted is an initialization hash. Any properties
    * of the response passed there will override the default values.
    */
-  constructor(init, defaultStatus = 200, defaultStatusText = "OK") {
+  constructor(init, defaultStatus = HttpStatusCode.Ok, defaultStatusText = "OK") {
     this.headers = init.headers || new HttpHeaders();
     this.status = init.status !== void 0 ? init.status : defaultStatus;
     this.statusText = init.statusText || defaultStatusText;
@@ -849,6 +849,72 @@ var HttpErrorResponse = class extends HttpResponseBase {
     this.error = init.error || null;
   }
 };
+var HttpStatusCode;
+(function(HttpStatusCode2) {
+  HttpStatusCode2[HttpStatusCode2["Continue"] = 100] = "Continue";
+  HttpStatusCode2[HttpStatusCode2["SwitchingProtocols"] = 101] = "SwitchingProtocols";
+  HttpStatusCode2[HttpStatusCode2["Processing"] = 102] = "Processing";
+  HttpStatusCode2[HttpStatusCode2["EarlyHints"] = 103] = "EarlyHints";
+  HttpStatusCode2[HttpStatusCode2["Ok"] = 200] = "Ok";
+  HttpStatusCode2[HttpStatusCode2["Created"] = 201] = "Created";
+  HttpStatusCode2[HttpStatusCode2["Accepted"] = 202] = "Accepted";
+  HttpStatusCode2[HttpStatusCode2["NonAuthoritativeInformation"] = 203] = "NonAuthoritativeInformation";
+  HttpStatusCode2[HttpStatusCode2["NoContent"] = 204] = "NoContent";
+  HttpStatusCode2[HttpStatusCode2["ResetContent"] = 205] = "ResetContent";
+  HttpStatusCode2[HttpStatusCode2["PartialContent"] = 206] = "PartialContent";
+  HttpStatusCode2[HttpStatusCode2["MultiStatus"] = 207] = "MultiStatus";
+  HttpStatusCode2[HttpStatusCode2["AlreadyReported"] = 208] = "AlreadyReported";
+  HttpStatusCode2[HttpStatusCode2["ImUsed"] = 226] = "ImUsed";
+  HttpStatusCode2[HttpStatusCode2["MultipleChoices"] = 300] = "MultipleChoices";
+  HttpStatusCode2[HttpStatusCode2["MovedPermanently"] = 301] = "MovedPermanently";
+  HttpStatusCode2[HttpStatusCode2["Found"] = 302] = "Found";
+  HttpStatusCode2[HttpStatusCode2["SeeOther"] = 303] = "SeeOther";
+  HttpStatusCode2[HttpStatusCode2["NotModified"] = 304] = "NotModified";
+  HttpStatusCode2[HttpStatusCode2["UseProxy"] = 305] = "UseProxy";
+  HttpStatusCode2[HttpStatusCode2["Unused"] = 306] = "Unused";
+  HttpStatusCode2[HttpStatusCode2["TemporaryRedirect"] = 307] = "TemporaryRedirect";
+  HttpStatusCode2[HttpStatusCode2["PermanentRedirect"] = 308] = "PermanentRedirect";
+  HttpStatusCode2[HttpStatusCode2["BadRequest"] = 400] = "BadRequest";
+  HttpStatusCode2[HttpStatusCode2["Unauthorized"] = 401] = "Unauthorized";
+  HttpStatusCode2[HttpStatusCode2["PaymentRequired"] = 402] = "PaymentRequired";
+  HttpStatusCode2[HttpStatusCode2["Forbidden"] = 403] = "Forbidden";
+  HttpStatusCode2[HttpStatusCode2["NotFound"] = 404] = "NotFound";
+  HttpStatusCode2[HttpStatusCode2["MethodNotAllowed"] = 405] = "MethodNotAllowed";
+  HttpStatusCode2[HttpStatusCode2["NotAcceptable"] = 406] = "NotAcceptable";
+  HttpStatusCode2[HttpStatusCode2["ProxyAuthenticationRequired"] = 407] = "ProxyAuthenticationRequired";
+  HttpStatusCode2[HttpStatusCode2["RequestTimeout"] = 408] = "RequestTimeout";
+  HttpStatusCode2[HttpStatusCode2["Conflict"] = 409] = "Conflict";
+  HttpStatusCode2[HttpStatusCode2["Gone"] = 410] = "Gone";
+  HttpStatusCode2[HttpStatusCode2["LengthRequired"] = 411] = "LengthRequired";
+  HttpStatusCode2[HttpStatusCode2["PreconditionFailed"] = 412] = "PreconditionFailed";
+  HttpStatusCode2[HttpStatusCode2["PayloadTooLarge"] = 413] = "PayloadTooLarge";
+  HttpStatusCode2[HttpStatusCode2["UriTooLong"] = 414] = "UriTooLong";
+  HttpStatusCode2[HttpStatusCode2["UnsupportedMediaType"] = 415] = "UnsupportedMediaType";
+  HttpStatusCode2[HttpStatusCode2["RangeNotSatisfiable"] = 416] = "RangeNotSatisfiable";
+  HttpStatusCode2[HttpStatusCode2["ExpectationFailed"] = 417] = "ExpectationFailed";
+  HttpStatusCode2[HttpStatusCode2["ImATeapot"] = 418] = "ImATeapot";
+  HttpStatusCode2[HttpStatusCode2["MisdirectedRequest"] = 421] = "MisdirectedRequest";
+  HttpStatusCode2[HttpStatusCode2["UnprocessableEntity"] = 422] = "UnprocessableEntity";
+  HttpStatusCode2[HttpStatusCode2["Locked"] = 423] = "Locked";
+  HttpStatusCode2[HttpStatusCode2["FailedDependency"] = 424] = "FailedDependency";
+  HttpStatusCode2[HttpStatusCode2["TooEarly"] = 425] = "TooEarly";
+  HttpStatusCode2[HttpStatusCode2["UpgradeRequired"] = 426] = "UpgradeRequired";
+  HttpStatusCode2[HttpStatusCode2["PreconditionRequired"] = 428] = "PreconditionRequired";
+  HttpStatusCode2[HttpStatusCode2["TooManyRequests"] = 429] = "TooManyRequests";
+  HttpStatusCode2[HttpStatusCode2["RequestHeaderFieldsTooLarge"] = 431] = "RequestHeaderFieldsTooLarge";
+  HttpStatusCode2[HttpStatusCode2["UnavailableForLegalReasons"] = 451] = "UnavailableForLegalReasons";
+  HttpStatusCode2[HttpStatusCode2["InternalServerError"] = 500] = "InternalServerError";
+  HttpStatusCode2[HttpStatusCode2["NotImplemented"] = 501] = "NotImplemented";
+  HttpStatusCode2[HttpStatusCode2["BadGateway"] = 502] = "BadGateway";
+  HttpStatusCode2[HttpStatusCode2["ServiceUnavailable"] = 503] = "ServiceUnavailable";
+  HttpStatusCode2[HttpStatusCode2["GatewayTimeout"] = 504] = "GatewayTimeout";
+  HttpStatusCode2[HttpStatusCode2["HttpVersionNotSupported"] = 505] = "HttpVersionNotSupported";
+  HttpStatusCode2[HttpStatusCode2["VariantAlsoNegotiates"] = 506] = "VariantAlsoNegotiates";
+  HttpStatusCode2[HttpStatusCode2["InsufficientStorage"] = 507] = "InsufficientStorage";
+  HttpStatusCode2[HttpStatusCode2["LoopDetected"] = 508] = "LoopDetected";
+  HttpStatusCode2[HttpStatusCode2["NotExtended"] = 510] = "NotExtended";
+  HttpStatusCode2[HttpStatusCode2["NetworkAuthenticationRequired"] = 511] = "NetworkAuthenticationRequired";
+})(HttpStatusCode || (HttpStatusCode = {}));
 function addBody(options, body) {
   return {
     body,
@@ -1180,7 +1246,7 @@ var _FetchBackend = class _FetchBackend {
         }
       }
       if (status === 0) {
-        status = body ? 200 : 0;
+        status = body ? HttpStatusCode.Ok : 0;
       }
       const ok = status >= 200 && status < 300;
       if (ok) {
@@ -1414,7 +1480,7 @@ var _JsonpClientBackend = class _JsonpClientBackend {
           }
           observer.next(new HttpResponse({
             body,
-            status: 200,
+            status: HttpStatusCode.Ok,
             statusText: "OK",
             url
           }));
@@ -1579,11 +1645,11 @@ var _HttpXhrBackend = class _HttpXhrBackend {
             url
           } = partialFromXhr();
           let body = null;
-          if (status !== 204) {
+          if (status !== HttpStatusCode.NoContent) {
             body = typeof xhr.response === "undefined" ? xhr.responseText : xhr.response;
           }
           if (status === 0) {
-            status = !!body ? 200 : 0;
+            status = !!body ? HttpStatusCode.Ok : 0;
           }
           let ok = status >= 200 && status < 300;
           if (req.responseType === "json" && typeof body === "string") {
@@ -2263,12 +2329,10 @@ var BrowserGetTestability = class {
     const whenAllStable = (callback) => {
       const testabilities = _global["getAllAngularTestabilities"]();
       let count = testabilities.length;
-      let didWork = false;
-      const decrement = function(didWork_) {
-        didWork = didWork || didWork_;
+      const decrement = function() {
         count--;
         if (count == 0) {
-          callback(didWork);
+          callback();
         }
       };
       testabilities.forEach((testability) => {
@@ -3159,6 +3223,7 @@ var TESTABILITY_PROVIDERS = [{
   deps: [NgZone, TestabilityRegistry, TESTABILITY_GETTER]
 }, {
   provide: Testability,
+  // Also provide as `Testability` for backwards-compatibility.
   useClass: Testability,
   deps: [NgZone, TestabilityRegistry, TESTABILITY_GETTER]
 }];
@@ -3939,6 +4004,11 @@ var DomSanitizerImpl = _DomSanitizerImpl;
     }]
   }], null);
 })();
+var HydrationFeatureKind;
+(function(HydrationFeatureKind2) {
+  HydrationFeatureKind2[HydrationFeatureKind2["NoHttpTransferCache"] = 0] = "NoHttpTransferCache";
+  HydrationFeatureKind2[HydrationFeatureKind2["HttpTransferCacheOptions"] = 1] = "HttpTransferCacheOptions";
+})(HydrationFeatureKind || (HydrationFeatureKind = {}));
 function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
   return {
     ɵkind,
@@ -3946,13 +4016,10 @@ function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
   };
 }
 function withNoHttpTransferCache() {
-  return hydrationFeature(
-    0
-    /* HydrationFeatureKind.NoHttpTransferCache */
-  );
+  return hydrationFeature(HydrationFeatureKind.NoHttpTransferCache);
 }
 function withHttpTransferCacheOptions(options) {
-  return hydrationFeature(1, withHttpTransferCache(options));
+  return hydrationFeature(HydrationFeatureKind.HttpTransferCacheOptions, withHttpTransferCache(options));
 }
 function provideZoneJsCompatibilityDetector() {
   return [{
@@ -3971,10 +4038,7 @@ function provideZoneJsCompatibilityDetector() {
 function provideClientHydration(...features) {
   const providers = [];
   const featuresKind = /* @__PURE__ */ new Set();
-  const hasHttpTransferCacheOptions = featuresKind.has(
-    1
-    /* HydrationFeatureKind.HttpTransferCacheOptions */
-  );
+  const hasHttpTransferCacheOptions = featuresKind.has(HydrationFeatureKind.HttpTransferCacheOptions);
   for (const {
     ɵproviders,
     ɵkind
@@ -3984,18 +4048,12 @@ function provideClientHydration(...features) {
       providers.push(ɵproviders);
     }
   }
-  if (typeof ngDevMode !== "undefined" && ngDevMode && featuresKind.has(
-    0
-    /* HydrationFeatureKind.NoHttpTransferCache */
-  ) && hasHttpTransferCacheOptions) {
+  if (typeof ngDevMode !== "undefined" && ngDevMode && featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) && hasHttpTransferCacheOptions) {
     throw new Error("Configuration error: found both withHttpTransferCacheOptions() and withNoHttpTransferCache() in the same call to provideClientHydration(), which is a contradiction.");
   }
-  return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideZoneJsCompatibilityDetector() : [], withDomHydration(), featuresKind.has(
-    0
-    /* HydrationFeatureKind.NoHttpTransferCache */
-  ) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
+  return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideZoneJsCompatibilityDetector() : [], withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
 }
-var VERSION = new Version("17.0.9");
+var VERSION = new Version("17.1.0");
 var makeStateKey2 = makeStateKey;
 var TransferState2 = TransferState;
 
@@ -4029,6 +4087,7 @@ export {
   HammerModule,
   DomSanitizer,
   DomSanitizerImpl,
+  HydrationFeatureKind,
   withNoHttpTransferCache,
   withHttpTransferCacheOptions,
   provideClientHydration,
@@ -4040,16 +4099,16 @@ export {
 
 @angular/common/fesm2022/http.mjs:
   (**
-   * @license Angular v17.0.9
+   * @license Angular v17.1.0
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 
 @angular/platform-browser/fesm2022/platform-browser.mjs:
   (**
-   * @license Angular v17.0.9
+   * @license Angular v17.1.0
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-X7JLKNB6.js.map
+//# sourceMappingURL=chunk-7ROEG5FO.js.map

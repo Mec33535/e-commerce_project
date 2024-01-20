@@ -1097,10 +1097,10 @@ function pipeFromArray(fns) {
   if (fns.length === 1) {
     return fns[0];
   }
-  return function piped(input) {
+  return function piped(input2) {
     return fns.reduce(function(prev, fn) {
       return fn(prev);
-    }, input);
+    }, input2);
   };
 }
 
@@ -2287,8 +2287,8 @@ function isPromise(value) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/util/isInteropObservable.js
-function isInteropObservable(input) {
-  return isFunction(input[observable]);
+function isInteropObservable(input2) {
+  return isFunction(input2[observable]);
 }
 
 // node_modules/rxjs/dist/esm5/internal/util/isAsyncIterable.js
@@ -2297,8 +2297,8 @@ function isAsyncIterable(obj) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/util/throwUnobservableError.js
-function createInvalidObservableTypeError(input) {
-  return new TypeError("You provided " + (input !== null && typeof input === "object" ? "an invalid object" : "'" + input + "'") + " where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable.");
+function createInvalidObservableTypeError(input2) {
+  return new TypeError("You provided " + (input2 !== null && typeof input2 === "object" ? "an invalid object" : "'" + input2 + "'") + " where a stream was expected. You can provide an Observable, Promise, ReadableStream, Array, AsyncIterable, or Iterable.");
 }
 
 // node_modules/rxjs/dist/esm5/internal/symbol/iterator.js
@@ -2311,8 +2311,8 @@ function getSymbolIterator() {
 var iterator = getSymbolIterator();
 
 // node_modules/rxjs/dist/esm5/internal/util/isIterable.js
-function isIterable(input) {
-  return isFunction(input === null || input === void 0 ? void 0 : input[iterator]);
+function isIterable(input2) {
+  return isFunction(input2 === null || input2 === void 0 ? void 0 : input2[iterator]);
 }
 
 // node_modules/rxjs/dist/esm5/internal/util/isReadableStreamLike.js
@@ -2361,31 +2361,31 @@ function isReadableStreamLike(obj) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/observable/innerFrom.js
-function innerFrom(input) {
-  if (input instanceof Observable) {
-    return input;
+function innerFrom(input2) {
+  if (input2 instanceof Observable) {
+    return input2;
   }
-  if (input != null) {
-    if (isInteropObservable(input)) {
-      return fromInteropObservable(input);
+  if (input2 != null) {
+    if (isInteropObservable(input2)) {
+      return fromInteropObservable(input2);
     }
-    if (isArrayLike(input)) {
-      return fromArrayLike(input);
+    if (isArrayLike(input2)) {
+      return fromArrayLike(input2);
     }
-    if (isPromise(input)) {
-      return fromPromise(input);
+    if (isPromise(input2)) {
+      return fromPromise(input2);
     }
-    if (isAsyncIterable(input)) {
-      return fromAsyncIterable(input);
+    if (isAsyncIterable(input2)) {
+      return fromAsyncIterable(input2);
     }
-    if (isIterable(input)) {
-      return fromIterable(input);
+    if (isIterable(input2)) {
+      return fromIterable(input2);
     }
-    if (isReadableStreamLike(input)) {
-      return fromReadableStreamLike(input);
+    if (isReadableStreamLike(input2)) {
+      return fromReadableStreamLike(input2);
     }
   }
-  throw createInvalidObservableTypeError(input);
+  throw createInvalidObservableTypeError(input2);
 }
 function fromInteropObservable(obj) {
   return new Observable(function(subscriber) {
@@ -2562,24 +2562,24 @@ function subscribeOn(scheduler, delay2) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/scheduleObservable.js
-function scheduleObservable(input, scheduler) {
-  return innerFrom(input).pipe(subscribeOn(scheduler), observeOn(scheduler));
+function scheduleObservable(input2, scheduler) {
+  return innerFrom(input2).pipe(subscribeOn(scheduler), observeOn(scheduler));
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/schedulePromise.js
-function schedulePromise(input, scheduler) {
-  return innerFrom(input).pipe(subscribeOn(scheduler), observeOn(scheduler));
+function schedulePromise(input2, scheduler) {
+  return innerFrom(input2).pipe(subscribeOn(scheduler), observeOn(scheduler));
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/scheduleArray.js
-function scheduleArray(input, scheduler) {
+function scheduleArray(input2, scheduler) {
   return new Observable(function(subscriber) {
     var i = 0;
     return scheduler.schedule(function() {
-      if (i === input.length) {
+      if (i === input2.length) {
         subscriber.complete();
       } else {
-        subscriber.next(input[i++]);
+        subscriber.next(input2[i++]);
         if (!subscriber.closed) {
           this.schedule();
         }
@@ -2589,11 +2589,11 @@ function scheduleArray(input, scheduler) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/scheduleIterable.js
-function scheduleIterable(input, scheduler) {
+function scheduleIterable(input2, scheduler) {
   return new Observable(function(subscriber) {
     var iterator2;
     executeSchedule(subscriber, scheduler, function() {
-      iterator2 = input[iterator]();
+      iterator2 = input2[iterator]();
       executeSchedule(subscriber, scheduler, function() {
         var _a;
         var value;
@@ -2618,13 +2618,13 @@ function scheduleIterable(input, scheduler) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/scheduleAsyncIterable.js
-function scheduleAsyncIterable(input, scheduler) {
-  if (!input) {
+function scheduleAsyncIterable(input2, scheduler) {
+  if (!input2) {
     throw new Error("Iterable cannot be null");
   }
   return new Observable(function(subscriber) {
     executeSchedule(subscriber, scheduler, function() {
-      var iterator2 = input[Symbol.asyncIterator]();
+      var iterator2 = input2[Symbol.asyncIterator]();
       executeSchedule(subscriber, scheduler, function() {
         iterator2.next().then(function(result) {
           if (result.done) {
@@ -2639,38 +2639,38 @@ function scheduleAsyncIterable(input, scheduler) {
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/scheduleReadableStreamLike.js
-function scheduleReadableStreamLike(input, scheduler) {
-  return scheduleAsyncIterable(readableStreamLikeToAsyncGenerator(input), scheduler);
+function scheduleReadableStreamLike(input2, scheduler) {
+  return scheduleAsyncIterable(readableStreamLikeToAsyncGenerator(input2), scheduler);
 }
 
 // node_modules/rxjs/dist/esm5/internal/scheduled/scheduled.js
-function scheduled(input, scheduler) {
-  if (input != null) {
-    if (isInteropObservable(input)) {
-      return scheduleObservable(input, scheduler);
+function scheduled(input2, scheduler) {
+  if (input2 != null) {
+    if (isInteropObservable(input2)) {
+      return scheduleObservable(input2, scheduler);
     }
-    if (isArrayLike(input)) {
-      return scheduleArray(input, scheduler);
+    if (isArrayLike(input2)) {
+      return scheduleArray(input2, scheduler);
     }
-    if (isPromise(input)) {
-      return schedulePromise(input, scheduler);
+    if (isPromise(input2)) {
+      return schedulePromise(input2, scheduler);
     }
-    if (isAsyncIterable(input)) {
-      return scheduleAsyncIterable(input, scheduler);
+    if (isAsyncIterable(input2)) {
+      return scheduleAsyncIterable(input2, scheduler);
     }
-    if (isIterable(input)) {
-      return scheduleIterable(input, scheduler);
+    if (isIterable(input2)) {
+      return scheduleIterable(input2, scheduler);
     }
-    if (isReadableStreamLike(input)) {
-      return scheduleReadableStreamLike(input, scheduler);
+    if (isReadableStreamLike(input2)) {
+      return scheduleReadableStreamLike(input2, scheduler);
     }
   }
-  throw createInvalidObservableTypeError(input);
+  throw createInvalidObservableTypeError(input2);
 }
 
 // node_modules/rxjs/dist/esm5/internal/observable/from.js
-function from(input, scheduler) {
-  return scheduler ? scheduled(input, scheduler) : innerFrom(input);
+function from(input2, scheduler) {
+  return scheduler ? scheduled(input2, scheduler) : innerFrom(input2);
 }
 
 // node_modules/rxjs/dist/esm5/internal/observable/of.js
@@ -3304,16 +3304,60 @@ function tap(observerOrNext, error, complete) {
   }) : identity;
 }
 
-// node_modules/rxjs/dist/esm5/internal/operators/timeInterval.js
-var TimeInterval = function() {
-  function TimeInterval2(value, interval2) {
-    this.value = value;
-    this.interval = interval2;
-  }
-  return TimeInterval2;
-}();
-
 // node_modules/@angular/core/fesm2022/core.mjs
+var ERROR_DETAILS_PAGE_BASE_URL = "https://angular.io/errors";
+var XSS_SECURITY_URL = "https://g.co/ng/security#xss";
+var RuntimeError = class extends Error {
+  constructor(code, message) {
+    super(formatRuntimeError(code, message));
+    this.code = code;
+  }
+};
+function formatRuntimeError(code, message) {
+  const fullCode = `NG0${Math.abs(code)}`;
+  let errorMessage = `${fullCode}${message ? ": " + message : ""}`;
+  if (ngDevMode && code < 0) {
+    const addPeriodSeparator = !errorMessage.match(/[.,;!?\n]$/);
+    const separator = addPeriodSeparator ? "." : "";
+    errorMessage = `${errorMessage}${separator} Find more at ${ERROR_DETAILS_PAGE_BASE_URL}/${fullCode}`;
+  }
+  return errorMessage;
+}
+var REQUIRED_UNSET_VALUE = Symbol("InputSignalNode#UNSET");
+var INPUT_SIGNAL_NODE = (() => {
+  return __spreadProps(__spreadValues({}, SIGNAL_NODE), {
+    transformFn: void 0,
+    applyValueToInputSignal(node, value) {
+      signalSetFn(node, value);
+    }
+  });
+})();
+var ɵINPUT_SIGNAL_BRAND_READ_TYPE = Symbol();
+var ɵINPUT_SIGNAL_BRAND_WRITE_TYPE = Symbol();
+function createInputSignal(initialValue, options) {
+  const node = Object.create(INPUT_SIGNAL_NODE);
+  node.value = initialValue;
+  node.transformFn = options?.transform;
+  function inputValueFn() {
+    producerAccessed(node);
+    if (node.value === REQUIRED_UNSET_VALUE) {
+      throw new RuntimeError(-950, ngDevMode && "Input is required but no value is available yet.");
+    }
+    return node.value;
+  }
+  inputValueFn[SIGNAL] = node;
+  return inputValueFn;
+}
+function inputFunction(initialValue, opts) {
+  return createInputSignal(initialValue, opts);
+}
+function inputRequiredFunction(opts) {
+  return createInputSignal(REQUIRED_UNSET_VALUE, opts);
+}
+var input = (() => {
+  inputFunction.required = inputRequiredFunction;
+  return inputFunction;
+})();
 function getClosureSafeProperty(objWithPropertyToExtract) {
   for (let key in objWithPropertyToExtract) {
     if (objWithPropertyToExtract[key] === getClosureSafeProperty) {
@@ -3379,24 +3423,6 @@ function isForwardRef(fn) {
 }
 function isEnvironmentProviders(value) {
   return value && !!value.ɵproviders;
-}
-var ERROR_DETAILS_PAGE_BASE_URL = "https://angular.io/errors";
-var XSS_SECURITY_URL = "https://g.co/ng/security#xss";
-var RuntimeError = class extends Error {
-  constructor(code, message) {
-    super(formatRuntimeError(code, message));
-    this.code = code;
-  }
-};
-function formatRuntimeError(code, message) {
-  const fullCode = `NG0${Math.abs(code)}`;
-  let errorMessage = `${fullCode}${message ? ": " + message : ""}`;
-  if (ngDevMode && code < 0) {
-    const addPeriodSeparator = !errorMessage.match(/[.,;!?\n]$/);
-    const separator = addPeriodSeparator ? "." : "";
-    errorMessage = `${errorMessage}${separator} Find more at ${ERROR_DETAILS_PAGE_BASE_URL}/${fullCode}`;
-  }
-  return errorMessage;
 }
 var NG_COMP_DEF = getClosureSafeProperty({ ɵcmp: getClosureSafeProperty });
 var NG_DIR_DEF = getClosureSafeProperty({ ɵdir: getClosureSafeProperty });
@@ -3895,6 +3921,12 @@ if ((typeof ngDevMode === "undefined" || ngDevMode) && initNgDevMode()) {
   Object.freeze(EMPTY_OBJ);
   Object.freeze(EMPTY_ARRAY);
 }
+var InputFlags;
+(function(InputFlags2) {
+  InputFlags2[InputFlags2["None"] = 0] = "None";
+  InputFlags2[InputFlags2["SignalBased"] = 1] = "SignalBased";
+  InputFlags2[InputFlags2["HasDecoratorInputTransform"] = 2] = "HasDecoratorInputTransform";
+})(InputFlags || (InputFlags = {}));
 function classIndexOf(className, classToSearch, startingIndex) {
   ngDevMode && assertNotEqual(classToSearch, "", 'can not look for "" string.');
   let end = className.length;
@@ -4288,7 +4320,9 @@ function ɵɵdefineComponent(componentDefinition) {
       ngContentSelectors: componentDefinition.ngContentSelectors,
       onPush: componentDefinition.changeDetection === ChangeDetectionStrategy.OnPush,
       directiveDefs: null,
+      // assigned in noSideEffects
       pipeDefs: null,
+      // assigned in noSideEffects
       dependencies: baseDef.standalone && componentDefinition.dependencies || null,
       getStandaloneInjector: null,
       signals: componentDefinition.signals ?? false,
@@ -4337,21 +4371,29 @@ function ɵɵdefineNgModule(def) {
     return res;
   });
 }
-function invertObject(obj, secondary) {
+function parseAndConvertBindingsForDefinition(obj, declaredInputs) {
   if (obj == null)
     return EMPTY_OBJ;
   const newLookup = {};
   for (const minifiedKey in obj) {
     if (obj.hasOwnProperty(minifiedKey)) {
-      let publicName = obj[minifiedKey];
-      let declaredName = publicName;
-      if (Array.isArray(publicName)) {
-        declaredName = publicName[1];
-        publicName = publicName[0];
+      const value = obj[minifiedKey];
+      let publicName;
+      let declaredName;
+      let inputFlags = InputFlags.None;
+      if (Array.isArray(value)) {
+        inputFlags = value[0];
+        publicName = value[1];
+        declaredName = value[2] ?? publicName;
+      } else {
+        publicName = value;
+        declaredName = value;
       }
-      newLookup[publicName] = minifiedKey;
-      if (secondary) {
-        secondary[publicName] = declaredName;
+      if (declaredInputs) {
+        newLookup[publicName] = inputFlags !== InputFlags.None ? [minifiedKey, inputFlags] : minifiedKey;
+        declaredInputs[publicName] = declaredName;
+      } else {
+        newLookup[publicName] = minifiedKey;
       }
     }
   }
@@ -4416,8 +4458,8 @@ function getNgDirectiveDef(directiveDefinition) {
     setInput: null,
     findHostDirectiveDefs: null,
     hostDirectives: null,
-    inputs: invertObject(directiveDefinition.inputs, declaredInputs),
-    outputs: invertObject(directiveDefinition.outputs),
+    inputs: parseAndConvertBindingsForDefinition(directiveDefinition.inputs, declaredInputs),
+    outputs: parseAndConvertBindingsForDefinition(directiveDefinition.outputs),
     debugInfo: null
   };
 }
@@ -4669,6 +4711,13 @@ var SimpleChange = class {
     return this.firstChange;
   }
 };
+function applyValueToInputField(instance, inputSignalNode, privateName, value) {
+  if (inputSignalNode !== null) {
+    inputSignalNode.applyValueToInputSignal(inputSignalNode, value);
+  } else {
+    instance[privateName] = value;
+  }
+}
 function ɵɵNgOnChangesFeature() {
   return NgOnChangesFeatureImpl;
 }
@@ -4695,7 +4744,7 @@ function rememberChangeHistoryAndInvokeOnChangesHook() {
     this.ngOnChanges(current);
   }
 }
-function ngOnChangesSetInput(instance, value, publicName, privateName) {
+function ngOnChangesSetInput(instance, inputSignalNode, value, publicName, privateName) {
   const declaredName = this.declaredInputs[publicName];
   ngDevMode && assertString(declaredName, "Name of input in ngOnChanges has to be a string");
   const simpleChangesStore = getSimpleChangesStore(instance) || setSimpleChangesStore(instance, { previous: EMPTY_OBJ, current: null });
@@ -4703,7 +4752,7 @@ function ngOnChangesSetInput(instance, value, publicName, privateName) {
   const previous = simpleChangesStore.previous;
   const previousChange = previous[declaredName];
   current[declaredName] = new SimpleChange(previousChange && previousChange.currentValue, value, previous === EMPTY_OBJ);
-  instance[privateName] = value;
+  applyValueToInputField(instance, inputSignalNode, privateName, value);
 }
 var SIMPLE_CHANGES_STORE = "__ngSimpleChanges__";
 function getSimpleChangesStore(instance) {
@@ -5993,8 +6042,8 @@ function arrayEquals(a, b, identityAccessor) {
 function flatten(list) {
   return list.flat(Number.POSITIVE_INFINITY);
 }
-function deepForEach(input, fn) {
-  input.forEach((value) => Array.isArray(value) ? deepForEach(value, fn) : fn(value));
+function deepForEach(input2, fn) {
+  input2.forEach((value) => Array.isArray(value) ? deepForEach(value, fn) : fn(value));
 }
 function addToArray(arr, index, value) {
   if (index >= arr.length) {
@@ -6992,6 +7041,7 @@ function compileInjectable(type, meta) {
             name: type.name,
             type,
             typeArgumentCount: 0,
+            // In JIT mode types are not available nor used.
             deps: reflectDependencies(type),
             target: compiler.FactoryTarget.Injectable
           });
@@ -10239,8 +10289,8 @@ function normalizeDebugBindingName(name) {
   return `ng-reflect-${name}`;
 }
 var CAMEL_CASE_REGEXP = /([A-Z])/g;
-function camelCaseToDashCase(input) {
-  return input.replace(CAMEL_CASE_REGEXP, (...m) => "-" + m[1].toLowerCase());
+function camelCaseToDashCase(input2) {
+  return input2.replace(CAMEL_CASE_REGEXP, (...m) => "-" + m[1].toLowerCase());
 }
 function normalizeDebugBindingValue(value) {
   try {
@@ -10356,6 +10406,29 @@ function ɵɵdirectiveInject(token, flags = InjectFlags.Default) {
 function ɵɵinvalidFactory() {
   const msg = ngDevMode ? `This constructor was not compatible with Dependency Injection.` : "invalid";
   throw new Error(msg);
+}
+function writeToDirectiveInput(def, instance, publicName, privateName, flags, value) {
+  const prevConsumer = setActiveConsumer(null);
+  try {
+    let inputSignalNode = null;
+    if ((flags & InputFlags.SignalBased) !== 0) {
+      const field = instance[privateName];
+      inputSignalNode = field[SIGNAL];
+    }
+    if (inputSignalNode !== null && inputSignalNode.transformFn !== void 0) {
+      value = inputSignalNode.transformFn(value);
+    }
+    if ((flags & InputFlags.HasDecoratorInputTransform) !== 0) {
+      value = def.inputTransforms[privateName].call(instance, value);
+    }
+    if (def.setInput !== null) {
+      def.setInput(instance, inputSignalNode, value, publicName, privateName);
+    } else {
+      applyValueToInputField(instance, inputSignalNode, privateName, value);
+    }
+  } finally {
+    setActiveConsumer(prevConsumer);
+  }
 }
 function processHostBindingOpCodes(tView, lView) {
   const hostBindingOpCodes = tView.hostBindingOpCodes;
@@ -10663,25 +10736,48 @@ function createTNode(tView, tParent, type, index, value, attrs) {
   }
   return tNode;
 }
-function generatePropertyAliases(aliasMap, directiveIndex, propertyAliases, hostDirectiveAliasMap) {
+function captureNodeBindings(mode, aliasMap, directiveIndex, bindingsResult, hostDirectiveAliasMap) {
   for (let publicName in aliasMap) {
-    if (aliasMap.hasOwnProperty(publicName)) {
-      propertyAliases = propertyAliases === null ? {} : propertyAliases;
-      const internalName = aliasMap[publicName];
-      if (hostDirectiveAliasMap === null) {
-        addPropertyAlias(propertyAliases, directiveIndex, publicName, internalName);
-      } else if (hostDirectiveAliasMap.hasOwnProperty(publicName)) {
-        addPropertyAlias(propertyAliases, directiveIndex, hostDirectiveAliasMap[publicName], internalName);
+    if (!aliasMap.hasOwnProperty(publicName)) {
+      continue;
+    }
+    const value = aliasMap[publicName];
+    if (value === void 0) {
+      continue;
+    }
+    bindingsResult ??= {};
+    let internalName;
+    let inputFlags = InputFlags.None;
+    if (Array.isArray(value)) {
+      internalName = value[0];
+      inputFlags = value[1];
+    } else {
+      internalName = value;
+    }
+    let finalPublicName = publicName;
+    if (hostDirectiveAliasMap !== null) {
+      if (!hostDirectiveAliasMap.hasOwnProperty(publicName)) {
+        continue;
       }
+      finalPublicName = hostDirectiveAliasMap[publicName];
+    }
+    if (mode === 0) {
+      addPropertyBinding(bindingsResult, directiveIndex, finalPublicName, internalName, inputFlags);
+    } else {
+      addPropertyBinding(bindingsResult, directiveIndex, finalPublicName, internalName);
     }
   }
-  return propertyAliases;
+  return bindingsResult;
 }
-function addPropertyAlias(propertyAliases, directiveIndex, publicName, internalName) {
-  if (propertyAliases.hasOwnProperty(publicName)) {
-    propertyAliases[publicName].push(directiveIndex, internalName);
+function addPropertyBinding(bindings, directiveIndex, publicName, internalName, inputFlags) {
+  let values;
+  if (bindings.hasOwnProperty(publicName)) {
+    (values = bindings[publicName]).push(directiveIndex, internalName);
   } else {
-    propertyAliases[publicName] = [directiveIndex, internalName];
+    values = bindings[publicName] = [directiveIndex, internalName];
+  }
+  if (inputFlags !== void 0) {
+    values.push(inputFlags);
   }
 }
 function initializeInputAndOutputAliases(tView, tNode, hostDirectiveDefinitionMap) {
@@ -10698,8 +10794,8 @@ function initializeInputAndOutputAliases(tView, tNode, hostDirectiveDefinitionMa
     const aliasData = hostDirectiveDefinitionMap ? hostDirectiveDefinitionMap.get(directiveDef) : null;
     const aliasedInputs = aliasData ? aliasData.inputs : null;
     const aliasedOutputs = aliasData ? aliasData.outputs : null;
-    inputsStore = generatePropertyAliases(directiveDef.inputs, directiveIndex, inputsStore, aliasedInputs);
-    outputsStore = generatePropertyAliases(directiveDef.outputs, directiveIndex, outputsStore, aliasedOutputs);
+    inputsStore = captureNodeBindings(0, directiveDef.inputs, directiveIndex, inputsStore, aliasedInputs);
+    outputsStore = captureNodeBindings(1, directiveDef.outputs, directiveIndex, outputsStore, aliasedOutputs);
     const initialInputs = inputsStore !== null && tNodeAttrs !== null && !isInlineTemplate(tNode) ? generateInitialInputs(inputsStore, directiveIndex, tNodeAttrs) : null;
     inputsFromAttrs.push(initialInputs);
   }
@@ -10783,7 +10879,7 @@ function setNgReflectProperty(lView, element, type, attrName, value) {
 }
 function setNgReflectProperties(lView, element, type, dataValue, value) {
   if (type & (3 | 4)) {
-    for (let i = 0; i < dataValue.length; i += 2) {
+    for (let i = 0; i < dataValue.length; i += 3) {
       setNgReflectProperty(lView, element, type, dataValue[i + 1], value);
     }
   }
@@ -11055,29 +11151,14 @@ function setInputsFromAttrs(lView, directiveIndex, instance, def, tNode, initial
     for (let i = 0; i < initialInputs.length; ) {
       const publicName = initialInputs[i++];
       const privateName = initialInputs[i++];
+      const flags = initialInputs[i++];
       const value = initialInputs[i++];
-      writeToDirectiveInput(def, instance, publicName, privateName, value);
+      writeToDirectiveInput(def, instance, publicName, privateName, flags, value);
       if (ngDevMode) {
         const nativeElement = getNativeByTNode(tNode, lView);
         setNgReflectProperty(lView, nativeElement, tNode.type, privateName, value);
       }
     }
-  }
-}
-function writeToDirectiveInput(def, instance, publicName, privateName, value) {
-  const prevConsumer = setActiveConsumer(null);
-  try {
-    const inputTransforms = def.inputTransforms;
-    if (inputTransforms !== null && inputTransforms.hasOwnProperty(privateName)) {
-      value = inputTransforms[privateName].call(instance, value);
-    }
-    if (def.setInput !== null) {
-      def.setInput(instance, value, publicName, privateName);
-    } else {
-      instance[privateName] = value;
-    }
-  } finally {
-    setActiveConsumer(prevConsumer);
   }
 }
 function generateInitialInputs(inputs, directiveIndex, attrs) {
@@ -11098,9 +11179,9 @@ function generateInitialInputs(inputs, directiveIndex, attrs) {
       if (inputsToStore === null)
         inputsToStore = [];
       const inputConfig = inputs[attrName];
-      for (let j = 0; j < inputConfig.length; j += 2) {
+      for (let j = 0; j < inputConfig.length; j += 3) {
         if (inputConfig[j] === directiveIndex) {
-          inputsToStore.push(attrName, inputConfig[j + 1], attrs[i + 1]);
+          inputsToStore.push(attrName, inputConfig[j + 1], inputConfig[j + 2], attrs[i + 1]);
           break;
         }
       }
@@ -11113,14 +11194,23 @@ function createLContainer(hostNative, currentView, native, tNode) {
   ngDevMode && assertLView(currentView);
   const lContainer = [
     hostNative,
+    // host native
     true,
+    // Boolean `true` in this position signifies that this is an `LContainer`
     0,
+    // flags
     currentView,
+    // parent
     null,
+    // next
     tNode,
+    // t_host
     null,
+    // dehydrated views
     native,
+    // native,
     null,
+    // view refs
     null
     // moved views
   ];
@@ -11201,10 +11291,11 @@ function setInputsForProperty(tView, lView, inputs, publicName, value) {
   for (let i = 0; i < inputs.length; ) {
     const index = inputs[i++];
     const privateName = inputs[i++];
+    const flags = inputs[i++];
     const instance = lView[index];
     ngDevMode && assertIndexInRange(lView, index);
     const def = tView.data[index];
-    writeToDirectiveInput(def, instance, publicName, privateName, value);
+    writeToDirectiveInput(def, instance, publicName, privateName, flags, value);
   }
 }
 function textBindingInternal(lView, index, value) {
@@ -11793,15 +11884,23 @@ var _EffectScheduler = class _EffectScheduler {
 _EffectScheduler.ɵprov = ɵɵdefineInjectable({
   token: _EffectScheduler,
   providedIn: "root",
-  factory: () => new ZoneAwareMicrotaskScheduler()
+  factory: () => new ZoneAwareEffectScheduler()
 });
 var EffectScheduler = _EffectScheduler;
-var _ZoneAwareQueueingScheduler = class _ZoneAwareQueueingScheduler {
+var ZoneAwareEffectScheduler = class {
   constructor() {
+    this.hasQueuedFlush = false;
     this.queuedEffectCount = 0;
     this.queues = /* @__PURE__ */ new Map();
   }
   scheduleEffect(handle) {
+    this.enqueue(handle);
+    if (!this.hasQueuedFlush) {
+      queueMicrotask(() => this.flush());
+      this.hasQueuedFlush = false;
+    }
+  }
+  enqueue(handle) {
     const zone = handle.creationZone;
     if (!this.queues.has(zone)) {
       this.queues.set(zone, /* @__PURE__ */ new Set());
@@ -11835,29 +11934,6 @@ var _ZoneAwareQueueingScheduler = class _ZoneAwareQueueingScheduler {
       queue2.delete(handle);
       this.queuedEffectCount--;
       handle.run();
-    }
-  }
-};
-_ZoneAwareQueueingScheduler.ɵprov = ɵɵdefineInjectable({
-  token: _ZoneAwareQueueingScheduler,
-  providedIn: "root",
-  factory: () => new _ZoneAwareQueueingScheduler()
-});
-var ZoneAwareQueueingScheduler = _ZoneAwareQueueingScheduler;
-var ZoneAwareMicrotaskScheduler = class {
-  constructor() {
-    this.hasQueuedFlush = false;
-    this.delegate = new ZoneAwareQueueingScheduler();
-    this.flushTask = () => {
-      this.delegate.flush();
-      this.hasQueuedFlush = false;
-    };
-  }
-  scheduleEffect(handle) {
-    this.delegate.scheduleEffect(handle);
-    if (!this.hasQueuedFlush) {
-      queueMicrotask(this.flushTask);
-      this.hasQueuedFlush = true;
     }
   }
 };
@@ -12491,11 +12567,18 @@ var ComponentFactoryResolver = class extends ComponentFactoryResolver$1 {
 };
 function toRefArray(map2) {
   const array = [];
-  for (let nonMinified in map2) {
-    if (map2.hasOwnProperty(nonMinified)) {
-      const minified = map2[nonMinified];
-      array.push({ propName: minified, templateName: nonMinified });
+  for (const publicName in map2) {
+    if (!map2.hasOwnProperty(publicName)) {
+      continue;
     }
+    const value = map2[publicName];
+    if (value === void 0) {
+      continue;
+    }
+    array.push({
+      propName: Array.isArray(value) ? value[0] : value,
+      templateName: publicName
+    });
   }
   return array;
 }
@@ -12523,9 +12606,9 @@ var ComponentFactory = class extends ComponentFactory$1 {
     const inputTransforms = componentDef.inputTransforms;
     const refArray = toRefArray(componentDef.inputs);
     if (inputTransforms !== null) {
-      for (const input of refArray) {
-        if (inputTransforms.hasOwnProperty(input.propName)) {
-          input.transform = inputTransforms[input.propName];
+      for (const input2 of refArray) {
+        if (inputTransforms.hasOwnProperty(input2.propName)) {
+          input2.transform = inputTransforms[input2.propName];
         }
       }
     }
@@ -12742,7 +12825,7 @@ function createRootComponent(componentView, rootComponentDef, rootDirectives, ho
 }
 function setRootNodeAttributes(hostRenderer, componentDef, hostRNode, rootSelectorOrNode) {
   if (rootSelectorOrNode) {
-    setUpAttributes(hostRenderer, hostRNode, ["ng-version", "17.0.9"]);
+    setUpAttributes(hostRenderer, hostRNode, ["ng-version", "17.1.0"]);
   } else {
     const { attrs, classes } = extractAttrsAndClassesFromSelector(componentDef.selectors[0]);
     if (attrs) {
@@ -12796,15 +12879,8 @@ function ɵɵInheritDefinitionFeature(definition) {
         const superContentQueries = superDef.contentQueries;
         superViewQuery && inheritViewQuery(definition, superViewQuery);
         superContentQueries && inheritContentQueries(definition, superContentQueries);
-        fillProperties(definition.inputs, superDef.inputs);
-        fillProperties(definition.declaredInputs, superDef.declaredInputs);
+        mergeInputsWithTransforms(definition, superDef);
         fillProperties(definition.outputs, superDef.outputs);
-        if (superDef.inputTransforms !== null) {
-          if (writeableDef.inputTransforms === null) {
-            writeableDef.inputTransforms = {};
-          }
-          fillProperties(writeableDef.inputTransforms, superDef.inputTransforms);
-        }
         if (isComponentDef(superDef) && superDef.data.animation) {
           const defData = definition.data;
           defData.animation = (defData.animation || []).concat(superDef.data.animation);
@@ -12826,6 +12902,30 @@ function ɵɵInheritDefinitionFeature(definition) {
     superType = Object.getPrototypeOf(superType);
   }
   mergeHostAttrsAcrossInheritance(inheritanceChain);
+}
+function mergeInputsWithTransforms(target, source) {
+  for (const key in source.inputs) {
+    if (!source.inputs.hasOwnProperty(key)) {
+      continue;
+    }
+    if (target.inputs.hasOwnProperty(key)) {
+      continue;
+    }
+    const value = source.inputs[key];
+    if (value === void 0) {
+      continue;
+    }
+    target.inputs[key] = value;
+    target.declaredInputs[key] = source.declaredInputs[key];
+    if (source.inputTransforms !== null) {
+      const minifiedName = Array.isArray(value) ? value[0] : value;
+      if (!source.inputTransforms.hasOwnProperty(minifiedName)) {
+        continue;
+      }
+      target.inputTransforms ??= {};
+      target.inputTransforms[minifiedName] = source.inputTransforms[minifiedName];
+    }
+  }
 }
 function mergeHostAttrsAcrossInheritance(inheritanceChain) {
   let hostVars = 0;
@@ -12995,7 +13095,7 @@ function validateMappings(bindingType, def, hostDirectiveBindings) {
         throw new RuntimeError(311, `Directive ${className} does not have an ${bindingType} with a public name of ${publicName}.`);
       }
       const remappedPublicName = hostDirectiveBindings[publicName];
-      if (bindings.hasOwnProperty(remappedPublicName) && remappedPublicName !== publicName && bindings[remappedPublicName] !== publicName) {
+      if (bindings.hasOwnProperty(remappedPublicName) && remappedPublicName !== publicName) {
         throw new RuntimeError(312, `Cannot alias ${bindingType} ${publicName} of host directive ${className} to ${remappedPublicName}, because it already has a different ${bindingType} with the same public name.`);
       }
     }
@@ -13007,12 +13107,842 @@ function ɵɵInputTransformsFeature(definition) {
   for (const minifiedKey in inputs) {
     if (inputs.hasOwnProperty(minifiedKey)) {
       const value = inputs[minifiedKey];
-      if (Array.isArray(value) && value[2]) {
-        inputTransforms[minifiedKey] = value[2];
+      if (Array.isArray(value) && value[3]) {
+        inputTransforms[minifiedKey] = value[3];
       }
     }
   }
   definition.inputTransforms = inputTransforms;
+}
+var AT_THIS_LOCATION = "<-- AT THIS LOCATION";
+function getFriendlyStringFromTNodeType(tNodeType) {
+  switch (tNodeType) {
+    case 4:
+      return "view container";
+    case 2:
+      return "element";
+    case 8:
+      return "ng-container";
+    case 32:
+      return "icu";
+    case 64:
+      return "i18n";
+    case 16:
+      return "projection";
+    case 1:
+      return "text";
+    default:
+      return "<unknown>";
+  }
+}
+function validateMatchingNode(node, nodeType, tagName, lView, tNode, isViewContainerAnchor = false) {
+  if (!node || (node.nodeType !== nodeType || node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() !== tagName?.toLowerCase())) {
+    const expectedNode = shortRNodeDescription(nodeType, tagName, null);
+    let header = `During hydration Angular expected ${expectedNode} but `;
+    const hostComponentDef = getDeclarationComponentDef(lView);
+    const componentClassName = hostComponentDef?.type?.name;
+    const expected = `Angular expected this DOM:
+
+${describeExpectedDom(lView, tNode, isViewContainerAnchor)}
+
+`;
+    let actual = "";
+    if (!node) {
+      header += `the node was not found.
+
+`;
+    } else {
+      const actualNode = shortRNodeDescription(node.nodeType, node.tagName ?? null, node.textContent ?? null);
+      header += `found ${actualNode}.
+
+`;
+      actual = `Actual DOM is:
+
+${describeDomFromNode(node)}
+
+`;
+    }
+    const footer = getHydrationErrorFooter(componentClassName);
+    const message = header + expected + actual + getHydrationAttributeNote() + footer;
+    throw new RuntimeError(-500, message);
+  }
+}
+function validateSiblingNodeExists(node) {
+  validateNodeExists(node);
+  if (!node.nextSibling) {
+    const header = "During hydration Angular expected more sibling nodes to be present.\n\n";
+    const actual = `Actual DOM is:
+
+${describeDomFromNode(node)}
+
+`;
+    const footer = getHydrationErrorFooter();
+    const message = header + actual + footer;
+    throw new RuntimeError(-501, message);
+  }
+}
+function validateNodeExists(node, lView = null, tNode = null) {
+  if (!node) {
+    const header = "During hydration, Angular expected an element to be present at this location.\n\n";
+    let expected = "";
+    let footer = "";
+    if (lView !== null && tNode !== null) {
+      expected = `${describeExpectedDom(lView, tNode, false)}
+
+`;
+      footer = getHydrationErrorFooter();
+    }
+    throw new RuntimeError(-502, header + expected + footer);
+  }
+}
+function nodeNotFoundError(lView, tNode) {
+  const header = "During serialization, Angular was unable to find an element in the DOM:\n\n";
+  const expected = `${describeExpectedDom(lView, tNode, false)}
+
+`;
+  const footer = getHydrationErrorFooter();
+  throw new RuntimeError(-502, header + expected + footer);
+}
+function nodeNotFoundAtPathError(host, path) {
+  const header = `During hydration Angular was unable to locate a node using the "${path}" path, starting from the ${describeRNode(host)} node.
+
+`;
+  const footer = getHydrationErrorFooter();
+  throw new RuntimeError(-502, header + footer);
+}
+function unsupportedProjectionOfDomNodes(rNode) {
+  const header = "During serialization, Angular detected DOM nodes that were created outside of Angular context and provided as projectable nodes (likely via `ViewContainerRef.createComponent` or `createComponent` APIs). Hydration is not supported for such cases, consider refactoring the code to avoid this pattern or using `ngSkipHydration` on the host element of the component.\n\n";
+  const actual = `${describeDomFromNode(rNode)}
+
+`;
+  const message = header + actual + getHydrationAttributeNote();
+  return new RuntimeError(-503, message);
+}
+function invalidSkipHydrationHost(rNode) {
+  const header = "The `ngSkipHydration` flag is applied on a node that doesn't act as a component host. Hydration can be skipped only on per-component basis.\n\n";
+  const actual = `${describeDomFromNode(rNode)}
+
+`;
+  const footer = "Please move the `ngSkipHydration` attribute to the component host element.\n\n";
+  const message = header + actual + footer;
+  return new RuntimeError(-504, message);
+}
+function stringifyTNodeAttrs(tNode) {
+  const results = [];
+  if (tNode.attrs) {
+    for (let i = 0; i < tNode.attrs.length; ) {
+      const attrName = tNode.attrs[i++];
+      if (typeof attrName == "number") {
+        break;
+      }
+      const attrValue = tNode.attrs[i++];
+      results.push(`${attrName}="${shorten(attrValue)}"`);
+    }
+  }
+  return results.join(" ");
+}
+var internalAttrs = /* @__PURE__ */ new Set(["ngh", "ng-version", "ng-server-context"]);
+function stringifyRNodeAttrs(rNode) {
+  const results = [];
+  for (let i = 0; i < rNode.attributes.length; i++) {
+    const attr = rNode.attributes[i];
+    if (internalAttrs.has(attr.name))
+      continue;
+    results.push(`${attr.name}="${shorten(attr.value)}"`);
+  }
+  return results.join(" ");
+}
+function describeTNode(tNode, innerContent = "…") {
+  switch (tNode.type) {
+    case 1:
+      const content = tNode.value ? `(${tNode.value})` : "";
+      return `#text${content}`;
+    case 2:
+      const attrs = stringifyTNodeAttrs(tNode);
+      const tag = tNode.value.toLowerCase();
+      return `<${tag}${attrs ? " " + attrs : ""}>${innerContent}</${tag}>`;
+    case 8:
+      return "<!-- ng-container -->";
+    case 4:
+      return "<!-- container -->";
+    default:
+      const typeAsString = getFriendlyStringFromTNodeType(tNode.type);
+      return `#node(${typeAsString})`;
+  }
+}
+function describeRNode(rNode, innerContent = "…") {
+  const node = rNode;
+  switch (node.nodeType) {
+    case Node.ELEMENT_NODE:
+      const tag = node.tagName.toLowerCase();
+      const attrs = stringifyRNodeAttrs(node);
+      return `<${tag}${attrs ? " " + attrs : ""}>${innerContent}</${tag}>`;
+    case Node.TEXT_NODE:
+      const content = node.textContent ? shorten(node.textContent) : "";
+      return `#text${content ? `(${content})` : ""}`;
+    case Node.COMMENT_NODE:
+      return `<!-- ${shorten(node.textContent ?? "")} -->`;
+    default:
+      return `#node(${node.nodeType})`;
+  }
+}
+function describeExpectedDom(lView, tNode, isViewContainerAnchor) {
+  const spacer = "  ";
+  let content = "";
+  if (tNode.prev) {
+    content += spacer + "…\n";
+    content += spacer + describeTNode(tNode.prev) + "\n";
+  } else if (tNode.type && tNode.type & 12) {
+    content += spacer + "…\n";
+  }
+  if (isViewContainerAnchor) {
+    content += spacer + describeTNode(tNode) + "\n";
+    content += spacer + `<!-- container -->  ${AT_THIS_LOCATION}
+`;
+  } else {
+    content += spacer + describeTNode(tNode) + `  ${AT_THIS_LOCATION}
+`;
+  }
+  content += spacer + "…\n";
+  const parentRNode = tNode.type ? getParentRElement(lView[TVIEW], tNode, lView) : null;
+  if (parentRNode) {
+    content = describeRNode(parentRNode, "\n" + content);
+  }
+  return content;
+}
+function describeDomFromNode(node) {
+  const spacer = "  ";
+  let content = "";
+  const currentNode = node;
+  if (currentNode.previousSibling) {
+    content += spacer + "…\n";
+    content += spacer + describeRNode(currentNode.previousSibling) + "\n";
+  }
+  content += spacer + describeRNode(currentNode) + `  ${AT_THIS_LOCATION}
+`;
+  if (node.nextSibling) {
+    content += spacer + "…\n";
+  }
+  if (node.parentNode) {
+    content = describeRNode(currentNode.parentNode, "\n" + content);
+  }
+  return content;
+}
+function shortRNodeDescription(nodeType, tagName, textContent) {
+  switch (nodeType) {
+    case Node.ELEMENT_NODE:
+      return `<${tagName.toLowerCase()}>`;
+    case Node.TEXT_NODE:
+      const content = textContent ? ` (with the "${shorten(textContent)}" content)` : "";
+      return `a text node${content}`;
+    case Node.COMMENT_NODE:
+      return "a comment node";
+    default:
+      return `#node(nodeType=${nodeType})`;
+  }
+}
+function getHydrationErrorFooter(componentClassName) {
+  const componentInfo = componentClassName ? `the "${componentClassName}"` : "corresponding";
+  return `To fix this problem:
+  * check ${componentInfo} component for hydration-related issues
+  * check to see if your template has valid HTML structure
+  * or skip hydration by adding the \`ngSkipHydration\` attribute to its host node in a template
+
+`;
+}
+function getHydrationAttributeNote() {
+  return "Note: attributes are only displayed to better represent the DOM but have no effect on hydration mismatches.\n\n";
+}
+function stripNewlines(input2) {
+  return input2.replace(/\s+/gm, "");
+}
+function shorten(input2, maxLength = 50) {
+  if (!input2) {
+    return "";
+  }
+  input2 = stripNewlines(input2);
+  return input2.length > maxLength ? `${input2.substring(0, maxLength - 1)}…` : input2;
+}
+function removeDehydratedViews(lContainer) {
+  const views = lContainer[DEHYDRATED_VIEWS] ?? [];
+  const parentLView = lContainer[PARENT];
+  const renderer = parentLView[RENDERER];
+  for (const view of views) {
+    removeDehydratedView(view, renderer);
+    ngDevMode && ngDevMode.dehydratedViewsRemoved++;
+  }
+  lContainer[DEHYDRATED_VIEWS] = EMPTY_ARRAY;
+}
+function removeDehydratedView(dehydratedView, renderer) {
+  let nodesRemoved = 0;
+  let currentRNode = dehydratedView.firstChild;
+  if (currentRNode) {
+    const numNodes = dehydratedView.data[NUM_ROOT_NODES];
+    while (nodesRemoved < numNodes) {
+      ngDevMode && validateSiblingNodeExists(currentRNode);
+      const nextSibling = currentRNode.nextSibling;
+      nativeRemoveNode(renderer, currentRNode, false);
+      currentRNode = nextSibling;
+      nodesRemoved++;
+    }
+  }
+}
+function cleanupLContainer(lContainer) {
+  removeDehydratedViews(lContainer);
+  for (let i = CONTAINER_HEADER_OFFSET; i < lContainer.length; i++) {
+    cleanupLView(lContainer[i]);
+  }
+}
+function cleanupLView(lView) {
+  const tView = lView[TVIEW];
+  for (let i = HEADER_OFFSET; i < tView.bindingStartIndex; i++) {
+    if (isLContainer(lView[i])) {
+      const lContainer = lView[i];
+      cleanupLContainer(lContainer);
+    } else if (isLView(lView[i])) {
+      cleanupLView(lView[i]);
+    }
+  }
+}
+function cleanupDehydratedViews(appRef) {
+  const viewRefs = appRef._views;
+  for (const viewRef of viewRefs) {
+    const lNode = getLNodeForHydration(viewRef);
+    if (lNode !== null && lNode[HOST] !== null) {
+      if (isLView(lNode)) {
+        cleanupLView(lNode);
+      } else {
+        const componentLView = lNode[HOST];
+        cleanupLView(componentLView);
+        cleanupLContainer(lNode);
+      }
+      ngDevMode && ngDevMode.dehydratedViewsCleanupRuns++;
+    }
+  }
+}
+var REF_EXTRACTOR_REGEXP = new RegExp(`^(\\d+)*(${REFERENCE_NODE_BODY}|${REFERENCE_NODE_HOST})*(.*)`);
+function compressNodeLocation(referenceNode, path) {
+  const result = [referenceNode];
+  for (const segment of path) {
+    const lastIdx = result.length - 1;
+    if (lastIdx > 0 && result[lastIdx - 1] === segment) {
+      const value = result[lastIdx] || 1;
+      result[lastIdx] = value + 1;
+    } else {
+      result.push(segment, "");
+    }
+  }
+  return result.join("");
+}
+function decompressNodeLocation(path) {
+  const matches = path.match(REF_EXTRACTOR_REGEXP);
+  const [_, refNodeId, refNodeName, rest] = matches;
+  const ref = refNodeId ? parseInt(refNodeId, 10) : refNodeName;
+  const steps = [];
+  for (const [_2, step, count2] of rest.matchAll(/(f|n)(\d*)/g)) {
+    const repeat2 = parseInt(count2, 10) || 1;
+    steps.push(step, repeat2);
+  }
+  return [ref, ...steps];
+}
+function isFirstElementInNgContainer(tNode) {
+  return !tNode.prev && tNode.parent?.type === 8;
+}
+function getNoOffsetIndex(tNode) {
+  return tNode.index - HEADER_OFFSET;
+}
+function isDisconnectedNode(tNode, lView) {
+  return !(tNode.type & 16) && !!lView[tNode.index] && !unwrapRNode(lView[tNode.index])?.isConnected;
+}
+function locateNextRNode(hydrationInfo, tView, lView, tNode) {
+  let native = null;
+  const noOffsetIndex = getNoOffsetIndex(tNode);
+  const nodes = hydrationInfo.data[NODES];
+  if (nodes?.[noOffsetIndex]) {
+    native = locateRNodeByPath(nodes[noOffsetIndex], lView);
+  } else if (tView.firstChild === tNode) {
+    native = hydrationInfo.firstChild;
+  } else {
+    const previousTNodeParent = tNode.prev === null;
+    const previousTNode = tNode.prev ?? tNode.parent;
+    ngDevMode && assertDefined(previousTNode, "Unexpected state: current TNode does not have a connection to the previous node or a parent node.");
+    if (isFirstElementInNgContainer(tNode)) {
+      const noOffsetParentIndex = getNoOffsetIndex(tNode.parent);
+      native = getSegmentHead(hydrationInfo, noOffsetParentIndex);
+    } else {
+      let previousRElement = getNativeByTNode(previousTNode, lView);
+      if (previousTNodeParent) {
+        native = previousRElement.firstChild;
+      } else {
+        const noOffsetPrevSiblingIndex = getNoOffsetIndex(previousTNode);
+        const segmentHead = getSegmentHead(hydrationInfo, noOffsetPrevSiblingIndex);
+        if (previousTNode.type === 2 && segmentHead) {
+          const numRootNodesToSkip = calcSerializedContainerSize(hydrationInfo, noOffsetPrevSiblingIndex);
+          const nodesToSkip = numRootNodesToSkip + 1;
+          native = siblingAfter(nodesToSkip, segmentHead);
+        } else {
+          native = previousRElement.nextSibling;
+        }
+      }
+    }
+  }
+  return native;
+}
+function siblingAfter(skip2, from2) {
+  let currentNode = from2;
+  for (let i = 0; i < skip2; i++) {
+    ngDevMode && validateSiblingNodeExists(currentNode);
+    currentNode = currentNode.nextSibling;
+  }
+  return currentNode;
+}
+function stringifyNavigationInstructions(instructions) {
+  const container = [];
+  for (let i = 0; i < instructions.length; i += 2) {
+    const step = instructions[i];
+    const repeat2 = instructions[i + 1];
+    for (let r = 0; r < repeat2; r++) {
+      container.push(step === NodeNavigationStep.FirstChild ? "firstChild" : "nextSibling");
+    }
+  }
+  return container.join(".");
+}
+function navigateToNode(from2, instructions) {
+  let node = from2;
+  for (let i = 0; i < instructions.length; i += 2) {
+    const step = instructions[i];
+    const repeat2 = instructions[i + 1];
+    for (let r = 0; r < repeat2; r++) {
+      if (ngDevMode && !node) {
+        throw nodeNotFoundAtPathError(from2, stringifyNavigationInstructions(instructions));
+      }
+      switch (step) {
+        case NodeNavigationStep.FirstChild:
+          node = node.firstChild;
+          break;
+        case NodeNavigationStep.NextSibling:
+          node = node.nextSibling;
+          break;
+      }
+    }
+  }
+  if (ngDevMode && !node) {
+    throw nodeNotFoundAtPathError(from2, stringifyNavigationInstructions(instructions));
+  }
+  return node;
+}
+function locateRNodeByPath(path, lView) {
+  const [referenceNode, ...navigationInstructions] = decompressNodeLocation(path);
+  let ref;
+  if (referenceNode === REFERENCE_NODE_HOST) {
+    ref = lView[DECLARATION_COMPONENT_VIEW][HOST];
+  } else if (referenceNode === REFERENCE_NODE_BODY) {
+    ref = ɵɵresolveBody(lView[DECLARATION_COMPONENT_VIEW][HOST]);
+  } else {
+    const parentElementId = Number(referenceNode);
+    ref = unwrapRNode(lView[parentElementId + HEADER_OFFSET]);
+  }
+  return navigateToNode(ref, navigationInstructions);
+}
+function navigateBetween(start, finish) {
+  if (start === finish) {
+    return [];
+  } else if (start.parentElement == null || finish.parentElement == null) {
+    return null;
+  } else if (start.parentElement === finish.parentElement) {
+    return navigateBetweenSiblings(start, finish);
+  } else {
+    const parent = finish.parentElement;
+    const parentPath = navigateBetween(start, parent);
+    const childPath = navigateBetween(parent.firstChild, finish);
+    if (!parentPath || !childPath)
+      return null;
+    return [
+      // First navigate to `finish`'s parent
+      ...parentPath,
+      // Then to its first child.
+      NodeNavigationStep.FirstChild,
+      // And finally from that node to `finish` (maybe a no-op if we're already there).
+      ...childPath
+    ];
+  }
+}
+function navigateBetweenSiblings(start, finish) {
+  const nav = [];
+  let node = null;
+  for (node = start; node != null && node !== finish; node = node.nextSibling) {
+    nav.push(NodeNavigationStep.NextSibling);
+  }
+  return node == null ? null : nav;
+}
+function calcPathBetween(from2, to, fromNodeName) {
+  const path = navigateBetween(from2, to);
+  return path === null ? null : compressNodeLocation(fromNodeName, path);
+}
+function calcPathForNode(tNode, lView) {
+  let parentTNode = tNode.parent;
+  let parentIndex;
+  let parentRNode;
+  let referenceNodeName;
+  while (parentTNode !== null && isDisconnectedNode(parentTNode, lView)) {
+    parentTNode = parentTNode.parent;
+  }
+  if (parentTNode === null || !(parentTNode.type & 3)) {
+    parentIndex = referenceNodeName = REFERENCE_NODE_HOST;
+    parentRNode = lView[DECLARATION_COMPONENT_VIEW][HOST];
+  } else {
+    parentIndex = parentTNode.index;
+    parentRNode = unwrapRNode(lView[parentIndex]);
+    referenceNodeName = renderStringify(parentIndex - HEADER_OFFSET);
+  }
+  let rNode = unwrapRNode(lView[tNode.index]);
+  if (tNode.type & 12) {
+    const firstRNode = getFirstNativeNode(lView, tNode);
+    if (firstRNode) {
+      rNode = firstRNode;
+    }
+  }
+  let path = calcPathBetween(parentRNode, rNode, referenceNodeName);
+  if (path === null && parentRNode !== rNode) {
+    const body = parentRNode.ownerDocument.body;
+    path = calcPathBetween(body, rNode, REFERENCE_NODE_BODY);
+    if (path === null) {
+      throw nodeNotFoundError(lView, tNode);
+    }
+  }
+  return path;
+}
+function locateDehydratedViewsInContainer(currentRNode, serializedViews) {
+  const dehydratedViews = [];
+  for (const serializedView of serializedViews) {
+    for (let i = 0; i < (serializedView[MULTIPLIER] ?? 1); i++) {
+      const view = {
+        data: serializedView,
+        firstChild: null
+      };
+      if (serializedView[NUM_ROOT_NODES] > 0) {
+        view.firstChild = currentRNode;
+        currentRNode = siblingAfter(serializedView[NUM_ROOT_NODES], currentRNode);
+      }
+      dehydratedViews.push(view);
+    }
+  }
+  return [currentRNode, dehydratedViews];
+}
+var _findMatchingDehydratedViewImpl = () => null;
+function findMatchingDehydratedViewImpl(lContainer, template) {
+  const views = lContainer[DEHYDRATED_VIEWS];
+  if (!template || views === null || views.length === 0) {
+    return null;
+  }
+  const view = views[0];
+  if (view.data[TEMPLATE_ID] === template) {
+    return views.shift();
+  } else {
+    removeDehydratedViews(lContainer);
+    return null;
+  }
+}
+function enableFindMatchingDehydratedViewImpl() {
+  _findMatchingDehydratedViewImpl = findMatchingDehydratedViewImpl;
+}
+function findMatchingDehydratedView(lContainer, template) {
+  return _findMatchingDehydratedViewImpl(lContainer, template);
+}
+function createAndRenderEmbeddedLView(declarationLView, templateTNode, context2, options) {
+  const embeddedTView = templateTNode.tView;
+  ngDevMode && assertDefined(embeddedTView, "TView must be defined for a template node.");
+  ngDevMode && assertTNodeForLView(templateTNode, declarationLView);
+  const isSignalView = declarationLView[FLAGS] & 4096;
+  const viewFlags = isSignalView ? 4096 : 16;
+  const embeddedLView = createLView(declarationLView, embeddedTView, context2, viewFlags, null, templateTNode, null, null, null, options?.injector ?? null, options?.dehydratedView ?? null);
+  const declarationLContainer = declarationLView[templateTNode.index];
+  ngDevMode && assertLContainer(declarationLContainer);
+  embeddedLView[DECLARATION_LCONTAINER] = declarationLContainer;
+  const declarationViewLQueries = declarationLView[QUERIES];
+  if (declarationViewLQueries !== null) {
+    embeddedLView[QUERIES] = declarationViewLQueries.createEmbeddedView(embeddedTView);
+  }
+  renderView(embeddedTView, embeddedLView, context2);
+  return embeddedLView;
+}
+function getLViewFromLContainer(lContainer, index) {
+  const adjustedIndex = CONTAINER_HEADER_OFFSET + index;
+  if (adjustedIndex < lContainer.length) {
+    const lView = lContainer[adjustedIndex];
+    ngDevMode && assertLView(lView);
+    return lView;
+  }
+  return void 0;
+}
+function shouldAddViewToDom(tNode, dehydratedView) {
+  return !dehydratedView || dehydratedView.firstChild === null || hasInSkipHydrationBlockFlag(tNode);
+}
+function addLViewToLContainer(lContainer, lView, index, addToDOM = true) {
+  const tView = lView[TVIEW];
+  insertView(tView, lView, lContainer, index);
+  if (addToDOM) {
+    const beforeNode = getBeforeNodeForView(index, lContainer);
+    const renderer = lView[RENDERER];
+    const parentRNode = nativeParentNode(renderer, lContainer[NATIVE]);
+    if (parentRNode !== null) {
+      addViewToDOM(tView, lContainer[T_HOST], renderer, lView, parentRNode, beforeNode);
+    }
+  }
+  const hydrationInfo = lView[HYDRATION];
+  if (hydrationInfo !== null && hydrationInfo.firstChild !== null) {
+    hydrationInfo.firstChild = null;
+  }
+}
+function removeLViewFromLContainer(lContainer, index) {
+  const lView = detachView(lContainer, index);
+  if (lView !== void 0) {
+    destroyLView(lView[TVIEW], lView);
+  }
+  return lView;
+}
+var _ViewContainerRef = class _ViewContainerRef {
+};
+_ViewContainerRef.__NG_ELEMENT_ID__ = injectViewContainerRef;
+var ViewContainerRef = _ViewContainerRef;
+function injectViewContainerRef() {
+  const previousTNode = getCurrentTNode();
+  return createContainerRef(previousTNode, getLView());
+}
+var VE_ViewContainerRef = ViewContainerRef;
+var R3ViewContainerRef = class ViewContainerRef2 extends VE_ViewContainerRef {
+  constructor(_lContainer, _hostTNode, _hostLView) {
+    super();
+    this._lContainer = _lContainer;
+    this._hostTNode = _hostTNode;
+    this._hostLView = _hostLView;
+  }
+  get element() {
+    return createElementRef(this._hostTNode, this._hostLView);
+  }
+  get injector() {
+    return new NodeInjector(this._hostTNode, this._hostLView);
+  }
+  /** @deprecated No replacement */
+  get parentInjector() {
+    const parentLocation = getParentInjectorLocation(this._hostTNode, this._hostLView);
+    if (hasParentInjector(parentLocation)) {
+      const parentView = getParentInjectorView(parentLocation, this._hostLView);
+      const injectorIndex = getParentInjectorIndex(parentLocation);
+      ngDevMode && assertNodeInjector(parentView, injectorIndex);
+      const parentTNode = parentView[TVIEW].data[
+        injectorIndex + 8
+        /* NodeInjectorOffset.TNODE */
+      ];
+      return new NodeInjector(parentTNode, parentView);
+    } else {
+      return new NodeInjector(null, this._hostLView);
+    }
+  }
+  clear() {
+    while (this.length > 0) {
+      this.remove(this.length - 1);
+    }
+  }
+  get(index) {
+    const viewRefs = getViewRefs(this._lContainer);
+    return viewRefs !== null && viewRefs[index] || null;
+  }
+  get length() {
+    return this._lContainer.length - CONTAINER_HEADER_OFFSET;
+  }
+  createEmbeddedView(templateRef, context2, indexOrOptions) {
+    let index;
+    let injector;
+    if (typeof indexOrOptions === "number") {
+      index = indexOrOptions;
+    } else if (indexOrOptions != null) {
+      index = indexOrOptions.index;
+      injector = indexOrOptions.injector;
+    }
+    const dehydratedView = findMatchingDehydratedView(this._lContainer, templateRef.ssrId);
+    const viewRef = templateRef.createEmbeddedViewImpl(context2 || {}, injector, dehydratedView);
+    this.insertImpl(viewRef, index, shouldAddViewToDom(this._hostTNode, dehydratedView));
+    return viewRef;
+  }
+  createComponent(componentFactoryOrType, indexOrOptions, injector, projectableNodes, environmentInjector) {
+    const isComponentFactory = componentFactoryOrType && !isType(componentFactoryOrType);
+    let index;
+    if (isComponentFactory) {
+      if (ngDevMode) {
+        assertEqual(typeof indexOrOptions !== "object", true, "It looks like Component factory was provided as the first argument and an options object as the second argument. This combination of arguments is incompatible. You can either change the first argument to provide Component type or change the second argument to be a number (representing an index at which to insert the new component's host view into this container)");
+      }
+      index = indexOrOptions;
+    } else {
+      if (ngDevMode) {
+        assertDefined(getComponentDef(componentFactoryOrType), `Provided Component class doesn't contain Component definition. Please check whether provided class has @Component decorator.`);
+        assertEqual(typeof indexOrOptions !== "number", true, "It looks like Component type was provided as the first argument and a number (representing an index at which to insert the new component's host view into this container as the second argument. This combination of arguments is incompatible. Please use an object as the second argument instead.");
+      }
+      const options = indexOrOptions || {};
+      if (ngDevMode && options.environmentInjector && options.ngModuleRef) {
+        throwError2(`Cannot pass both environmentInjector and ngModuleRef options to createComponent().`);
+      }
+      index = options.index;
+      injector = options.injector;
+      projectableNodes = options.projectableNodes;
+      environmentInjector = options.environmentInjector || options.ngModuleRef;
+    }
+    const componentFactory = isComponentFactory ? componentFactoryOrType : new ComponentFactory(getComponentDef(componentFactoryOrType));
+    const contextInjector = injector || this.parentInjector;
+    if (!environmentInjector && componentFactory.ngModule == null) {
+      const _injector = isComponentFactory ? contextInjector : this.parentInjector;
+      const result = _injector.get(EnvironmentInjector, null);
+      if (result) {
+        environmentInjector = result;
+      }
+    }
+    const componentDef = getComponentDef(componentFactory.componentType ?? {});
+    const dehydratedView = findMatchingDehydratedView(this._lContainer, componentDef?.id ?? null);
+    const rNode = dehydratedView?.firstChild ?? null;
+    const componentRef = componentFactory.create(contextInjector, projectableNodes, rNode, environmentInjector);
+    this.insertImpl(componentRef.hostView, index, shouldAddViewToDom(this._hostTNode, dehydratedView));
+    return componentRef;
+  }
+  insert(viewRef, index) {
+    return this.insertImpl(viewRef, index, true);
+  }
+  insertImpl(viewRef, index, addToDOM) {
+    const lView = viewRef._lView;
+    if (ngDevMode && viewRef.destroyed) {
+      throw new Error("Cannot insert a destroyed View in a ViewContainer!");
+    }
+    if (viewAttachedToContainer(lView)) {
+      const prevIdx = this.indexOf(viewRef);
+      if (prevIdx !== -1) {
+        this.detach(prevIdx);
+      } else {
+        const prevLContainer = lView[PARENT];
+        ngDevMode && assertEqual(isLContainer(prevLContainer), true, "An attached view should have its PARENT point to a container.");
+        const prevVCRef = new R3ViewContainerRef(prevLContainer, prevLContainer[T_HOST], prevLContainer[PARENT]);
+        prevVCRef.detach(prevVCRef.indexOf(viewRef));
+      }
+    }
+    const adjustedIdx = this._adjustIndex(index);
+    const lContainer = this._lContainer;
+    addLViewToLContainer(lContainer, lView, adjustedIdx, addToDOM);
+    viewRef.attachToViewContainerRef();
+    addToArray(getOrCreateViewRefs(lContainer), adjustedIdx, viewRef);
+    return viewRef;
+  }
+  move(viewRef, newIndex) {
+    if (ngDevMode && viewRef.destroyed) {
+      throw new Error("Cannot move a destroyed View in a ViewContainer!");
+    }
+    return this.insert(viewRef, newIndex);
+  }
+  indexOf(viewRef) {
+    const viewRefsArr = getViewRefs(this._lContainer);
+    return viewRefsArr !== null ? viewRefsArr.indexOf(viewRef) : -1;
+  }
+  remove(index) {
+    const adjustedIdx = this._adjustIndex(index, -1);
+    const detachedView = detachView(this._lContainer, adjustedIdx);
+    if (detachedView) {
+      removeFromArray(getOrCreateViewRefs(this._lContainer), adjustedIdx);
+      destroyLView(detachedView[TVIEW], detachedView);
+    }
+  }
+  detach(index) {
+    const adjustedIdx = this._adjustIndex(index, -1);
+    const view = detachView(this._lContainer, adjustedIdx);
+    const wasDetached = view && removeFromArray(getOrCreateViewRefs(this._lContainer), adjustedIdx) != null;
+    return wasDetached ? new ViewRef$1(view) : null;
+  }
+  _adjustIndex(index, shift = 0) {
+    if (index == null) {
+      return this.length + shift;
+    }
+    if (ngDevMode) {
+      assertGreaterThan(index, -1, `ViewRef index must be positive, got ${index}`);
+      assertLessThan(index, this.length + 1 + shift, "index");
+    }
+    return index;
+  }
+};
+function getViewRefs(lContainer) {
+  return lContainer[VIEW_REFS];
+}
+function getOrCreateViewRefs(lContainer) {
+  return lContainer[VIEW_REFS] || (lContainer[VIEW_REFS] = []);
+}
+function createContainerRef(hostTNode, hostLView) {
+  ngDevMode && assertTNodeType(
+    hostTNode,
+    12 | 3
+    /* TNodeType.AnyRNode */
+  );
+  let lContainer;
+  const slotValue = hostLView[hostTNode.index];
+  if (isLContainer(slotValue)) {
+    lContainer = slotValue;
+  } else {
+    lContainer = createLContainer(slotValue, hostLView, null, hostTNode);
+    hostLView[hostTNode.index] = lContainer;
+    addToViewTree(hostLView, lContainer);
+  }
+  _locateOrCreateAnchorNode(lContainer, hostLView, hostTNode, slotValue);
+  return new R3ViewContainerRef(lContainer, hostTNode, hostLView);
+}
+function insertAnchorNode(hostLView, hostTNode) {
+  const renderer = hostLView[RENDERER];
+  ngDevMode && ngDevMode.rendererCreateComment++;
+  const commentNode = renderer.createComment(ngDevMode ? "container" : "");
+  const hostNative = getNativeByTNode(hostTNode, hostLView);
+  const parentOfHostNative = nativeParentNode(renderer, hostNative);
+  nativeInsertBefore(renderer, parentOfHostNative, commentNode, nativeNextSibling(renderer, hostNative), false);
+  return commentNode;
+}
+var _locateOrCreateAnchorNode = createAnchorNode;
+var _populateDehydratedViewsInLContainer = () => false;
+function populateDehydratedViewsInLContainer(lContainer, tNode, hostLView) {
+  return _populateDehydratedViewsInLContainer(lContainer, tNode, hostLView);
+}
+function createAnchorNode(lContainer, hostLView, hostTNode, slotValue) {
+  if (lContainer[NATIVE])
+    return;
+  let commentNode;
+  if (hostTNode.type & 8) {
+    commentNode = unwrapRNode(slotValue);
+  } else {
+    commentNode = insertAnchorNode(hostLView, hostTNode);
+  }
+  lContainer[NATIVE] = commentNode;
+}
+function populateDehydratedViewsInLContainerImpl(lContainer, tNode, hostLView) {
+  if (lContainer[NATIVE] && lContainer[DEHYDRATED_VIEWS]) {
+    return true;
+  }
+  const hydrationInfo = hostLView[HYDRATION];
+  const noOffsetIndex = tNode.index - HEADER_OFFSET;
+  const isNodeCreationMode = !hydrationInfo || isInSkipHydrationBlock(tNode) || isDisconnectedNode$1(hydrationInfo, noOffsetIndex);
+  if (isNodeCreationMode) {
+    return false;
+  }
+  const currentRNode = getSegmentHead(hydrationInfo, noOffsetIndex);
+  const serializedViews = hydrationInfo.data[CONTAINERS]?.[noOffsetIndex];
+  ngDevMode && assertDefined(serializedViews, "Unexpected state: no hydration info available for a given TNode, which represents a view container.");
+  const [commentNode, dehydratedViews] = locateDehydratedViewsInContainer(currentRNode, serializedViews);
+  if (ngDevMode) {
+    validateMatchingNode(commentNode, Node.COMMENT_NODE, null, hostLView, tNode, true);
+    markRNodeAsClaimedByHydration(commentNode, false);
+  }
+  lContainer[NATIVE] = commentNode;
+  lContainer[DEHYDRATED_VIEWS] = dehydratedViews;
+  return true;
+}
+function locateOrCreateAnchorNode(lContainer, hostLView, hostTNode, slotValue) {
+  if (!_populateDehydratedViewsInLContainer(lContainer, hostTNode, hostLView)) {
+    createAnchorNode(lContainer, hostLView, hostTNode, slotValue);
+  }
+}
+function enableLocateOrCreateContainerRefImpl() {
+  _locateOrCreateAnchorNode = locateOrCreateAnchorNode;
+  _populateDehydratedViewsInLContainer = populateDehydratedViewsInLContainerImpl;
 }
 function updateBinding(lView, bindingIndex, value) {
   return lView[bindingIndex] = value;
@@ -13052,6 +13982,1024 @@ function bindingUpdated3(lView, bindingIndex, exp1, exp2, exp3) {
 function bindingUpdated4(lView, bindingIndex, exp1, exp2, exp3, exp4) {
   const different = bindingUpdated2(lView, bindingIndex, exp1, exp2);
   return bindingUpdated2(lView, bindingIndex + 2, exp3, exp4) || different;
+}
+function templateFirstCreatePass(index, tView, lView, templateFn, decls, vars, tagName, attrsIndex, localRefsIndex) {
+  ngDevMode && assertFirstCreatePass(tView);
+  ngDevMode && ngDevMode.firstCreatePass++;
+  const tViewConsts = tView.consts;
+  const tNode = getOrCreateTNode(tView, index, 4, tagName || null, getConstant(tViewConsts, attrsIndex));
+  resolveDirectives(tView, lView, tNode, getConstant(tViewConsts, localRefsIndex));
+  registerPostOrderHooks(tView, tNode);
+  const embeddedTView = tNode.tView = createTView(
+    2,
+    tNode,
+    templateFn,
+    decls,
+    vars,
+    tView.directiveRegistry,
+    tView.pipeRegistry,
+    null,
+    tView.schemas,
+    tViewConsts,
+    null
+    /* ssrId */
+  );
+  if (tView.queries !== null) {
+    tView.queries.template(tView, tNode);
+    embeddedTView.queries = tView.queries.embeddedTView(tNode);
+  }
+  return tNode;
+}
+function ɵɵtemplate(index, templateFn, decls, vars, tagName, attrsIndex, localRefsIndex, localRefExtractor) {
+  const lView = getLView();
+  const tView = getTView();
+  const adjustedIndex = index + HEADER_OFFSET;
+  const tNode = tView.firstCreatePass ? templateFirstCreatePass(adjustedIndex, tView, lView, templateFn, decls, vars, tagName, attrsIndex, localRefsIndex) : tView.data[adjustedIndex];
+  setCurrentTNode(tNode, false);
+  const comment = _locateOrCreateContainerAnchor(tView, lView, tNode, index);
+  if (wasLastNodeCreated()) {
+    appendChild(tView, lView, comment, tNode);
+  }
+  attachPatchData(comment, lView);
+  const lContainer = createLContainer(comment, lView, comment, tNode);
+  lView[adjustedIndex] = lContainer;
+  addToViewTree(lView, lContainer);
+  populateDehydratedViewsInLContainer(lContainer, tNode, lView);
+  if (isDirectiveHost(tNode)) {
+    createDirectivesInstances(tView, lView, tNode);
+  }
+  if (localRefsIndex != null) {
+    saveResolvedLocalsInData(lView, tNode, localRefExtractor);
+  }
+  return ɵɵtemplate;
+}
+var _locateOrCreateContainerAnchor = createContainerAnchorImpl;
+function createContainerAnchorImpl(tView, lView, tNode, index) {
+  lastNodeWasCreated(true);
+  return lView[RENDERER].createComment(ngDevMode ? "container" : "");
+}
+function locateOrCreateContainerAnchorImpl(tView, lView, tNode, index) {
+  const hydrationInfo = lView[HYDRATION];
+  const isNodeCreationMode = !hydrationInfo || isInSkipHydrationBlock$1() || isDisconnectedNode$1(hydrationInfo, index);
+  lastNodeWasCreated(isNodeCreationMode);
+  if (isNodeCreationMode) {
+    return createContainerAnchorImpl(tView, lView, tNode, index);
+  }
+  const ssrId = hydrationInfo.data[TEMPLATES]?.[index] ?? null;
+  if (ssrId !== null && tNode.tView !== null) {
+    if (tNode.tView.ssrId === null) {
+      tNode.tView.ssrId = ssrId;
+    } else {
+      ngDevMode && assertEqual(tNode.tView.ssrId, ssrId, "Unexpected value of the `ssrId` for this TView");
+    }
+  }
+  const currentRNode = locateNextRNode(hydrationInfo, tView, lView, tNode);
+  ngDevMode && validateNodeExists(currentRNode, lView, tNode);
+  setSegmentHead(hydrationInfo, index, currentRNode);
+  const viewContainerSize = calcSerializedContainerSize(hydrationInfo, index);
+  const comment = siblingAfter(viewContainerSize, currentRNode);
+  if (ngDevMode) {
+    validateMatchingNode(comment, Node.COMMENT_NODE, null, lView, tNode);
+    markRNodeAsClaimedByHydration(comment);
+  }
+  return comment;
+}
+function enableLocateOrCreateContainerAnchorImpl() {
+  _locateOrCreateContainerAnchor = locateOrCreateContainerAnchorImpl;
+}
+var DeferDependenciesLoadingState;
+(function(DeferDependenciesLoadingState2) {
+  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["NOT_STARTED"] = 0] = "NOT_STARTED";
+  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["IN_PROGRESS"] = 1] = "IN_PROGRESS";
+  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["COMPLETE"] = 2] = "COMPLETE";
+  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["FAILED"] = 3] = "FAILED";
+})(DeferDependenciesLoadingState || (DeferDependenciesLoadingState = {}));
+var MINIMUM_SLOT = 0;
+var LOADING_AFTER_SLOT = 1;
+var DeferBlockState;
+(function(DeferBlockState2) {
+  DeferBlockState2[DeferBlockState2["Placeholder"] = 0] = "Placeholder";
+  DeferBlockState2[DeferBlockState2["Loading"] = 1] = "Loading";
+  DeferBlockState2[DeferBlockState2["Complete"] = 2] = "Complete";
+  DeferBlockState2[DeferBlockState2["Error"] = 3] = "Error";
+})(DeferBlockState || (DeferBlockState = {}));
+var DeferBlockInternalState;
+(function(DeferBlockInternalState2) {
+  DeferBlockInternalState2[DeferBlockInternalState2["Initial"] = -1] = "Initial";
+})(DeferBlockInternalState || (DeferBlockInternalState = {}));
+var NEXT_DEFER_BLOCK_STATE = 0;
+var DEFER_BLOCK_STATE = 1;
+var STATE_IS_FROZEN_UNTIL = 2;
+var LOADING_AFTER_CLEANUP_FN = 3;
+var TRIGGER_CLEANUP_FNS = 4;
+var PREFETCH_TRIGGER_CLEANUP_FNS = 5;
+var DeferBlockBehavior;
+(function(DeferBlockBehavior2) {
+  DeferBlockBehavior2[DeferBlockBehavior2["Manual"] = 0] = "Manual";
+  DeferBlockBehavior2[DeferBlockBehavior2["Playthrough"] = 1] = "Playthrough";
+})(DeferBlockBehavior || (DeferBlockBehavior = {}));
+function storeTriggerCleanupFn(type, lDetails, cleanupFn) {
+  const key = type === 1 ? PREFETCH_TRIGGER_CLEANUP_FNS : TRIGGER_CLEANUP_FNS;
+  if (lDetails[key] === null) {
+    lDetails[key] = [];
+  }
+  lDetails[key].push(cleanupFn);
+}
+function invokeTriggerCleanupFns(type, lDetails) {
+  const key = type === 1 ? PREFETCH_TRIGGER_CLEANUP_FNS : TRIGGER_CLEANUP_FNS;
+  const cleanupFns = lDetails[key];
+  if (cleanupFns !== null) {
+    for (const cleanupFn of cleanupFns) {
+      cleanupFn();
+    }
+    lDetails[key] = null;
+  }
+}
+function invokeAllTriggerCleanupFns(lDetails) {
+  invokeTriggerCleanupFns(1, lDetails);
+  invokeTriggerCleanupFns(0, lDetails);
+}
+function getDeferBlockDataIndex(deferBlockIndex) {
+  return deferBlockIndex + 1;
+}
+function getLDeferBlockDetails(lView, tNode) {
+  const tView = lView[TVIEW];
+  const slotIndex = getDeferBlockDataIndex(tNode.index);
+  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
+  return lView[slotIndex];
+}
+function setLDeferBlockDetails(lView, deferBlockIndex, lDetails) {
+  const tView = lView[TVIEW];
+  const slotIndex = getDeferBlockDataIndex(deferBlockIndex);
+  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
+  lView[slotIndex] = lDetails;
+}
+function getTDeferBlockDetails(tView, tNode) {
+  const slotIndex = getDeferBlockDataIndex(tNode.index);
+  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
+  return tView.data[slotIndex];
+}
+function setTDeferBlockDetails(tView, deferBlockIndex, deferBlockConfig) {
+  const slotIndex = getDeferBlockDataIndex(deferBlockIndex);
+  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
+  tView.data[slotIndex] = deferBlockConfig;
+}
+function getTemplateIndexForState(newState, hostLView, tNode) {
+  const tView = hostLView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  switch (newState) {
+    case DeferBlockState.Complete:
+      return tDetails.primaryTmplIndex;
+    case DeferBlockState.Loading:
+      return tDetails.loadingTmplIndex;
+    case DeferBlockState.Error:
+      return tDetails.errorTmplIndex;
+    case DeferBlockState.Placeholder:
+      return tDetails.placeholderTmplIndex;
+    default:
+      ngDevMode && throwError2(`Unexpected defer block state: ${newState}`);
+      return null;
+  }
+}
+function getMinimumDurationForState(tDetails, currentState) {
+  if (currentState === DeferBlockState.Placeholder) {
+    return tDetails.placeholderBlockConfig?.[MINIMUM_SLOT] ?? null;
+  } else if (currentState === DeferBlockState.Loading) {
+    return tDetails.loadingBlockConfig?.[MINIMUM_SLOT] ?? null;
+  }
+  return null;
+}
+function getLoadingBlockAfter(tDetails) {
+  return tDetails.loadingBlockConfig?.[LOADING_AFTER_SLOT] ?? null;
+}
+function addDepsToRegistry(currentDeps, newDeps) {
+  if (!currentDeps || currentDeps.length === 0) {
+    return newDeps;
+  }
+  const currentDepSet = new Set(currentDeps);
+  for (const dep of newDeps) {
+    currentDepSet.add(dep);
+  }
+  return currentDeps.length === currentDepSet.size ? currentDeps : Array.from(currentDepSet);
+}
+function getPrimaryBlockTNode(tView, tDetails) {
+  const adjustedIndex = tDetails.primaryTmplIndex + HEADER_OFFSET;
+  return getTNode(tView, adjustedIndex);
+}
+function assertDeferredDependenciesLoaded(tDetails) {
+  assertEqual(tDetails.loadingState, DeferDependenciesLoadingState.COMPLETE, "Expecting all deferred dependencies to be loaded.");
+}
+function isTDeferBlockDetails(value) {
+  return value !== null && typeof value === "object" && typeof value.primaryTmplIndex === "number";
+}
+var eventListenerOptions = {
+  passive: true,
+  capture: true
+};
+var hoverTriggers = /* @__PURE__ */ new WeakMap();
+var interactionTriggers = /* @__PURE__ */ new WeakMap();
+var viewportTriggers = /* @__PURE__ */ new WeakMap();
+var interactionEventNames = ["click", "keydown"];
+var hoverEventNames = ["mouseenter", "focusin"];
+var intersectionObserver = null;
+var observedViewportElements = 0;
+var DeferEventEntry = class {
+  constructor() {
+    this.callbacks = /* @__PURE__ */ new Set();
+    this.listener = () => {
+      for (const callback of this.callbacks) {
+        callback();
+      }
+    };
+  }
+};
+function onInteraction(trigger, callback) {
+  let entry = interactionTriggers.get(trigger);
+  if (!entry) {
+    entry = new DeferEventEntry();
+    interactionTriggers.set(trigger, entry);
+    for (const name of interactionEventNames) {
+      trigger.addEventListener(name, entry.listener, eventListenerOptions);
+    }
+  }
+  entry.callbacks.add(callback);
+  return () => {
+    const { callbacks, listener } = entry;
+    callbacks.delete(callback);
+    if (callbacks.size === 0) {
+      interactionTriggers.delete(trigger);
+      for (const name of interactionEventNames) {
+        trigger.removeEventListener(name, listener, eventListenerOptions);
+      }
+    }
+  };
+}
+function onHover(trigger, callback) {
+  let entry = hoverTriggers.get(trigger);
+  if (!entry) {
+    entry = new DeferEventEntry();
+    hoverTriggers.set(trigger, entry);
+    for (const name of hoverEventNames) {
+      trigger.addEventListener(name, entry.listener, eventListenerOptions);
+    }
+  }
+  entry.callbacks.add(callback);
+  return () => {
+    const { callbacks, listener } = entry;
+    callbacks.delete(callback);
+    if (callbacks.size === 0) {
+      for (const name of hoverEventNames) {
+        trigger.removeEventListener(name, listener, eventListenerOptions);
+      }
+      hoverTriggers.delete(trigger);
+    }
+  };
+}
+function onViewport(trigger, callback, injector) {
+  const ngZone = injector.get(NgZone);
+  let entry = viewportTriggers.get(trigger);
+  intersectionObserver = intersectionObserver || ngZone.runOutsideAngular(() => {
+    return new IntersectionObserver((entries) => {
+      for (const current of entries) {
+        if (current.isIntersecting && viewportTriggers.has(current.target)) {
+          ngZone.run(viewportTriggers.get(current.target).listener);
+        }
+      }
+    });
+  });
+  if (!entry) {
+    entry = new DeferEventEntry();
+    ngZone.runOutsideAngular(() => intersectionObserver.observe(trigger));
+    viewportTriggers.set(trigger, entry);
+    observedViewportElements++;
+  }
+  entry.callbacks.add(callback);
+  return () => {
+    if (!viewportTriggers.has(trigger)) {
+      return;
+    }
+    entry.callbacks.delete(callback);
+    if (entry.callbacks.size === 0) {
+      intersectionObserver?.unobserve(trigger);
+      viewportTriggers.delete(trigger);
+      observedViewportElements--;
+    }
+    if (observedViewportElements === 0) {
+      intersectionObserver?.disconnect();
+      intersectionObserver = null;
+    }
+  };
+}
+function getTriggerLView(deferredHostLView, deferredTNode, walkUpTimes) {
+  if (walkUpTimes == null) {
+    return deferredHostLView;
+  }
+  if (walkUpTimes >= 0) {
+    return walkUpViews(walkUpTimes, deferredHostLView);
+  }
+  const deferredContainer = deferredHostLView[deferredTNode.index];
+  ngDevMode && assertLContainer(deferredContainer);
+  const triggerLView = deferredContainer[CONTAINER_HEADER_OFFSET] ?? null;
+  if (ngDevMode && triggerLView !== null) {
+    const lDetails = getLDeferBlockDetails(deferredHostLView, deferredTNode);
+    const renderedState = lDetails[DEFER_BLOCK_STATE];
+    assertEqual(renderedState, DeferBlockState.Placeholder, "Expected a placeholder to be rendered in this defer block.");
+    assertLView(triggerLView);
+  }
+  return triggerLView;
+}
+function getTriggerElement(triggerLView, triggerIndex) {
+  const element = getNativeByIndex(HEADER_OFFSET + triggerIndex, triggerLView);
+  ngDevMode && assertElement(element);
+  return element;
+}
+function registerDomTrigger(initialLView, tNode, triggerIndex, walkUpTimes, registerFn, callback, type) {
+  const injector = initialLView[INJECTOR$1];
+  function pollDomTrigger() {
+    if (isDestroyed(initialLView)) {
+      return;
+    }
+    const lDetails = getLDeferBlockDetails(initialLView, tNode);
+    const renderedState = lDetails[DEFER_BLOCK_STATE];
+    if (renderedState !== DeferBlockInternalState.Initial && renderedState !== DeferBlockState.Placeholder) {
+      return;
+    }
+    const triggerLView = getTriggerLView(initialLView, tNode, walkUpTimes);
+    if (!triggerLView) {
+      internalAfterNextRender(pollDomTrigger, { injector });
+      return;
+    }
+    if (isDestroyed(triggerLView)) {
+      return;
+    }
+    const element = getTriggerElement(triggerLView, triggerIndex);
+    const cleanup = registerFn(element, () => {
+      if (initialLView !== triggerLView) {
+        removeLViewOnDestroy(triggerLView, cleanup);
+      }
+      callback();
+    }, injector);
+    if (initialLView !== triggerLView) {
+      storeLViewOnDestroy(triggerLView, cleanup);
+    }
+    storeTriggerCleanupFn(type, lDetails, cleanup);
+  }
+  internalAfterNextRender(pollDomTrigger, { injector });
+}
+function onIdle(callback, lView) {
+  const injector = lView[INJECTOR$1];
+  const scheduler = injector.get(IdleScheduler);
+  const cleanupFn = () => scheduler.remove(callback);
+  scheduler.add(callback);
+  return cleanupFn;
+}
+var _requestIdleCallback = () => typeof requestIdleCallback !== "undefined" ? requestIdleCallback : setTimeout;
+var _cancelIdleCallback = () => typeof requestIdleCallback !== "undefined" ? cancelIdleCallback : clearTimeout;
+var _IdleScheduler = class _IdleScheduler {
+  constructor() {
+    this.executingCallbacks = false;
+    this.idleId = null;
+    this.current = /* @__PURE__ */ new Set();
+    this.deferred = /* @__PURE__ */ new Set();
+    this.ngZone = inject(NgZone);
+    this.requestIdleCallbackFn = _requestIdleCallback().bind(globalThis);
+    this.cancelIdleCallbackFn = _cancelIdleCallback().bind(globalThis);
+  }
+  add(callback) {
+    const target = this.executingCallbacks ? this.deferred : this.current;
+    target.add(callback);
+    if (this.idleId === null) {
+      this.scheduleIdleCallback();
+    }
+  }
+  remove(callback) {
+    const { current, deferred } = this;
+    current.delete(callback);
+    deferred.delete(callback);
+    if (current.size === 0 && deferred.size === 0) {
+      this.cancelIdleCallback();
+    }
+  }
+  scheduleIdleCallback() {
+    const callback = () => {
+      this.cancelIdleCallback();
+      this.executingCallbacks = true;
+      for (const callback2 of this.current) {
+        callback2();
+      }
+      this.current.clear();
+      this.executingCallbacks = false;
+      if (this.deferred.size > 0) {
+        for (const callback2 of this.deferred) {
+          this.current.add(callback2);
+        }
+        this.deferred.clear();
+        this.scheduleIdleCallback();
+      }
+    };
+    this.idleId = this.requestIdleCallbackFn(() => this.ngZone.run(callback));
+  }
+  cancelIdleCallback() {
+    if (this.idleId !== null) {
+      this.cancelIdleCallbackFn(this.idleId);
+      this.idleId = null;
+    }
+  }
+  ngOnDestroy() {
+    this.cancelIdleCallback();
+    this.current.clear();
+    this.deferred.clear();
+  }
+};
+_IdleScheduler.ɵprov = ɵɵdefineInjectable({
+  token: _IdleScheduler,
+  providedIn: "root",
+  factory: () => new _IdleScheduler()
+});
+var IdleScheduler = _IdleScheduler;
+function onTimer(delay2) {
+  return (callback, lView) => scheduleTimerTrigger(delay2, callback, lView);
+}
+function scheduleTimerTrigger(delay2, callback, lView) {
+  const injector = lView[INJECTOR$1];
+  const scheduler = injector.get(TimerScheduler);
+  const cleanupFn = () => scheduler.remove(callback);
+  scheduler.add(delay2, callback);
+  return cleanupFn;
+}
+var _TimerScheduler = class _TimerScheduler {
+  constructor() {
+    this.executingCallbacks = false;
+    this.timeoutId = null;
+    this.invokeTimerAt = null;
+    this.current = [];
+    this.deferred = [];
+  }
+  add(delay2, callback) {
+    const target = this.executingCallbacks ? this.deferred : this.current;
+    this.addToQueue(target, Date.now() + delay2, callback);
+    this.scheduleTimer();
+  }
+  remove(callback) {
+    const { current, deferred } = this;
+    const callbackIndex = this.removeFromQueue(current, callback);
+    if (callbackIndex === -1) {
+      this.removeFromQueue(deferred, callback);
+    }
+    if (current.length === 0 && deferred.length === 0) {
+      this.clearTimeout();
+    }
+  }
+  addToQueue(target, invokeAt, callback) {
+    let insertAtIndex = target.length;
+    for (let i = 0; i < target.length; i += 2) {
+      const invokeQueuedCallbackAt = target[i];
+      if (invokeQueuedCallbackAt > invokeAt) {
+        insertAtIndex = i;
+        break;
+      }
+    }
+    arrayInsert2(target, insertAtIndex, invokeAt, callback);
+  }
+  removeFromQueue(target, callback) {
+    let index = -1;
+    for (let i = 0; i < target.length; i += 2) {
+      const queuedCallback = target[i + 1];
+      if (queuedCallback === callback) {
+        index = i;
+        break;
+      }
+    }
+    if (index > -1) {
+      arraySplice(target, index, 2);
+    }
+    return index;
+  }
+  scheduleTimer() {
+    const callback = () => {
+      this.clearTimeout();
+      this.executingCallbacks = true;
+      const current = [...this.current];
+      const now = Date.now();
+      for (let i = 0; i < current.length; i += 2) {
+        const invokeAt = current[i];
+        const callback2 = current[i + 1];
+        if (invokeAt <= now) {
+          callback2();
+        } else {
+          break;
+        }
+      }
+      let lastCallbackIndex = -1;
+      for (let i = 0; i < this.current.length; i += 2) {
+        const invokeAt = this.current[i];
+        if (invokeAt <= now) {
+          lastCallbackIndex = i + 1;
+        } else {
+          break;
+        }
+      }
+      if (lastCallbackIndex >= 0) {
+        arraySplice(this.current, 0, lastCallbackIndex + 1);
+      }
+      this.executingCallbacks = false;
+      if (this.deferred.length > 0) {
+        for (let i = 0; i < this.deferred.length; i += 2) {
+          const invokeAt = this.deferred[i];
+          const callback2 = this.deferred[i + 1];
+          this.addToQueue(this.current, invokeAt, callback2);
+        }
+        this.deferred.length = 0;
+      }
+      this.scheduleTimer();
+    };
+    const FRAME_DURATION_MS = 16;
+    if (this.current.length > 0) {
+      const now = Date.now();
+      const invokeAt = this.current[0];
+      if (this.timeoutId === null || // Reschedule a timer in case a queue contains an item with
+      // an earlier timestamp and the delta is more than an average
+      // frame duration.
+      this.invokeTimerAt && this.invokeTimerAt - invokeAt > FRAME_DURATION_MS) {
+        this.clearTimeout();
+        const timeout2 = Math.max(invokeAt - now, FRAME_DURATION_MS);
+        this.invokeTimerAt = invokeAt;
+        this.timeoutId = setTimeout(callback, timeout2);
+      }
+    }
+  }
+  clearTimeout() {
+    if (this.timeoutId !== null) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
+  }
+  ngOnDestroy() {
+    this.clearTimeout();
+    this.current.length = 0;
+    this.deferred.length = 0;
+  }
+};
+_TimerScheduler.ɵprov = ɵɵdefineInjectable({
+  token: _TimerScheduler,
+  providedIn: "root",
+  factory: () => new _TimerScheduler()
+});
+var TimerScheduler = _TimerScheduler;
+var DEFER_BLOCK_DEPENDENCY_INTERCEPTOR = new InjectionToken("DEFER_BLOCK_DEPENDENCY_INTERCEPTOR");
+var DEFER_BLOCK_CONFIG = new InjectionToken(ngDevMode ? "DEFER_BLOCK_CONFIG" : "");
+function shouldTriggerDeferBlock(injector) {
+  const config2 = injector.get(DEFER_BLOCK_CONFIG, null, { optional: true });
+  if (config2?.behavior === DeferBlockBehavior.Manual) {
+    return false;
+  }
+  return isPlatformBrowser(injector);
+}
+var applyDeferBlockStateWithSchedulingImpl = null;
+function ɵɵdeferEnableTimerScheduling(tView, tDetails, placeholderConfigIndex, loadingConfigIndex) {
+  const tViewConsts = tView.consts;
+  if (placeholderConfigIndex != null) {
+    tDetails.placeholderBlockConfig = getConstant(tViewConsts, placeholderConfigIndex);
+  }
+  if (loadingConfigIndex != null) {
+    tDetails.loadingBlockConfig = getConstant(tViewConsts, loadingConfigIndex);
+  }
+  if (applyDeferBlockStateWithSchedulingImpl === null) {
+    applyDeferBlockStateWithSchedulingImpl = applyDeferBlockStateWithScheduling;
+  }
+}
+function ɵɵdefer(index, primaryTmplIndex, dependencyResolverFn, loadingTmplIndex, placeholderTmplIndex, errorTmplIndex, loadingConfigIndex, placeholderConfigIndex, enableTimerScheduling) {
+  const lView = getLView();
+  const tView = getTView();
+  const adjustedIndex = index + HEADER_OFFSET;
+  ɵɵtemplate(index, null, 0, 0);
+  if (tView.firstCreatePass) {
+    performanceMarkFeature("NgDefer");
+    const tDetails = {
+      primaryTmplIndex,
+      loadingTmplIndex: loadingTmplIndex ?? null,
+      placeholderTmplIndex: placeholderTmplIndex ?? null,
+      errorTmplIndex: errorTmplIndex ?? null,
+      placeholderBlockConfig: null,
+      loadingBlockConfig: null,
+      dependencyResolverFn: dependencyResolverFn ?? null,
+      loadingState: DeferDependenciesLoadingState.NOT_STARTED,
+      loadingPromise: null
+    };
+    enableTimerScheduling?.(tView, tDetails, placeholderConfigIndex, loadingConfigIndex);
+    setTDeferBlockDetails(tView, adjustedIndex, tDetails);
+  }
+  const tNode = getCurrentTNode();
+  const lContainer = lView[adjustedIndex];
+  populateDehydratedViewsInLContainer(lContainer, tNode, lView);
+  const lDetails = [
+    null,
+    // NEXT_DEFER_BLOCK_STATE
+    DeferBlockInternalState.Initial,
+    // DEFER_BLOCK_STATE
+    null,
+    // STATE_IS_FROZEN_UNTIL
+    null,
+    // LOADING_AFTER_CLEANUP_FN
+    null,
+    // TRIGGER_CLEANUP_FNS
+    null
+    // PREFETCH_TRIGGER_CLEANUP_FNS
+  ];
+  setLDeferBlockDetails(lView, adjustedIndex, lDetails);
+  const cleanupTriggersFn = () => invokeAllTriggerCleanupFns(lDetails);
+  storeTriggerCleanupFn(0, lDetails, () => removeLViewOnDestroy(lView, cleanupTriggersFn));
+  storeLViewOnDestroy(lView, cleanupTriggersFn);
+}
+function ɵɵdeferWhen(rawValue) {
+  const lView = getLView();
+  const bindingIndex = nextBindingIndex();
+  if (bindingUpdated(lView, bindingIndex, rawValue)) {
+    const prevConsumer = setActiveConsumer(null);
+    try {
+      const value = Boolean(rawValue);
+      const tNode = getSelectedTNode();
+      const lDetails = getLDeferBlockDetails(lView, tNode);
+      const renderedState = lDetails[DEFER_BLOCK_STATE];
+      if (value === false && renderedState === DeferBlockInternalState.Initial) {
+        renderPlaceholder(lView, tNode);
+      } else if (value === true && (renderedState === DeferBlockInternalState.Initial || renderedState === DeferBlockState.Placeholder)) {
+        triggerDeferBlock(lView, tNode);
+      }
+    } finally {
+      setActiveConsumer(prevConsumer);
+    }
+  }
+}
+function ɵɵdeferPrefetchWhen(rawValue) {
+  const lView = getLView();
+  const bindingIndex = nextBindingIndex();
+  if (bindingUpdated(lView, bindingIndex, rawValue)) {
+    const prevConsumer = setActiveConsumer(null);
+    try {
+      const value = Boolean(rawValue);
+      const tView = lView[TVIEW];
+      const tNode = getSelectedTNode();
+      const tDetails = getTDeferBlockDetails(tView, tNode);
+      if (value === true && tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
+        triggerPrefetching(tDetails, lView, tNode);
+      }
+    } finally {
+      setActiveConsumer(prevConsumer);
+    }
+  }
+}
+function ɵɵdeferOnIdle() {
+  scheduleDelayedTrigger(onIdle);
+}
+function ɵɵdeferPrefetchOnIdle() {
+  scheduleDelayedPrefetching(onIdle);
+}
+function ɵɵdeferOnImmediate() {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  const tView = lView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  if (tDetails.loadingTmplIndex === null) {
+    renderPlaceholder(lView, tNode);
+  }
+  triggerDeferBlock(lView, tNode);
+}
+function ɵɵdeferPrefetchOnImmediate() {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  const tView = lView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
+    triggerResourceLoading(tDetails, lView, tNode);
+  }
+}
+function ɵɵdeferOnTimer(delay2) {
+  scheduleDelayedTrigger(onTimer(delay2));
+}
+function ɵɵdeferPrefetchOnTimer(delay2) {
+  scheduleDelayedPrefetching(onTimer(delay2));
+}
+function ɵɵdeferOnHover(triggerIndex, walkUpTimes) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  renderPlaceholder(lView, tNode);
+  registerDomTrigger(
+    lView,
+    tNode,
+    triggerIndex,
+    walkUpTimes,
+    onHover,
+    () => triggerDeferBlock(lView, tNode),
+    0
+    /* TriggerType.Regular */
+  );
+}
+function ɵɵdeferPrefetchOnHover(triggerIndex, walkUpTimes) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  const tView = lView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
+    registerDomTrigger(
+      lView,
+      tNode,
+      triggerIndex,
+      walkUpTimes,
+      onHover,
+      () => triggerPrefetching(tDetails, lView, tNode),
+      1
+      /* TriggerType.Prefetch */
+    );
+  }
+}
+function ɵɵdeferOnInteraction(triggerIndex, walkUpTimes) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  renderPlaceholder(lView, tNode);
+  registerDomTrigger(
+    lView,
+    tNode,
+    triggerIndex,
+    walkUpTimes,
+    onInteraction,
+    () => triggerDeferBlock(lView, tNode),
+    0
+    /* TriggerType.Regular */
+  );
+}
+function ɵɵdeferPrefetchOnInteraction(triggerIndex, walkUpTimes) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  const tView = lView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
+    registerDomTrigger(
+      lView,
+      tNode,
+      triggerIndex,
+      walkUpTimes,
+      onInteraction,
+      () => triggerPrefetching(tDetails, lView, tNode),
+      1
+      /* TriggerType.Prefetch */
+    );
+  }
+}
+function ɵɵdeferOnViewport(triggerIndex, walkUpTimes) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  renderPlaceholder(lView, tNode);
+  registerDomTrigger(
+    lView,
+    tNode,
+    triggerIndex,
+    walkUpTimes,
+    onViewport,
+    () => triggerDeferBlock(lView, tNode),
+    0
+    /* TriggerType.Regular */
+  );
+}
+function ɵɵdeferPrefetchOnViewport(triggerIndex, walkUpTimes) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  const tView = lView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
+    registerDomTrigger(
+      lView,
+      tNode,
+      triggerIndex,
+      walkUpTimes,
+      onViewport,
+      () => triggerPrefetching(tDetails, lView, tNode),
+      1
+      /* TriggerType.Prefetch */
+    );
+  }
+}
+function scheduleDelayedTrigger(scheduleFn) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  renderPlaceholder(lView, tNode);
+  const cleanupFn = scheduleFn(() => triggerDeferBlock(lView, tNode), lView);
+  const lDetails = getLDeferBlockDetails(lView, tNode);
+  storeTriggerCleanupFn(0, lDetails, cleanupFn);
+}
+function scheduleDelayedPrefetching(scheduleFn) {
+  const lView = getLView();
+  const tNode = getCurrentTNode();
+  const tView = lView[TVIEW];
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
+    const lDetails = getLDeferBlockDetails(lView, tNode);
+    const prefetch = () => triggerPrefetching(tDetails, lView, tNode);
+    const cleanupFn = scheduleFn(prefetch, lView);
+    storeTriggerCleanupFn(1, lDetails, cleanupFn);
+  }
+}
+function renderDeferBlockState(newState, tNode, lContainer, skipTimerScheduling = false) {
+  const hostLView = lContainer[PARENT];
+  const hostTView = hostLView[TVIEW];
+  if (isDestroyed(hostLView))
+    return;
+  ngDevMode && assertTNodeForLView(tNode, hostLView);
+  const lDetails = getLDeferBlockDetails(hostLView, tNode);
+  ngDevMode && assertDefined(lDetails, "Expected a defer block state defined");
+  const currentState = lDetails[DEFER_BLOCK_STATE];
+  if (isValidStateChange(currentState, newState) && isValidStateChange(lDetails[NEXT_DEFER_BLOCK_STATE] ?? -1, newState)) {
+    const tDetails = getTDeferBlockDetails(hostTView, tNode);
+    const needsScheduling = !skipTimerScheduling && (getLoadingBlockAfter(tDetails) !== null || getMinimumDurationForState(tDetails, DeferBlockState.Loading) !== null || getMinimumDurationForState(tDetails, DeferBlockState.Placeholder));
+    if (ngDevMode && needsScheduling) {
+      assertDefined(applyDeferBlockStateWithSchedulingImpl, "Expected scheduling function to be defined");
+    }
+    const applyStateFn = needsScheduling ? applyDeferBlockStateWithSchedulingImpl : applyDeferBlockState;
+    try {
+      applyStateFn(newState, lDetails, lContainer, tNode, hostLView);
+    } catch (error) {
+      handleError(hostLView, error);
+    }
+  }
+}
+function applyDeferBlockState(newState, lDetails, lContainer, tNode, hostLView) {
+  const stateTmplIndex = getTemplateIndexForState(newState, hostLView, tNode);
+  if (stateTmplIndex !== null) {
+    lDetails[DEFER_BLOCK_STATE] = newState;
+    const hostTView = hostLView[TVIEW];
+    const adjustedIndex = stateTmplIndex + HEADER_OFFSET;
+    const tNode2 = getTNode(hostTView, adjustedIndex);
+    const viewIndex = 0;
+    removeLViewFromLContainer(lContainer, viewIndex);
+    const dehydratedView = findMatchingDehydratedView(lContainer, tNode2.tView.ssrId);
+    const embeddedLView = createAndRenderEmbeddedLView(hostLView, tNode2, null, { dehydratedView });
+    addLViewToLContainer(lContainer, embeddedLView, viewIndex, shouldAddViewToDom(tNode2, dehydratedView));
+    markViewDirty(embeddedLView);
+  }
+}
+function applyDeferBlockStateWithScheduling(newState, lDetails, lContainer, tNode, hostLView) {
+  const now = Date.now();
+  const hostTView = hostLView[TVIEW];
+  const tDetails = getTDeferBlockDetails(hostTView, tNode);
+  if (lDetails[STATE_IS_FROZEN_UNTIL] === null || lDetails[STATE_IS_FROZEN_UNTIL] <= now) {
+    lDetails[STATE_IS_FROZEN_UNTIL] = null;
+    const loadingAfter = getLoadingBlockAfter(tDetails);
+    const inLoadingAfterPhase = lDetails[LOADING_AFTER_CLEANUP_FN] !== null;
+    if (newState === DeferBlockState.Loading && loadingAfter !== null && !inLoadingAfterPhase) {
+      lDetails[NEXT_DEFER_BLOCK_STATE] = newState;
+      const cleanupFn = scheduleDeferBlockUpdate(loadingAfter, lDetails, tNode, lContainer, hostLView);
+      lDetails[LOADING_AFTER_CLEANUP_FN] = cleanupFn;
+    } else {
+      if (newState > DeferBlockState.Loading && inLoadingAfterPhase) {
+        lDetails[LOADING_AFTER_CLEANUP_FN]();
+        lDetails[LOADING_AFTER_CLEANUP_FN] = null;
+        lDetails[NEXT_DEFER_BLOCK_STATE] = null;
+      }
+      applyDeferBlockState(newState, lDetails, lContainer, tNode, hostLView);
+      const duration = getMinimumDurationForState(tDetails, newState);
+      if (duration !== null) {
+        lDetails[STATE_IS_FROZEN_UNTIL] = now + duration;
+        scheduleDeferBlockUpdate(duration, lDetails, tNode, lContainer, hostLView);
+      }
+    }
+  } else {
+    lDetails[NEXT_DEFER_BLOCK_STATE] = newState;
+  }
+}
+function scheduleDeferBlockUpdate(timeout2, lDetails, tNode, lContainer, hostLView) {
+  const callback = () => {
+    const nextState = lDetails[NEXT_DEFER_BLOCK_STATE];
+    lDetails[STATE_IS_FROZEN_UNTIL] = null;
+    lDetails[NEXT_DEFER_BLOCK_STATE] = null;
+    if (nextState !== null) {
+      renderDeferBlockState(nextState, tNode, lContainer);
+    }
+  };
+  return scheduleTimerTrigger(timeout2, callback, hostLView);
+}
+function isValidStateChange(currentState, newState) {
+  return currentState < newState;
+}
+function triggerPrefetching(tDetails, lView, tNode) {
+  if (lView[INJECTOR$1] && shouldTriggerDeferBlock(lView[INJECTOR$1])) {
+    triggerResourceLoading(tDetails, lView, tNode);
+  }
+}
+function triggerResourceLoading(tDetails, lView, tNode) {
+  const injector = lView[INJECTOR$1];
+  const tView = lView[TVIEW];
+  if (tDetails.loadingState !== DeferDependenciesLoadingState.NOT_STARTED) {
+    return;
+  }
+  const lDetails = getLDeferBlockDetails(lView, tNode);
+  const primaryBlockTNode = getPrimaryBlockTNode(tView, tDetails);
+  tDetails.loadingState = DeferDependenciesLoadingState.IN_PROGRESS;
+  invokeTriggerCleanupFns(1, lDetails);
+  let dependenciesFn = tDetails.dependencyResolverFn;
+  if (ngDevMode) {
+    const deferDependencyInterceptor = injector.get(DEFER_BLOCK_DEPENDENCY_INTERCEPTOR, null, { optional: true });
+    if (deferDependencyInterceptor) {
+      dependenciesFn = deferDependencyInterceptor.intercept(dependenciesFn);
+    }
+  }
+  if (!dependenciesFn) {
+    tDetails.loadingPromise = Promise.resolve().then(() => {
+      tDetails.loadingPromise = null;
+      tDetails.loadingState = DeferDependenciesLoadingState.COMPLETE;
+    });
+    return;
+  }
+  tDetails.loadingPromise = Promise.allSettled(dependenciesFn()).then((results) => {
+    let failed = false;
+    const directiveDefs = [];
+    const pipeDefs = [];
+    for (const result of results) {
+      if (result.status === "fulfilled") {
+        const dependency = result.value;
+        const directiveDef = getComponentDef(dependency) || getDirectiveDef(dependency);
+        if (directiveDef) {
+          directiveDefs.push(directiveDef);
+        } else {
+          const pipeDef = getPipeDef$1(dependency);
+          if (pipeDef) {
+            pipeDefs.push(pipeDef);
+          }
+        }
+      } else {
+        failed = true;
+        break;
+      }
+    }
+    tDetails.loadingPromise = null;
+    if (failed) {
+      tDetails.loadingState = DeferDependenciesLoadingState.FAILED;
+      if (tDetails.errorTmplIndex === null) {
+        const templateLocation = getTemplateLocationDetails(lView);
+        const error = new RuntimeError(750, ngDevMode && `Loading dependencies for \`@defer\` block failed, but no \`@error\` block was configured${templateLocation}. Consider using the \`@error\` block to render an error state.`);
+        handleError(lView, error);
+      }
+    } else {
+      tDetails.loadingState = DeferDependenciesLoadingState.COMPLETE;
+      const primaryBlockTView = primaryBlockTNode.tView;
+      if (directiveDefs.length > 0) {
+        primaryBlockTView.directiveRegistry = addDepsToRegistry(primaryBlockTView.directiveRegistry, directiveDefs);
+      }
+      if (pipeDefs.length > 0) {
+        primaryBlockTView.pipeRegistry = addDepsToRegistry(primaryBlockTView.pipeRegistry, pipeDefs);
+      }
+    }
+  });
+}
+function renderPlaceholder(lView, tNode) {
+  const lContainer = lView[tNode.index];
+  ngDevMode && assertLContainer(lContainer);
+  renderDeferBlockState(DeferBlockState.Placeholder, tNode, lContainer);
+}
+function renderDeferStateAfterResourceLoading(tDetails, tNode, lContainer) {
+  ngDevMode && assertDefined(tDetails.loadingPromise, "Expected loading Promise to exist on this defer block");
+  tDetails.loadingPromise.then(() => {
+    if (tDetails.loadingState === DeferDependenciesLoadingState.COMPLETE) {
+      ngDevMode && assertDeferredDependenciesLoaded(tDetails);
+      renderDeferBlockState(DeferBlockState.Complete, tNode, lContainer);
+    } else if (tDetails.loadingState === DeferDependenciesLoadingState.FAILED) {
+      renderDeferBlockState(DeferBlockState.Error, tNode, lContainer);
+    }
+  });
+}
+function triggerDeferBlock(lView, tNode) {
+  const tView = lView[TVIEW];
+  const lContainer = lView[tNode.index];
+  const injector = lView[INJECTOR$1];
+  ngDevMode && assertLContainer(lContainer);
+  if (!shouldTriggerDeferBlock(injector))
+    return;
+  const lDetails = getLDeferBlockDetails(lView, tNode);
+  const tDetails = getTDeferBlockDetails(tView, tNode);
+  invokeAllTriggerCleanupFns(lDetails);
+  switch (tDetails.loadingState) {
+    case DeferDependenciesLoadingState.NOT_STARTED:
+      renderDeferBlockState(DeferBlockState.Loading, tNode, lContainer);
+      triggerResourceLoading(tDetails, lView, tNode);
+      if (tDetails.loadingState === DeferDependenciesLoadingState.IN_PROGRESS) {
+        renderDeferStateAfterResourceLoading(tDetails, tNode, lContainer);
+      }
+      break;
+    case DeferDependenciesLoadingState.IN_PROGRESS:
+      renderDeferBlockState(DeferBlockState.Loading, tNode, lContainer);
+      renderDeferStateAfterResourceLoading(tDetails, tNode, lContainer);
+      break;
+    case DeferDependenciesLoadingState.COMPLETE:
+      ngDevMode && assertDeferredDependenciesLoaded(tDetails);
+      renderDeferBlockState(DeferBlockState.Complete, tNode, lContainer);
+      break;
+    case DeferDependenciesLoadingState.FAILED:
+      renderDeferBlockState(DeferBlockState.Error, tNode, lContainer);
+      break;
+    default:
+      if (ngDevMode) {
+        throwError2("Unknown defer block state");
+      }
+  }
 }
 function ɵɵattribute(name, value, sanitizer, namespace) {
   const lView = getLView();
@@ -13889,541 +15837,6 @@ function ɵɵcomponentInstance() {
   ngDevMode && assertDefined(instance, "Expected component instance to be defined");
   return instance;
 }
-var AT_THIS_LOCATION = "<-- AT THIS LOCATION";
-function getFriendlyStringFromTNodeType(tNodeType) {
-  switch (tNodeType) {
-    case 4:
-      return "view container";
-    case 2:
-      return "element";
-    case 8:
-      return "ng-container";
-    case 32:
-      return "icu";
-    case 64:
-      return "i18n";
-    case 16:
-      return "projection";
-    case 1:
-      return "text";
-    default:
-      return "<unknown>";
-  }
-}
-function validateMatchingNode(node, nodeType, tagName, lView, tNode, isViewContainerAnchor = false) {
-  if (!node || (node.nodeType !== nodeType || node.nodeType === Node.ELEMENT_NODE && node.tagName.toLowerCase() !== tagName?.toLowerCase())) {
-    const expectedNode = shortRNodeDescription(nodeType, tagName, null);
-    let header = `During hydration Angular expected ${expectedNode} but `;
-    const hostComponentDef = getDeclarationComponentDef(lView);
-    const componentClassName = hostComponentDef?.type?.name;
-    const expected = `Angular expected this DOM:
-
-${describeExpectedDom(lView, tNode, isViewContainerAnchor)}
-
-`;
-    let actual = "";
-    if (!node) {
-      header += `the node was not found.
-
-`;
-    } else {
-      const actualNode = shortRNodeDescription(node.nodeType, node.tagName ?? null, node.textContent ?? null);
-      header += `found ${actualNode}.
-
-`;
-      actual = `Actual DOM is:
-
-${describeDomFromNode(node)}
-
-`;
-    }
-    const footer = getHydrationErrorFooter(componentClassName);
-    const message = header + expected + actual + getHydrationAttributeNote() + footer;
-    throw new RuntimeError(-500, message);
-  }
-}
-function validateSiblingNodeExists(node) {
-  validateNodeExists(node);
-  if (!node.nextSibling) {
-    const header = "During hydration Angular expected more sibling nodes to be present.\n\n";
-    const actual = `Actual DOM is:
-
-${describeDomFromNode(node)}
-
-`;
-    const footer = getHydrationErrorFooter();
-    const message = header + actual + footer;
-    throw new RuntimeError(-501, message);
-  }
-}
-function validateNodeExists(node, lView = null, tNode = null) {
-  if (!node) {
-    const header = "During hydration, Angular expected an element to be present at this location.\n\n";
-    let expected = "";
-    let footer = "";
-    if (lView !== null && tNode !== null) {
-      expected = `${describeExpectedDom(lView, tNode, false)}
-
-`;
-      footer = getHydrationErrorFooter();
-    }
-    throw new RuntimeError(-502, header + expected + footer);
-  }
-}
-function nodeNotFoundError(lView, tNode) {
-  const header = "During serialization, Angular was unable to find an element in the DOM:\n\n";
-  const expected = `${describeExpectedDom(lView, tNode, false)}
-
-`;
-  const footer = getHydrationErrorFooter();
-  throw new RuntimeError(-502, header + expected + footer);
-}
-function nodeNotFoundAtPathError(host, path) {
-  const header = `During hydration Angular was unable to locate a node using the "${path}" path, starting from the ${describeRNode(host)} node.
-
-`;
-  const footer = getHydrationErrorFooter();
-  throw new RuntimeError(-502, header + footer);
-}
-function unsupportedProjectionOfDomNodes(rNode) {
-  const header = "During serialization, Angular detected DOM nodes that were created outside of Angular context and provided as projectable nodes (likely via `ViewContainerRef.createComponent` or `createComponent` APIs). Hydration is not supported for such cases, consider refactoring the code to avoid this pattern or using `ngSkipHydration` on the host element of the component.\n\n";
-  const actual = `${describeDomFromNode(rNode)}
-
-`;
-  const message = header + actual + getHydrationAttributeNote();
-  return new RuntimeError(-503, message);
-}
-function invalidSkipHydrationHost(rNode) {
-  const header = "The `ngSkipHydration` flag is applied on a node that doesn't act as a component host. Hydration can be skipped only on per-component basis.\n\n";
-  const actual = `${describeDomFromNode(rNode)}
-
-`;
-  const footer = "Please move the `ngSkipHydration` attribute to the component host element.\n\n";
-  const message = header + actual + footer;
-  return new RuntimeError(-504, message);
-}
-function stringifyTNodeAttrs(tNode) {
-  const results = [];
-  if (tNode.attrs) {
-    for (let i = 0; i < tNode.attrs.length; ) {
-      const attrName = tNode.attrs[i++];
-      if (typeof attrName == "number") {
-        break;
-      }
-      const attrValue = tNode.attrs[i++];
-      results.push(`${attrName}="${shorten(attrValue)}"`);
-    }
-  }
-  return results.join(" ");
-}
-var internalAttrs = /* @__PURE__ */ new Set(["ngh", "ng-version", "ng-server-context"]);
-function stringifyRNodeAttrs(rNode) {
-  const results = [];
-  for (let i = 0; i < rNode.attributes.length; i++) {
-    const attr = rNode.attributes[i];
-    if (internalAttrs.has(attr.name))
-      continue;
-    results.push(`${attr.name}="${shorten(attr.value)}"`);
-  }
-  return results.join(" ");
-}
-function describeTNode(tNode, innerContent = "…") {
-  switch (tNode.type) {
-    case 1:
-      const content = tNode.value ? `(${tNode.value})` : "";
-      return `#text${content}`;
-    case 2:
-      const attrs = stringifyTNodeAttrs(tNode);
-      const tag = tNode.value.toLowerCase();
-      return `<${tag}${attrs ? " " + attrs : ""}>${innerContent}</${tag}>`;
-    case 8:
-      return "<!-- ng-container -->";
-    case 4:
-      return "<!-- container -->";
-    default:
-      const typeAsString = getFriendlyStringFromTNodeType(tNode.type);
-      return `#node(${typeAsString})`;
-  }
-}
-function describeRNode(rNode, innerContent = "…") {
-  const node = rNode;
-  switch (node.nodeType) {
-    case Node.ELEMENT_NODE:
-      const tag = node.tagName.toLowerCase();
-      const attrs = stringifyRNodeAttrs(node);
-      return `<${tag}${attrs ? " " + attrs : ""}>${innerContent}</${tag}>`;
-    case Node.TEXT_NODE:
-      const content = node.textContent ? shorten(node.textContent) : "";
-      return `#text${content ? `(${content})` : ""}`;
-    case Node.COMMENT_NODE:
-      return `<!-- ${shorten(node.textContent ?? "")} -->`;
-    default:
-      return `#node(${node.nodeType})`;
-  }
-}
-function describeExpectedDom(lView, tNode, isViewContainerAnchor) {
-  const spacer = "  ";
-  let content = "";
-  if (tNode.prev) {
-    content += spacer + "…\n";
-    content += spacer + describeTNode(tNode.prev) + "\n";
-  } else if (tNode.type && tNode.type & 12) {
-    content += spacer + "…\n";
-  }
-  if (isViewContainerAnchor) {
-    content += spacer + describeTNode(tNode) + "\n";
-    content += spacer + `<!-- container -->  ${AT_THIS_LOCATION}
-`;
-  } else {
-    content += spacer + describeTNode(tNode) + `  ${AT_THIS_LOCATION}
-`;
-  }
-  content += spacer + "…\n";
-  const parentRNode = tNode.type ? getParentRElement(lView[TVIEW], tNode, lView) : null;
-  if (parentRNode) {
-    content = describeRNode(parentRNode, "\n" + content);
-  }
-  return content;
-}
-function describeDomFromNode(node) {
-  const spacer = "  ";
-  let content = "";
-  const currentNode = node;
-  if (currentNode.previousSibling) {
-    content += spacer + "…\n";
-    content += spacer + describeRNode(currentNode.previousSibling) + "\n";
-  }
-  content += spacer + describeRNode(currentNode) + `  ${AT_THIS_LOCATION}
-`;
-  if (node.nextSibling) {
-    content += spacer + "…\n";
-  }
-  if (node.parentNode) {
-    content = describeRNode(currentNode.parentNode, "\n" + content);
-  }
-  return content;
-}
-function shortRNodeDescription(nodeType, tagName, textContent) {
-  switch (nodeType) {
-    case Node.ELEMENT_NODE:
-      return `<${tagName.toLowerCase()}>`;
-    case Node.TEXT_NODE:
-      const content = textContent ? ` (with the "${shorten(textContent)}" content)` : "";
-      return `a text node${content}`;
-    case Node.COMMENT_NODE:
-      return "a comment node";
-    default:
-      return `#node(nodeType=${nodeType})`;
-  }
-}
-function getHydrationErrorFooter(componentClassName) {
-  const componentInfo = componentClassName ? `the "${componentClassName}"` : "corresponding";
-  return `To fix this problem:
-  * check ${componentInfo} component for hydration-related issues
-  * check to see if your template has valid HTML structure
-  * or skip hydration by adding the \`ngSkipHydration\` attribute to its host node in a template
-
-`;
-}
-function getHydrationAttributeNote() {
-  return "Note: attributes are only displayed to better represent the DOM but have no effect on hydration mismatches.\n\n";
-}
-function stripNewlines(input) {
-  return input.replace(/\s+/gm, "");
-}
-function shorten(input, maxLength = 50) {
-  if (!input) {
-    return "";
-  }
-  input = stripNewlines(input);
-  return input.length > maxLength ? `${input.substring(0, maxLength - 1)}…` : input;
-}
-function removeDehydratedViews(lContainer) {
-  const views = lContainer[DEHYDRATED_VIEWS] ?? [];
-  const parentLView = lContainer[PARENT];
-  const renderer = parentLView[RENDERER];
-  for (const view of views) {
-    removeDehydratedView(view, renderer);
-    ngDevMode && ngDevMode.dehydratedViewsRemoved++;
-  }
-  lContainer[DEHYDRATED_VIEWS] = EMPTY_ARRAY;
-}
-function removeDehydratedView(dehydratedView, renderer) {
-  let nodesRemoved = 0;
-  let currentRNode = dehydratedView.firstChild;
-  if (currentRNode) {
-    const numNodes = dehydratedView.data[NUM_ROOT_NODES];
-    while (nodesRemoved < numNodes) {
-      ngDevMode && validateSiblingNodeExists(currentRNode);
-      const nextSibling = currentRNode.nextSibling;
-      nativeRemoveNode(renderer, currentRNode, false);
-      currentRNode = nextSibling;
-      nodesRemoved++;
-    }
-  }
-}
-function cleanupLContainer(lContainer) {
-  removeDehydratedViews(lContainer);
-  for (let i = CONTAINER_HEADER_OFFSET; i < lContainer.length; i++) {
-    cleanupLView(lContainer[i]);
-  }
-}
-function cleanupLView(lView) {
-  const tView = lView[TVIEW];
-  for (let i = HEADER_OFFSET; i < tView.bindingStartIndex; i++) {
-    if (isLContainer(lView[i])) {
-      const lContainer = lView[i];
-      cleanupLContainer(lContainer);
-    } else if (isLView(lView[i])) {
-      cleanupLView(lView[i]);
-    }
-  }
-}
-function cleanupDehydratedViews(appRef) {
-  const viewRefs = appRef._views;
-  for (const viewRef of viewRefs) {
-    const lNode = getLNodeForHydration(viewRef);
-    if (lNode !== null && lNode[HOST] !== null) {
-      if (isLView(lNode)) {
-        cleanupLView(lNode);
-      } else {
-        const componentLView = lNode[HOST];
-        cleanupLView(componentLView);
-        cleanupLContainer(lNode);
-      }
-      ngDevMode && ngDevMode.dehydratedViewsCleanupRuns++;
-    }
-  }
-}
-var REF_EXTRACTOR_REGEXP = new RegExp(`^(\\d+)*(${REFERENCE_NODE_BODY}|${REFERENCE_NODE_HOST})*(.*)`);
-function compressNodeLocation(referenceNode, path) {
-  const result = [referenceNode];
-  for (const segment of path) {
-    const lastIdx = result.length - 1;
-    if (lastIdx > 0 && result[lastIdx - 1] === segment) {
-      const value = result[lastIdx] || 1;
-      result[lastIdx] = value + 1;
-    } else {
-      result.push(segment, "");
-    }
-  }
-  return result.join("");
-}
-function decompressNodeLocation(path) {
-  const matches = path.match(REF_EXTRACTOR_REGEXP);
-  const [_, refNodeId, refNodeName, rest] = matches;
-  const ref = refNodeId ? parseInt(refNodeId, 10) : refNodeName;
-  const steps = [];
-  for (const [_2, step, count2] of rest.matchAll(/(f|n)(\d*)/g)) {
-    const repeat2 = parseInt(count2, 10) || 1;
-    steps.push(step, repeat2);
-  }
-  return [ref, ...steps];
-}
-function isFirstElementInNgContainer(tNode) {
-  return !tNode.prev && tNode.parent?.type === 8;
-}
-function getNoOffsetIndex(tNode) {
-  return tNode.index - HEADER_OFFSET;
-}
-function isDisconnectedNode(tNode, lView) {
-  return !(tNode.type & 16) && !!lView[tNode.index] && !unwrapRNode(lView[tNode.index])?.isConnected;
-}
-function locateNextRNode(hydrationInfo, tView, lView, tNode) {
-  let native = null;
-  const noOffsetIndex = getNoOffsetIndex(tNode);
-  const nodes = hydrationInfo.data[NODES];
-  if (nodes?.[noOffsetIndex]) {
-    native = locateRNodeByPath(nodes[noOffsetIndex], lView);
-  } else if (tView.firstChild === tNode) {
-    native = hydrationInfo.firstChild;
-  } else {
-    const previousTNodeParent = tNode.prev === null;
-    const previousTNode = tNode.prev ?? tNode.parent;
-    ngDevMode && assertDefined(previousTNode, "Unexpected state: current TNode does not have a connection to the previous node or a parent node.");
-    if (isFirstElementInNgContainer(tNode)) {
-      const noOffsetParentIndex = getNoOffsetIndex(tNode.parent);
-      native = getSegmentHead(hydrationInfo, noOffsetParentIndex);
-    } else {
-      let previousRElement = getNativeByTNode(previousTNode, lView);
-      if (previousTNodeParent) {
-        native = previousRElement.firstChild;
-      } else {
-        const noOffsetPrevSiblingIndex = getNoOffsetIndex(previousTNode);
-        const segmentHead = getSegmentHead(hydrationInfo, noOffsetPrevSiblingIndex);
-        if (previousTNode.type === 2 && segmentHead) {
-          const numRootNodesToSkip = calcSerializedContainerSize(hydrationInfo, noOffsetPrevSiblingIndex);
-          const nodesToSkip = numRootNodesToSkip + 1;
-          native = siblingAfter(nodesToSkip, segmentHead);
-        } else {
-          native = previousRElement.nextSibling;
-        }
-      }
-    }
-  }
-  return native;
-}
-function siblingAfter(skip2, from2) {
-  let currentNode = from2;
-  for (let i = 0; i < skip2; i++) {
-    ngDevMode && validateSiblingNodeExists(currentNode);
-    currentNode = currentNode.nextSibling;
-  }
-  return currentNode;
-}
-function stringifyNavigationInstructions(instructions) {
-  const container = [];
-  for (let i = 0; i < instructions.length; i += 2) {
-    const step = instructions[i];
-    const repeat2 = instructions[i + 1];
-    for (let r = 0; r < repeat2; r++) {
-      container.push(step === NodeNavigationStep.FirstChild ? "firstChild" : "nextSibling");
-    }
-  }
-  return container.join(".");
-}
-function navigateToNode(from2, instructions) {
-  let node = from2;
-  for (let i = 0; i < instructions.length; i += 2) {
-    const step = instructions[i];
-    const repeat2 = instructions[i + 1];
-    for (let r = 0; r < repeat2; r++) {
-      if (ngDevMode && !node) {
-        throw nodeNotFoundAtPathError(from2, stringifyNavigationInstructions(instructions));
-      }
-      switch (step) {
-        case NodeNavigationStep.FirstChild:
-          node = node.firstChild;
-          break;
-        case NodeNavigationStep.NextSibling:
-          node = node.nextSibling;
-          break;
-      }
-    }
-  }
-  if (ngDevMode && !node) {
-    throw nodeNotFoundAtPathError(from2, stringifyNavigationInstructions(instructions));
-  }
-  return node;
-}
-function locateRNodeByPath(path, lView) {
-  const [referenceNode, ...navigationInstructions] = decompressNodeLocation(path);
-  let ref;
-  if (referenceNode === REFERENCE_NODE_HOST) {
-    ref = lView[DECLARATION_COMPONENT_VIEW][HOST];
-  } else if (referenceNode === REFERENCE_NODE_BODY) {
-    ref = ɵɵresolveBody(lView[DECLARATION_COMPONENT_VIEW][HOST]);
-  } else {
-    const parentElementId = Number(referenceNode);
-    ref = unwrapRNode(lView[parentElementId + HEADER_OFFSET]);
-  }
-  return navigateToNode(ref, navigationInstructions);
-}
-function navigateBetween(start, finish) {
-  if (start === finish) {
-    return [];
-  } else if (start.parentElement == null || finish.parentElement == null) {
-    return null;
-  } else if (start.parentElement === finish.parentElement) {
-    return navigateBetweenSiblings(start, finish);
-  } else {
-    const parent = finish.parentElement;
-    const parentPath = navigateBetween(start, parent);
-    const childPath = navigateBetween(parent.firstChild, finish);
-    if (!parentPath || !childPath)
-      return null;
-    return [
-      // First navigate to `finish`'s parent
-      ...parentPath,
-      // Then to its first child.
-      NodeNavigationStep.FirstChild,
-      // And finally from that node to `finish` (maybe a no-op if we're already there).
-      ...childPath
-    ];
-  }
-}
-function navigateBetweenSiblings(start, finish) {
-  const nav = [];
-  let node = null;
-  for (node = start; node != null && node !== finish; node = node.nextSibling) {
-    nav.push(NodeNavigationStep.NextSibling);
-  }
-  return node == null ? null : nav;
-}
-function calcPathBetween(from2, to, fromNodeName) {
-  const path = navigateBetween(from2, to);
-  return path === null ? null : compressNodeLocation(fromNodeName, path);
-}
-function calcPathForNode(tNode, lView) {
-  let parentTNode = tNode.parent;
-  let parentIndex;
-  let parentRNode;
-  let referenceNodeName;
-  while (parentTNode !== null && isDisconnectedNode(parentTNode, lView)) {
-    parentTNode = parentTNode.parent;
-  }
-  if (parentTNode === null || !(parentTNode.type & 3)) {
-    parentIndex = referenceNodeName = REFERENCE_NODE_HOST;
-    parentRNode = lView[DECLARATION_COMPONENT_VIEW][HOST];
-  } else {
-    parentIndex = parentTNode.index;
-    parentRNode = unwrapRNode(lView[parentIndex]);
-    referenceNodeName = renderStringify(parentIndex - HEADER_OFFSET);
-  }
-  let rNode = unwrapRNode(lView[tNode.index]);
-  if (tNode.type & 12) {
-    const firstRNode = getFirstNativeNode(lView, tNode);
-    if (firstRNode) {
-      rNode = firstRNode;
-    }
-  }
-  let path = calcPathBetween(parentRNode, rNode, referenceNodeName);
-  if (path === null && parentRNode !== rNode) {
-    const body = parentRNode.ownerDocument.body;
-    path = calcPathBetween(body, rNode, REFERENCE_NODE_BODY);
-    if (path === null) {
-      throw nodeNotFoundError(lView, tNode);
-    }
-  }
-  return path;
-}
-function locateDehydratedViewsInContainer(currentRNode, serializedViews) {
-  const dehydratedViews = [];
-  for (const serializedView of serializedViews) {
-    for (let i = 0; i < (serializedView[MULTIPLIER] ?? 1); i++) {
-      const view = {
-        data: serializedView,
-        firstChild: null
-      };
-      if (serializedView[NUM_ROOT_NODES] > 0) {
-        view.firstChild = currentRNode;
-        currentRNode = siblingAfter(serializedView[NUM_ROOT_NODES], currentRNode);
-      }
-      dehydratedViews.push(view);
-    }
-  }
-  return [currentRNode, dehydratedViews];
-}
-var _findMatchingDehydratedViewImpl = () => null;
-function findMatchingDehydratedViewImpl(lContainer, template) {
-  const views = lContainer[DEHYDRATED_VIEWS];
-  if (!template || views === null || views.length === 0) {
-    return null;
-  }
-  const view = views[0];
-  if (view.data[TEMPLATE_ID] === template) {
-    return views.shift();
-  } else {
-    removeDehydratedViews(lContainer);
-    return null;
-  }
-}
-function enableFindMatchingDehydratedViewImpl() {
-  _findMatchingDehydratedViewImpl = findMatchingDehydratedViewImpl;
-}
-function findMatchingDehydratedView(lContainer, template) {
-  return _findMatchingDehydratedViewImpl(lContainer, template);
-}
 var LiveCollection = class {
   destroy(item) {
   }
@@ -14643,385 +16056,6 @@ var UniqueValueMultiKeyMap = class {
     }
   }
 };
-function createAndRenderEmbeddedLView(declarationLView, templateTNode, context2, options) {
-  const embeddedTView = templateTNode.tView;
-  ngDevMode && assertDefined(embeddedTView, "TView must be defined for a template node.");
-  ngDevMode && assertTNodeForLView(templateTNode, declarationLView);
-  const isSignalView = declarationLView[FLAGS] & 4096;
-  const viewFlags = isSignalView ? 4096 : 16;
-  const embeddedLView = createLView(declarationLView, embeddedTView, context2, viewFlags, null, templateTNode, null, null, null, options?.injector ?? null, options?.dehydratedView ?? null);
-  const declarationLContainer = declarationLView[templateTNode.index];
-  ngDevMode && assertLContainer(declarationLContainer);
-  embeddedLView[DECLARATION_LCONTAINER] = declarationLContainer;
-  const declarationViewLQueries = declarationLView[QUERIES];
-  if (declarationViewLQueries !== null) {
-    embeddedLView[QUERIES] = declarationViewLQueries.createEmbeddedView(embeddedTView);
-  }
-  renderView(embeddedTView, embeddedLView, context2);
-  return embeddedLView;
-}
-function getLViewFromLContainer(lContainer, index) {
-  const adjustedIndex = CONTAINER_HEADER_OFFSET + index;
-  if (adjustedIndex < lContainer.length) {
-    const lView = lContainer[adjustedIndex];
-    ngDevMode && assertLView(lView);
-    return lView;
-  }
-  return void 0;
-}
-function shouldAddViewToDom(tNode, dehydratedView) {
-  return !dehydratedView || dehydratedView.firstChild === null || hasInSkipHydrationBlockFlag(tNode);
-}
-function addLViewToLContainer(lContainer, lView, index, addToDOM = true) {
-  const tView = lView[TVIEW];
-  insertView(tView, lView, lContainer, index);
-  if (addToDOM) {
-    const beforeNode = getBeforeNodeForView(index, lContainer);
-    const renderer = lView[RENDERER];
-    const parentRNode = nativeParentNode(renderer, lContainer[NATIVE]);
-    if (parentRNode !== null) {
-      addViewToDOM(tView, lContainer[T_HOST], renderer, lView, parentRNode, beforeNode);
-    }
-  }
-  const hydrationInfo = lView[HYDRATION];
-  if (hydrationInfo !== null && hydrationInfo.firstChild !== null) {
-    hydrationInfo.firstChild = null;
-  }
-}
-function removeLViewFromLContainer(lContainer, index) {
-  const lView = detachView(lContainer, index);
-  if (lView !== void 0) {
-    destroyLView(lView[TVIEW], lView);
-  }
-  return lView;
-}
-var _ViewContainerRef = class _ViewContainerRef {
-};
-_ViewContainerRef.__NG_ELEMENT_ID__ = injectViewContainerRef;
-var ViewContainerRef = _ViewContainerRef;
-function injectViewContainerRef() {
-  const previousTNode = getCurrentTNode();
-  return createContainerRef(previousTNode, getLView());
-}
-var VE_ViewContainerRef = ViewContainerRef;
-var R3ViewContainerRef = class ViewContainerRef2 extends VE_ViewContainerRef {
-  constructor(_lContainer, _hostTNode, _hostLView) {
-    super();
-    this._lContainer = _lContainer;
-    this._hostTNode = _hostTNode;
-    this._hostLView = _hostLView;
-  }
-  get element() {
-    return createElementRef(this._hostTNode, this._hostLView);
-  }
-  get injector() {
-    return new NodeInjector(this._hostTNode, this._hostLView);
-  }
-  /** @deprecated No replacement */
-  get parentInjector() {
-    const parentLocation = getParentInjectorLocation(this._hostTNode, this._hostLView);
-    if (hasParentInjector(parentLocation)) {
-      const parentView = getParentInjectorView(parentLocation, this._hostLView);
-      const injectorIndex = getParentInjectorIndex(parentLocation);
-      ngDevMode && assertNodeInjector(parentView, injectorIndex);
-      const parentTNode = parentView[TVIEW].data[
-        injectorIndex + 8
-        /* NodeInjectorOffset.TNODE */
-      ];
-      return new NodeInjector(parentTNode, parentView);
-    } else {
-      return new NodeInjector(null, this._hostLView);
-    }
-  }
-  clear() {
-    while (this.length > 0) {
-      this.remove(this.length - 1);
-    }
-  }
-  get(index) {
-    const viewRefs = getViewRefs(this._lContainer);
-    return viewRefs !== null && viewRefs[index] || null;
-  }
-  get length() {
-    return this._lContainer.length - CONTAINER_HEADER_OFFSET;
-  }
-  createEmbeddedView(templateRef, context2, indexOrOptions) {
-    let index;
-    let injector;
-    if (typeof indexOrOptions === "number") {
-      index = indexOrOptions;
-    } else if (indexOrOptions != null) {
-      index = indexOrOptions.index;
-      injector = indexOrOptions.injector;
-    }
-    const dehydratedView = findMatchingDehydratedView(this._lContainer, templateRef.ssrId);
-    const viewRef = templateRef.createEmbeddedViewImpl(context2 || {}, injector, dehydratedView);
-    this.insertImpl(viewRef, index, shouldAddViewToDom(this._hostTNode, dehydratedView));
-    return viewRef;
-  }
-  createComponent(componentFactoryOrType, indexOrOptions, injector, projectableNodes, environmentInjector) {
-    const isComponentFactory = componentFactoryOrType && !isType(componentFactoryOrType);
-    let index;
-    if (isComponentFactory) {
-      if (ngDevMode) {
-        assertEqual(typeof indexOrOptions !== "object", true, "It looks like Component factory was provided as the first argument and an options object as the second argument. This combination of arguments is incompatible. You can either change the first argument to provide Component type or change the second argument to be a number (representing an index at which to insert the new component's host view into this container)");
-      }
-      index = indexOrOptions;
-    } else {
-      if (ngDevMode) {
-        assertDefined(getComponentDef(componentFactoryOrType), `Provided Component class doesn't contain Component definition. Please check whether provided class has @Component decorator.`);
-        assertEqual(typeof indexOrOptions !== "number", true, "It looks like Component type was provided as the first argument and a number (representing an index at which to insert the new component's host view into this container as the second argument. This combination of arguments is incompatible. Please use an object as the second argument instead.");
-      }
-      const options = indexOrOptions || {};
-      if (ngDevMode && options.environmentInjector && options.ngModuleRef) {
-        throwError2(`Cannot pass both environmentInjector and ngModuleRef options to createComponent().`);
-      }
-      index = options.index;
-      injector = options.injector;
-      projectableNodes = options.projectableNodes;
-      environmentInjector = options.environmentInjector || options.ngModuleRef;
-    }
-    const componentFactory = isComponentFactory ? componentFactoryOrType : new ComponentFactory(getComponentDef(componentFactoryOrType));
-    const contextInjector = injector || this.parentInjector;
-    if (!environmentInjector && componentFactory.ngModule == null) {
-      const _injector = isComponentFactory ? contextInjector : this.parentInjector;
-      const result = _injector.get(EnvironmentInjector, null);
-      if (result) {
-        environmentInjector = result;
-      }
-    }
-    const componentDef = getComponentDef(componentFactory.componentType ?? {});
-    const dehydratedView = findMatchingDehydratedView(this._lContainer, componentDef?.id ?? null);
-    const rNode = dehydratedView?.firstChild ?? null;
-    const componentRef = componentFactory.create(contextInjector, projectableNodes, rNode, environmentInjector);
-    this.insertImpl(componentRef.hostView, index, shouldAddViewToDom(this._hostTNode, dehydratedView));
-    return componentRef;
-  }
-  insert(viewRef, index) {
-    return this.insertImpl(viewRef, index, true);
-  }
-  insertImpl(viewRef, index, addToDOM) {
-    const lView = viewRef._lView;
-    if (ngDevMode && viewRef.destroyed) {
-      throw new Error("Cannot insert a destroyed View in a ViewContainer!");
-    }
-    if (viewAttachedToContainer(lView)) {
-      const prevIdx = this.indexOf(viewRef);
-      if (prevIdx !== -1) {
-        this.detach(prevIdx);
-      } else {
-        const prevLContainer = lView[PARENT];
-        ngDevMode && assertEqual(isLContainer(prevLContainer), true, "An attached view should have its PARENT point to a container.");
-        const prevVCRef = new R3ViewContainerRef(prevLContainer, prevLContainer[T_HOST], prevLContainer[PARENT]);
-        prevVCRef.detach(prevVCRef.indexOf(viewRef));
-      }
-    }
-    const adjustedIdx = this._adjustIndex(index);
-    const lContainer = this._lContainer;
-    addLViewToLContainer(lContainer, lView, adjustedIdx, addToDOM);
-    viewRef.attachToViewContainerRef();
-    addToArray(getOrCreateViewRefs(lContainer), adjustedIdx, viewRef);
-    return viewRef;
-  }
-  move(viewRef, newIndex) {
-    if (ngDevMode && viewRef.destroyed) {
-      throw new Error("Cannot move a destroyed View in a ViewContainer!");
-    }
-    return this.insert(viewRef, newIndex);
-  }
-  indexOf(viewRef) {
-    const viewRefsArr = getViewRefs(this._lContainer);
-    return viewRefsArr !== null ? viewRefsArr.indexOf(viewRef) : -1;
-  }
-  remove(index) {
-    const adjustedIdx = this._adjustIndex(index, -1);
-    const detachedView = detachView(this._lContainer, adjustedIdx);
-    if (detachedView) {
-      removeFromArray(getOrCreateViewRefs(this._lContainer), adjustedIdx);
-      destroyLView(detachedView[TVIEW], detachedView);
-    }
-  }
-  detach(index) {
-    const adjustedIdx = this._adjustIndex(index, -1);
-    const view = detachView(this._lContainer, adjustedIdx);
-    const wasDetached = view && removeFromArray(getOrCreateViewRefs(this._lContainer), adjustedIdx) != null;
-    return wasDetached ? new ViewRef$1(view) : null;
-  }
-  _adjustIndex(index, shift = 0) {
-    if (index == null) {
-      return this.length + shift;
-    }
-    if (ngDevMode) {
-      assertGreaterThan(index, -1, `ViewRef index must be positive, got ${index}`);
-      assertLessThan(index, this.length + 1 + shift, "index");
-    }
-    return index;
-  }
-};
-function getViewRefs(lContainer) {
-  return lContainer[VIEW_REFS];
-}
-function getOrCreateViewRefs(lContainer) {
-  return lContainer[VIEW_REFS] || (lContainer[VIEW_REFS] = []);
-}
-function createContainerRef(hostTNode, hostLView) {
-  ngDevMode && assertTNodeType(
-    hostTNode,
-    12 | 3
-    /* TNodeType.AnyRNode */
-  );
-  let lContainer;
-  const slotValue = hostLView[hostTNode.index];
-  if (isLContainer(slotValue)) {
-    lContainer = slotValue;
-  } else {
-    lContainer = createLContainer(slotValue, hostLView, null, hostTNode);
-    hostLView[hostTNode.index] = lContainer;
-    addToViewTree(hostLView, lContainer);
-  }
-  _locateOrCreateAnchorNode(lContainer, hostLView, hostTNode, slotValue);
-  return new R3ViewContainerRef(lContainer, hostTNode, hostLView);
-}
-function insertAnchorNode(hostLView, hostTNode) {
-  const renderer = hostLView[RENDERER];
-  ngDevMode && ngDevMode.rendererCreateComment++;
-  const commentNode = renderer.createComment(ngDevMode ? "container" : "");
-  const hostNative = getNativeByTNode(hostTNode, hostLView);
-  const parentOfHostNative = nativeParentNode(renderer, hostNative);
-  nativeInsertBefore(renderer, parentOfHostNative, commentNode, nativeNextSibling(renderer, hostNative), false);
-  return commentNode;
-}
-var _locateOrCreateAnchorNode = createAnchorNode;
-var _populateDehydratedViewsInLContainer = () => false;
-function populateDehydratedViewsInLContainer(lContainer, tNode, hostLView) {
-  return _populateDehydratedViewsInLContainer(lContainer, tNode, hostLView);
-}
-function createAnchorNode(lContainer, hostLView, hostTNode, slotValue) {
-  if (lContainer[NATIVE])
-    return;
-  let commentNode;
-  if (hostTNode.type & 8) {
-    commentNode = unwrapRNode(slotValue);
-  } else {
-    commentNode = insertAnchorNode(hostLView, hostTNode);
-  }
-  lContainer[NATIVE] = commentNode;
-}
-function populateDehydratedViewsInLContainerImpl(lContainer, tNode, hostLView) {
-  if (lContainer[NATIVE] && lContainer[DEHYDRATED_VIEWS]) {
-    return true;
-  }
-  const hydrationInfo = hostLView[HYDRATION];
-  const noOffsetIndex = tNode.index - HEADER_OFFSET;
-  const isNodeCreationMode = !hydrationInfo || isInSkipHydrationBlock(tNode) || isDisconnectedNode$1(hydrationInfo, noOffsetIndex);
-  if (isNodeCreationMode) {
-    return false;
-  }
-  const currentRNode = getSegmentHead(hydrationInfo, noOffsetIndex);
-  const serializedViews = hydrationInfo.data[CONTAINERS]?.[noOffsetIndex];
-  ngDevMode && assertDefined(serializedViews, "Unexpected state: no hydration info available for a given TNode, which represents a view container.");
-  const [commentNode, dehydratedViews] = locateDehydratedViewsInContainer(currentRNode, serializedViews);
-  if (ngDevMode) {
-    validateMatchingNode(commentNode, Node.COMMENT_NODE, null, hostLView, tNode, true);
-    markRNodeAsClaimedByHydration(commentNode, false);
-  }
-  lContainer[NATIVE] = commentNode;
-  lContainer[DEHYDRATED_VIEWS] = dehydratedViews;
-  return true;
-}
-function locateOrCreateAnchorNode(lContainer, hostLView, hostTNode, slotValue) {
-  if (!_populateDehydratedViewsInLContainer(lContainer, hostTNode, hostLView)) {
-    createAnchorNode(lContainer, hostLView, hostTNode, slotValue);
-  }
-}
-function enableLocateOrCreateContainerRefImpl() {
-  _locateOrCreateAnchorNode = locateOrCreateAnchorNode;
-  _populateDehydratedViewsInLContainer = populateDehydratedViewsInLContainerImpl;
-}
-function templateFirstCreatePass(index, tView, lView, templateFn, decls, vars, tagName, attrsIndex, localRefsIndex) {
-  ngDevMode && assertFirstCreatePass(tView);
-  ngDevMode && ngDevMode.firstCreatePass++;
-  const tViewConsts = tView.consts;
-  const tNode = getOrCreateTNode(tView, index, 4, tagName || null, getConstant(tViewConsts, attrsIndex));
-  resolveDirectives(tView, lView, tNode, getConstant(tViewConsts, localRefsIndex));
-  registerPostOrderHooks(tView, tNode);
-  const embeddedTView = tNode.tView = createTView(
-    2,
-    tNode,
-    templateFn,
-    decls,
-    vars,
-    tView.directiveRegistry,
-    tView.pipeRegistry,
-    null,
-    tView.schemas,
-    tViewConsts,
-    null
-    /* ssrId */
-  );
-  if (tView.queries !== null) {
-    tView.queries.template(tView, tNode);
-    embeddedTView.queries = tView.queries.embeddedTView(tNode);
-  }
-  return tNode;
-}
-function ɵɵtemplate(index, templateFn, decls, vars, tagName, attrsIndex, localRefsIndex, localRefExtractor) {
-  const lView = getLView();
-  const tView = getTView();
-  const adjustedIndex = index + HEADER_OFFSET;
-  const tNode = tView.firstCreatePass ? templateFirstCreatePass(adjustedIndex, tView, lView, templateFn, decls, vars, tagName, attrsIndex, localRefsIndex) : tView.data[adjustedIndex];
-  setCurrentTNode(tNode, false);
-  const comment = _locateOrCreateContainerAnchor(tView, lView, tNode, index);
-  if (wasLastNodeCreated()) {
-    appendChild(tView, lView, comment, tNode);
-  }
-  attachPatchData(comment, lView);
-  const lContainer = createLContainer(comment, lView, comment, tNode);
-  lView[adjustedIndex] = lContainer;
-  addToViewTree(lView, lContainer);
-  populateDehydratedViewsInLContainer(lContainer, tNode, lView);
-  if (isDirectiveHost(tNode)) {
-    createDirectivesInstances(tView, lView, tNode);
-  }
-  if (localRefsIndex != null) {
-    saveResolvedLocalsInData(lView, tNode, localRefExtractor);
-  }
-  return ɵɵtemplate;
-}
-var _locateOrCreateContainerAnchor = createContainerAnchorImpl;
-function createContainerAnchorImpl(tView, lView, tNode, index) {
-  lastNodeWasCreated(true);
-  return lView[RENDERER].createComment(ngDevMode ? "container" : "");
-}
-function locateOrCreateContainerAnchorImpl(tView, lView, tNode, index) {
-  const hydrationInfo = lView[HYDRATION];
-  const isNodeCreationMode = !hydrationInfo || isInSkipHydrationBlock$1() || isDisconnectedNode$1(hydrationInfo, index);
-  lastNodeWasCreated(isNodeCreationMode);
-  if (isNodeCreationMode) {
-    return createContainerAnchorImpl(tView, lView, tNode, index);
-  }
-  const ssrId = hydrationInfo.data[TEMPLATES]?.[index] ?? null;
-  if (ssrId !== null && tNode.tView !== null) {
-    if (tNode.tView.ssrId === null) {
-      tNode.tView.ssrId = ssrId;
-    } else {
-      ngDevMode && assertEqual(tNode.tView.ssrId, ssrId, "Unexpected value of the `ssrId` for this TView");
-    }
-  }
-  const currentRNode = locateNextRNode(hydrationInfo, tView, lView, tNode);
-  ngDevMode && validateNodeExists(currentRNode, lView, tNode);
-  setSegmentHead(hydrationInfo, index, currentRNode);
-  const viewContainerSize = calcSerializedContainerSize(hydrationInfo, index);
-  const comment = siblingAfter(viewContainerSize, currentRNode);
-  if (ngDevMode) {
-    validateMatchingNode(comment, Node.COMMENT_NODE, null, lView, tNode);
-    markRNodeAsClaimedByHydration(comment);
-  }
-  return comment;
-}
-function enableLocateOrCreateContainerAnchorImpl() {
-  _locateOrCreateContainerAnchor = locateOrCreateContainerAnchorImpl;
-}
 function ɵɵconditional(containerIndex, matchingTemplateIndex, value) {
   performanceMarkFeature("NgControlFlow");
   const hostLView = getLView();
@@ -15071,7 +16105,7 @@ var RepeaterMetadata = class {
     this.liveCollection = liveCollection;
   }
 };
-function ɵɵrepeaterCreate(index, templateFn, decls, vars, tagName, attrsIndex, trackByFn, trackByUsesComponentInstance, emptyTemplateFn, emptyDecls, emptyVars) {
+function ɵɵrepeaterCreate(index, templateFn, decls, vars, tagName, attrsIndex, trackByFn, trackByUsesComponentInstance, emptyTemplateFn, emptyDecls, emptyVars, emptyTagName, emptyAttrsIndex) {
   performanceMarkFeature("NgControlFlow");
   const hasEmptyBlock = emptyTemplateFn !== void 0;
   const hostLView = getLView();
@@ -15086,7 +16120,7 @@ function ɵɵrepeaterCreate(index, templateFn, decls, vars, tagName, attrsIndex,
   if (hasEmptyBlock) {
     ngDevMode && assertDefined(emptyDecls, "Missing number of declarations for the empty repeater block.");
     ngDevMode && assertDefined(emptyVars, "Missing number of bindings for the empty repeater block.");
-    ɵɵtemplate(index + 2, emptyTemplateFn, emptyDecls, emptyVars);
+    ɵɵtemplate(index + 2, emptyTemplateFn, emptyDecls, emptyVars, emptyTagName, emptyAttrsIndex);
   }
 }
 var LiveCollectionLContainerImpl = class extends LiveCollection {
@@ -15194,935 +16228,6 @@ function getExistingTNode(tView, index) {
   const tNode = getTNode(tView, index);
   ngDevMode && assertTNode(tNode);
   return tNode;
-}
-var DeferDependenciesLoadingState;
-(function(DeferDependenciesLoadingState2) {
-  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["NOT_STARTED"] = 0] = "NOT_STARTED";
-  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["IN_PROGRESS"] = 1] = "IN_PROGRESS";
-  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["COMPLETE"] = 2] = "COMPLETE";
-  DeferDependenciesLoadingState2[DeferDependenciesLoadingState2["FAILED"] = 3] = "FAILED";
-})(DeferDependenciesLoadingState || (DeferDependenciesLoadingState = {}));
-var MINIMUM_SLOT = 0;
-var LOADING_AFTER_SLOT = 1;
-var DeferBlockState;
-(function(DeferBlockState2) {
-  DeferBlockState2[DeferBlockState2["Placeholder"] = 0] = "Placeholder";
-  DeferBlockState2[DeferBlockState2["Loading"] = 1] = "Loading";
-  DeferBlockState2[DeferBlockState2["Complete"] = 2] = "Complete";
-  DeferBlockState2[DeferBlockState2["Error"] = 3] = "Error";
-})(DeferBlockState || (DeferBlockState = {}));
-var DeferBlockInternalState;
-(function(DeferBlockInternalState2) {
-  DeferBlockInternalState2[DeferBlockInternalState2["Initial"] = -1] = "Initial";
-})(DeferBlockInternalState || (DeferBlockInternalState = {}));
-var NEXT_DEFER_BLOCK_STATE = 0;
-var DEFER_BLOCK_STATE = 1;
-var STATE_IS_FROZEN_UNTIL = 2;
-var LOADING_AFTER_CLEANUP_FN = 3;
-var TRIGGER_CLEANUP_FNS = 4;
-var PREFETCH_TRIGGER_CLEANUP_FNS = 5;
-var DeferBlockBehavior;
-(function(DeferBlockBehavior2) {
-  DeferBlockBehavior2[DeferBlockBehavior2["Manual"] = 0] = "Manual";
-  DeferBlockBehavior2[DeferBlockBehavior2["Playthrough"] = 1] = "Playthrough";
-})(DeferBlockBehavior || (DeferBlockBehavior = {}));
-function storeTriggerCleanupFn(type, lDetails, cleanupFn) {
-  const key = type === 1 ? PREFETCH_TRIGGER_CLEANUP_FNS : TRIGGER_CLEANUP_FNS;
-  if (lDetails[key] === null) {
-    lDetails[key] = [];
-  }
-  lDetails[key].push(cleanupFn);
-}
-function invokeTriggerCleanupFns(type, lDetails) {
-  const key = type === 1 ? PREFETCH_TRIGGER_CLEANUP_FNS : TRIGGER_CLEANUP_FNS;
-  const cleanupFns = lDetails[key];
-  if (cleanupFns !== null) {
-    for (const cleanupFn of cleanupFns) {
-      cleanupFn();
-    }
-    lDetails[key] = null;
-  }
-}
-function invokeAllTriggerCleanupFns(lDetails) {
-  invokeTriggerCleanupFns(1, lDetails);
-  invokeTriggerCleanupFns(0, lDetails);
-}
-function getDeferBlockDataIndex(deferBlockIndex) {
-  return deferBlockIndex + 1;
-}
-function getLDeferBlockDetails(lView, tNode) {
-  const tView = lView[TVIEW];
-  const slotIndex = getDeferBlockDataIndex(tNode.index);
-  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
-  return lView[slotIndex];
-}
-function setLDeferBlockDetails(lView, deferBlockIndex, lDetails) {
-  const tView = lView[TVIEW];
-  const slotIndex = getDeferBlockDataIndex(deferBlockIndex);
-  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
-  lView[slotIndex] = lDetails;
-}
-function getTDeferBlockDetails(tView, tNode) {
-  const slotIndex = getDeferBlockDataIndex(tNode.index);
-  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
-  return tView.data[slotIndex];
-}
-function setTDeferBlockDetails(tView, deferBlockIndex, deferBlockConfig) {
-  const slotIndex = getDeferBlockDataIndex(deferBlockIndex);
-  ngDevMode && assertIndexInDeclRange(tView, slotIndex);
-  tView.data[slotIndex] = deferBlockConfig;
-}
-function getTemplateIndexForState(newState, hostLView, tNode) {
-  const tView = hostLView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  switch (newState) {
-    case DeferBlockState.Complete:
-      return tDetails.primaryTmplIndex;
-    case DeferBlockState.Loading:
-      return tDetails.loadingTmplIndex;
-    case DeferBlockState.Error:
-      return tDetails.errorTmplIndex;
-    case DeferBlockState.Placeholder:
-      return tDetails.placeholderTmplIndex;
-    default:
-      ngDevMode && throwError2(`Unexpected defer block state: ${newState}`);
-      return null;
-  }
-}
-function getMinimumDurationForState(tDetails, currentState) {
-  if (currentState === DeferBlockState.Placeholder) {
-    return tDetails.placeholderBlockConfig?.[MINIMUM_SLOT] ?? null;
-  } else if (currentState === DeferBlockState.Loading) {
-    return tDetails.loadingBlockConfig?.[MINIMUM_SLOT] ?? null;
-  }
-  return null;
-}
-function getLoadingBlockAfter(tDetails) {
-  return tDetails.loadingBlockConfig?.[LOADING_AFTER_SLOT] ?? null;
-}
-function addDepsToRegistry(currentDeps, newDeps) {
-  if (!currentDeps || currentDeps.length === 0) {
-    return newDeps;
-  }
-  const currentDepSet = new Set(currentDeps);
-  for (const dep of newDeps) {
-    currentDepSet.add(dep);
-  }
-  return currentDeps.length === currentDepSet.size ? currentDeps : Array.from(currentDepSet);
-}
-function getPrimaryBlockTNode(tView, tDetails) {
-  const adjustedIndex = tDetails.primaryTmplIndex + HEADER_OFFSET;
-  return getTNode(tView, adjustedIndex);
-}
-function assertDeferredDependenciesLoaded(tDetails) {
-  assertEqual(tDetails.loadingState, DeferDependenciesLoadingState.COMPLETE, "Expecting all deferred dependencies to be loaded.");
-}
-function isTDeferBlockDetails(value) {
-  return value !== null && typeof value === "object" && typeof value.primaryTmplIndex === "number";
-}
-var eventListenerOptions = {
-  passive: true,
-  capture: true
-};
-var hoverTriggers = /* @__PURE__ */ new WeakMap();
-var interactionTriggers = /* @__PURE__ */ new WeakMap();
-var viewportTriggers = /* @__PURE__ */ new WeakMap();
-var interactionEventNames = ["click", "keydown"];
-var hoverEventNames = ["mouseenter", "focusin"];
-var intersectionObserver = null;
-var observedViewportElements = 0;
-var DeferEventEntry = class {
-  constructor() {
-    this.callbacks = /* @__PURE__ */ new Set();
-    this.listener = () => {
-      for (const callback of this.callbacks) {
-        callback();
-      }
-    };
-  }
-};
-function onInteraction(trigger, callback) {
-  let entry = interactionTriggers.get(trigger);
-  if (!entry) {
-    entry = new DeferEventEntry();
-    interactionTriggers.set(trigger, entry);
-    for (const name of interactionEventNames) {
-      trigger.addEventListener(name, entry.listener, eventListenerOptions);
-    }
-  }
-  entry.callbacks.add(callback);
-  return () => {
-    const { callbacks, listener } = entry;
-    callbacks.delete(callback);
-    if (callbacks.size === 0) {
-      interactionTriggers.delete(trigger);
-      for (const name of interactionEventNames) {
-        trigger.removeEventListener(name, listener, eventListenerOptions);
-      }
-    }
-  };
-}
-function onHover(trigger, callback) {
-  let entry = hoverTriggers.get(trigger);
-  if (!entry) {
-    entry = new DeferEventEntry();
-    hoverTriggers.set(trigger, entry);
-    for (const name of hoverEventNames) {
-      trigger.addEventListener(name, entry.listener, eventListenerOptions);
-    }
-  }
-  entry.callbacks.add(callback);
-  return () => {
-    const { callbacks, listener } = entry;
-    callbacks.delete(callback);
-    if (callbacks.size === 0) {
-      for (const name of hoverEventNames) {
-        trigger.removeEventListener(name, listener, eventListenerOptions);
-      }
-      hoverTriggers.delete(trigger);
-    }
-  };
-}
-function onViewport(trigger, callback, injector) {
-  const ngZone = injector.get(NgZone);
-  let entry = viewportTriggers.get(trigger);
-  intersectionObserver = intersectionObserver || ngZone.runOutsideAngular(() => {
-    return new IntersectionObserver((entries) => {
-      for (const current of entries) {
-        if (current.isIntersecting && viewportTriggers.has(current.target)) {
-          ngZone.run(viewportTriggers.get(current.target).listener);
-        }
-      }
-    });
-  });
-  if (!entry) {
-    entry = new DeferEventEntry();
-    ngZone.runOutsideAngular(() => intersectionObserver.observe(trigger));
-    viewportTriggers.set(trigger, entry);
-    observedViewportElements++;
-  }
-  entry.callbacks.add(callback);
-  return () => {
-    if (!viewportTriggers.has(trigger)) {
-      return;
-    }
-    entry.callbacks.delete(callback);
-    if (entry.callbacks.size === 0) {
-      intersectionObserver?.unobserve(trigger);
-      viewportTriggers.delete(trigger);
-      observedViewportElements--;
-    }
-    if (observedViewportElements === 0) {
-      intersectionObserver?.disconnect();
-      intersectionObserver = null;
-    }
-  };
-}
-function getTriggerLView(deferredHostLView, deferredTNode, walkUpTimes) {
-  if (walkUpTimes == null) {
-    return deferredHostLView;
-  }
-  if (walkUpTimes >= 0) {
-    return walkUpViews(walkUpTimes, deferredHostLView);
-  }
-  const deferredContainer = deferredHostLView[deferredTNode.index];
-  ngDevMode && assertLContainer(deferredContainer);
-  const triggerLView = deferredContainer[CONTAINER_HEADER_OFFSET] ?? null;
-  if (ngDevMode && triggerLView !== null) {
-    const lDetails = getLDeferBlockDetails(deferredHostLView, deferredTNode);
-    const renderedState = lDetails[DEFER_BLOCK_STATE];
-    assertEqual(renderedState, DeferBlockState.Placeholder, "Expected a placeholder to be rendered in this defer block.");
-    assertLView(triggerLView);
-  }
-  return triggerLView;
-}
-function getTriggerElement(triggerLView, triggerIndex) {
-  const element = getNativeByIndex(HEADER_OFFSET + triggerIndex, triggerLView);
-  ngDevMode && assertElement(element);
-  return element;
-}
-function registerDomTrigger(initialLView, tNode, triggerIndex, walkUpTimes, registerFn, callback, type) {
-  const injector = initialLView[INJECTOR$1];
-  function pollDomTrigger() {
-    if (isDestroyed(initialLView)) {
-      return;
-    }
-    const lDetails = getLDeferBlockDetails(initialLView, tNode);
-    const renderedState = lDetails[DEFER_BLOCK_STATE];
-    if (renderedState !== DeferBlockInternalState.Initial && renderedState !== DeferBlockState.Placeholder) {
-      return;
-    }
-    const triggerLView = getTriggerLView(initialLView, tNode, walkUpTimes);
-    if (!triggerLView) {
-      internalAfterNextRender(pollDomTrigger, { injector });
-      return;
-    }
-    if (isDestroyed(triggerLView)) {
-      return;
-    }
-    const element = getTriggerElement(triggerLView, triggerIndex);
-    const cleanup = registerFn(element, () => {
-      if (initialLView !== triggerLView) {
-        removeLViewOnDestroy(triggerLView, cleanup);
-      }
-      callback();
-    }, injector);
-    if (initialLView !== triggerLView) {
-      storeLViewOnDestroy(triggerLView, cleanup);
-    }
-    storeTriggerCleanupFn(type, lDetails, cleanup);
-  }
-  internalAfterNextRender(pollDomTrigger, { injector });
-}
-function onIdle(callback, lView) {
-  const injector = lView[INJECTOR$1];
-  const scheduler = injector.get(IdleScheduler);
-  const cleanupFn = () => scheduler.remove(callback);
-  scheduler.add(callback);
-  return cleanupFn;
-}
-var _requestIdleCallback = () => typeof requestIdleCallback !== "undefined" ? requestIdleCallback : setTimeout;
-var _cancelIdleCallback = () => typeof requestIdleCallback !== "undefined" ? cancelIdleCallback : clearTimeout;
-var _IdleScheduler = class _IdleScheduler {
-  constructor() {
-    this.executingCallbacks = false;
-    this.idleId = null;
-    this.current = /* @__PURE__ */ new Set();
-    this.deferred = /* @__PURE__ */ new Set();
-    this.ngZone = inject(NgZone);
-    this.requestIdleCallbackFn = _requestIdleCallback().bind(globalThis);
-    this.cancelIdleCallbackFn = _cancelIdleCallback().bind(globalThis);
-  }
-  add(callback) {
-    const target = this.executingCallbacks ? this.deferred : this.current;
-    target.add(callback);
-    if (this.idleId === null) {
-      this.scheduleIdleCallback();
-    }
-  }
-  remove(callback) {
-    const { current, deferred } = this;
-    current.delete(callback);
-    deferred.delete(callback);
-    if (current.size === 0 && deferred.size === 0) {
-      this.cancelIdleCallback();
-    }
-  }
-  scheduleIdleCallback() {
-    const callback = () => {
-      this.cancelIdleCallback();
-      this.executingCallbacks = true;
-      for (const callback2 of this.current) {
-        callback2();
-      }
-      this.current.clear();
-      this.executingCallbacks = false;
-      if (this.deferred.size > 0) {
-        for (const callback2 of this.deferred) {
-          this.current.add(callback2);
-        }
-        this.deferred.clear();
-        this.scheduleIdleCallback();
-      }
-    };
-    this.idleId = this.requestIdleCallbackFn(() => this.ngZone.run(callback));
-  }
-  cancelIdleCallback() {
-    if (this.idleId !== null) {
-      this.cancelIdleCallbackFn(this.idleId);
-      this.idleId = null;
-    }
-  }
-  ngOnDestroy() {
-    this.cancelIdleCallback();
-    this.current.clear();
-    this.deferred.clear();
-  }
-};
-_IdleScheduler.ɵprov = ɵɵdefineInjectable({
-  token: _IdleScheduler,
-  providedIn: "root",
-  factory: () => new _IdleScheduler()
-});
-var IdleScheduler = _IdleScheduler;
-function onTimer(delay2) {
-  return (callback, lView) => scheduleTimerTrigger(delay2, callback, lView);
-}
-function scheduleTimerTrigger(delay2, callback, lView) {
-  const injector = lView[INJECTOR$1];
-  const scheduler = injector.get(TimerScheduler);
-  const cleanupFn = () => scheduler.remove(callback);
-  scheduler.add(delay2, callback);
-  return cleanupFn;
-}
-var _TimerScheduler = class _TimerScheduler {
-  constructor() {
-    this.executingCallbacks = false;
-    this.timeoutId = null;
-    this.invokeTimerAt = null;
-    this.current = [];
-    this.deferred = [];
-  }
-  add(delay2, callback) {
-    const target = this.executingCallbacks ? this.deferred : this.current;
-    this.addToQueue(target, Date.now() + delay2, callback);
-    this.scheduleTimer();
-  }
-  remove(callback) {
-    const { current, deferred } = this;
-    const callbackIndex = this.removeFromQueue(current, callback);
-    if (callbackIndex === -1) {
-      this.removeFromQueue(deferred, callback);
-    }
-    if (current.length === 0 && deferred.length === 0) {
-      this.clearTimeout();
-    }
-  }
-  addToQueue(target, invokeAt, callback) {
-    let insertAtIndex = target.length;
-    for (let i = 0; i < target.length; i += 2) {
-      const invokeQueuedCallbackAt = target[i];
-      if (invokeQueuedCallbackAt > invokeAt) {
-        insertAtIndex = i;
-        break;
-      }
-    }
-    arrayInsert2(target, insertAtIndex, invokeAt, callback);
-  }
-  removeFromQueue(target, callback) {
-    let index = -1;
-    for (let i = 0; i < target.length; i += 2) {
-      const queuedCallback = target[i + 1];
-      if (queuedCallback === callback) {
-        index = i;
-        break;
-      }
-    }
-    if (index > -1) {
-      arraySplice(target, index, 2);
-    }
-    return index;
-  }
-  scheduleTimer() {
-    const callback = () => {
-      this.clearTimeout();
-      this.executingCallbacks = true;
-      const current = [...this.current];
-      const now = Date.now();
-      for (let i = 0; i < current.length; i += 2) {
-        const invokeAt = current[i];
-        const callback2 = current[i + 1];
-        if (invokeAt <= now) {
-          callback2();
-        } else {
-          break;
-        }
-      }
-      let lastCallbackIndex = -1;
-      for (let i = 0; i < this.current.length; i += 2) {
-        const invokeAt = this.current[i];
-        if (invokeAt <= now) {
-          lastCallbackIndex = i + 1;
-        } else {
-          break;
-        }
-      }
-      if (lastCallbackIndex >= 0) {
-        arraySplice(this.current, 0, lastCallbackIndex + 1);
-      }
-      this.executingCallbacks = false;
-      if (this.deferred.length > 0) {
-        for (let i = 0; i < this.deferred.length; i += 2) {
-          const invokeAt = this.deferred[i];
-          const callback2 = this.deferred[i + 1];
-          this.addToQueue(this.current, invokeAt, callback2);
-        }
-        this.deferred.length = 0;
-      }
-      this.scheduleTimer();
-    };
-    const FRAME_DURATION_MS = 16;
-    if (this.current.length > 0) {
-      const now = Date.now();
-      const invokeAt = this.current[0];
-      if (this.timeoutId === null || // Reschedule a timer in case a queue contains an item with
-      // an earlier timestamp and the delta is more than an average
-      // frame duration.
-      this.invokeTimerAt && this.invokeTimerAt - invokeAt > FRAME_DURATION_MS) {
-        this.clearTimeout();
-        const timeout2 = Math.max(invokeAt - now, FRAME_DURATION_MS);
-        this.invokeTimerAt = invokeAt;
-        this.timeoutId = setTimeout(callback, timeout2);
-      }
-    }
-  }
-  clearTimeout() {
-    if (this.timeoutId !== null) {
-      clearTimeout(this.timeoutId);
-      this.timeoutId = null;
-    }
-  }
-  ngOnDestroy() {
-    this.clearTimeout();
-    this.current.length = 0;
-    this.deferred.length = 0;
-  }
-};
-_TimerScheduler.ɵprov = ɵɵdefineInjectable({
-  token: _TimerScheduler,
-  providedIn: "root",
-  factory: () => new _TimerScheduler()
-});
-var TimerScheduler = _TimerScheduler;
-var DEFER_BLOCK_DEPENDENCY_INTERCEPTOR = new InjectionToken("DEFER_BLOCK_DEPENDENCY_INTERCEPTOR");
-var DEFER_BLOCK_CONFIG = new InjectionToken(ngDevMode ? "DEFER_BLOCK_CONFIG" : "");
-function shouldTriggerDeferBlock(injector) {
-  const config2 = injector.get(DEFER_BLOCK_CONFIG, null, { optional: true });
-  if (config2?.behavior === DeferBlockBehavior.Manual) {
-    return false;
-  }
-  return isPlatformBrowser(injector);
-}
-var applyDeferBlockStateWithSchedulingImpl = null;
-function ɵɵdeferEnableTimerScheduling(tView, tDetails, placeholderConfigIndex, loadingConfigIndex) {
-  const tViewConsts = tView.consts;
-  if (placeholderConfigIndex != null) {
-    tDetails.placeholderBlockConfig = getConstant(tViewConsts, placeholderConfigIndex);
-  }
-  if (loadingConfigIndex != null) {
-    tDetails.loadingBlockConfig = getConstant(tViewConsts, loadingConfigIndex);
-  }
-  if (applyDeferBlockStateWithSchedulingImpl === null) {
-    applyDeferBlockStateWithSchedulingImpl = applyDeferBlockStateWithScheduling;
-  }
-}
-function ɵɵdefer(index, primaryTmplIndex, dependencyResolverFn, loadingTmplIndex, placeholderTmplIndex, errorTmplIndex, loadingConfigIndex, placeholderConfigIndex, enableTimerScheduling) {
-  const lView = getLView();
-  const tView = getTView();
-  const adjustedIndex = index + HEADER_OFFSET;
-  ɵɵtemplate(index, null, 0, 0);
-  if (tView.firstCreatePass) {
-    performanceMarkFeature("NgDefer");
-    const tDetails = {
-      primaryTmplIndex,
-      loadingTmplIndex: loadingTmplIndex ?? null,
-      placeholderTmplIndex: placeholderTmplIndex ?? null,
-      errorTmplIndex: errorTmplIndex ?? null,
-      placeholderBlockConfig: null,
-      loadingBlockConfig: null,
-      dependencyResolverFn: dependencyResolverFn ?? null,
-      loadingState: DeferDependenciesLoadingState.NOT_STARTED,
-      loadingPromise: null
-    };
-    enableTimerScheduling?.(tView, tDetails, placeholderConfigIndex, loadingConfigIndex);
-    setTDeferBlockDetails(tView, adjustedIndex, tDetails);
-  }
-  const tNode = getCurrentTNode();
-  const lContainer = lView[adjustedIndex];
-  populateDehydratedViewsInLContainer(lContainer, tNode, lView);
-  const lDetails = [
-    null,
-    DeferBlockInternalState.Initial,
-    null,
-    null,
-    null,
-    null
-    // PREFETCH_TRIGGER_CLEANUP_FNS
-  ];
-  setLDeferBlockDetails(lView, adjustedIndex, lDetails);
-  const cleanupTriggersFn = () => invokeAllTriggerCleanupFns(lDetails);
-  storeTriggerCleanupFn(0, lDetails, () => removeLViewOnDestroy(lView, cleanupTriggersFn));
-  storeLViewOnDestroy(lView, cleanupTriggersFn);
-}
-function ɵɵdeferWhen(rawValue) {
-  const lView = getLView();
-  const bindingIndex = nextBindingIndex();
-  if (bindingUpdated(lView, bindingIndex, rawValue)) {
-    const prevConsumer = setActiveConsumer(null);
-    try {
-      const value = Boolean(rawValue);
-      const tNode = getSelectedTNode();
-      const lDetails = getLDeferBlockDetails(lView, tNode);
-      const renderedState = lDetails[DEFER_BLOCK_STATE];
-      if (value === false && renderedState === DeferBlockInternalState.Initial) {
-        renderPlaceholder(lView, tNode);
-      } else if (value === true && (renderedState === DeferBlockInternalState.Initial || renderedState === DeferBlockState.Placeholder)) {
-        triggerDeferBlock(lView, tNode);
-      }
-    } finally {
-      setActiveConsumer(prevConsumer);
-    }
-  }
-}
-function ɵɵdeferPrefetchWhen(rawValue) {
-  const lView = getLView();
-  const bindingIndex = nextBindingIndex();
-  if (bindingUpdated(lView, bindingIndex, rawValue)) {
-    const prevConsumer = setActiveConsumer(null);
-    try {
-      const value = Boolean(rawValue);
-      const tView = lView[TVIEW];
-      const tNode = getSelectedTNode();
-      const tDetails = getTDeferBlockDetails(tView, tNode);
-      if (value === true && tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-        triggerPrefetching(tDetails, lView, tNode);
-      }
-    } finally {
-      setActiveConsumer(prevConsumer);
-    }
-  }
-}
-function ɵɵdeferOnIdle() {
-  scheduleDelayedTrigger(onIdle);
-}
-function ɵɵdeferPrefetchOnIdle() {
-  scheduleDelayedPrefetching(onIdle);
-}
-function ɵɵdeferOnImmediate() {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  const tView = lView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  if (tDetails.loadingTmplIndex === null) {
-    renderPlaceholder(lView, tNode);
-  }
-  triggerDeferBlock(lView, tNode);
-}
-function ɵɵdeferPrefetchOnImmediate() {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  const tView = lView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-    triggerResourceLoading(tDetails, lView, tNode);
-  }
-}
-function ɵɵdeferOnTimer(delay2) {
-  scheduleDelayedTrigger(onTimer(delay2));
-}
-function ɵɵdeferPrefetchOnTimer(delay2) {
-  scheduleDelayedPrefetching(onTimer(delay2));
-}
-function ɵɵdeferOnHover(triggerIndex, walkUpTimes) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  renderPlaceholder(lView, tNode);
-  registerDomTrigger(
-    lView,
-    tNode,
-    triggerIndex,
-    walkUpTimes,
-    onHover,
-    () => triggerDeferBlock(lView, tNode),
-    0
-    /* TriggerType.Regular */
-  );
-}
-function ɵɵdeferPrefetchOnHover(triggerIndex, walkUpTimes) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  const tView = lView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-    registerDomTrigger(
-      lView,
-      tNode,
-      triggerIndex,
-      walkUpTimes,
-      onHover,
-      () => triggerPrefetching(tDetails, lView, tNode),
-      1
-      /* TriggerType.Prefetch */
-    );
-  }
-}
-function ɵɵdeferOnInteraction(triggerIndex, walkUpTimes) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  renderPlaceholder(lView, tNode);
-  registerDomTrigger(
-    lView,
-    tNode,
-    triggerIndex,
-    walkUpTimes,
-    onInteraction,
-    () => triggerDeferBlock(lView, tNode),
-    0
-    /* TriggerType.Regular */
-  );
-}
-function ɵɵdeferPrefetchOnInteraction(triggerIndex, walkUpTimes) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  const tView = lView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-    registerDomTrigger(
-      lView,
-      tNode,
-      triggerIndex,
-      walkUpTimes,
-      onInteraction,
-      () => triggerPrefetching(tDetails, lView, tNode),
-      1
-      /* TriggerType.Prefetch */
-    );
-  }
-}
-function ɵɵdeferOnViewport(triggerIndex, walkUpTimes) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  renderPlaceholder(lView, tNode);
-  registerDomTrigger(
-    lView,
-    tNode,
-    triggerIndex,
-    walkUpTimes,
-    onViewport,
-    () => triggerDeferBlock(lView, tNode),
-    0
-    /* TriggerType.Regular */
-  );
-}
-function ɵɵdeferPrefetchOnViewport(triggerIndex, walkUpTimes) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  const tView = lView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-    registerDomTrigger(
-      lView,
-      tNode,
-      triggerIndex,
-      walkUpTimes,
-      onViewport,
-      () => triggerPrefetching(tDetails, lView, tNode),
-      1
-      /* TriggerType.Prefetch */
-    );
-  }
-}
-function scheduleDelayedTrigger(scheduleFn) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  renderPlaceholder(lView, tNode);
-  const cleanupFn = scheduleFn(() => triggerDeferBlock(lView, tNode), lView);
-  const lDetails = getLDeferBlockDetails(lView, tNode);
-  storeTriggerCleanupFn(0, lDetails, cleanupFn);
-}
-function scheduleDelayedPrefetching(scheduleFn) {
-  const lView = getLView();
-  const tNode = getCurrentTNode();
-  const tView = lView[TVIEW];
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  if (tDetails.loadingState === DeferDependenciesLoadingState.NOT_STARTED) {
-    const lDetails = getLDeferBlockDetails(lView, tNode);
-    const prefetch = () => triggerPrefetching(tDetails, lView, tNode);
-    const cleanupFn = scheduleFn(prefetch, lView);
-    storeTriggerCleanupFn(1, lDetails, cleanupFn);
-  }
-}
-function renderDeferBlockState(newState, tNode, lContainer, skipTimerScheduling = false) {
-  const hostLView = lContainer[PARENT];
-  const hostTView = hostLView[TVIEW];
-  if (isDestroyed(hostLView))
-    return;
-  ngDevMode && assertTNodeForLView(tNode, hostLView);
-  const lDetails = getLDeferBlockDetails(hostLView, tNode);
-  ngDevMode && assertDefined(lDetails, "Expected a defer block state defined");
-  const currentState = lDetails[DEFER_BLOCK_STATE];
-  if (isValidStateChange(currentState, newState) && isValidStateChange(lDetails[NEXT_DEFER_BLOCK_STATE] ?? -1, newState)) {
-    const tDetails = getTDeferBlockDetails(hostTView, tNode);
-    const needsScheduling = !skipTimerScheduling && (getLoadingBlockAfter(tDetails) !== null || getMinimumDurationForState(tDetails, DeferBlockState.Loading) !== null || getMinimumDurationForState(tDetails, DeferBlockState.Placeholder));
-    if (ngDevMode && needsScheduling) {
-      assertDefined(applyDeferBlockStateWithSchedulingImpl, "Expected scheduling function to be defined");
-    }
-    const applyStateFn = needsScheduling ? applyDeferBlockStateWithSchedulingImpl : applyDeferBlockState;
-    try {
-      applyStateFn(newState, lDetails, lContainer, tNode, hostLView);
-    } catch (error) {
-      handleError(hostLView, error);
-    }
-  }
-}
-function applyDeferBlockState(newState, lDetails, lContainer, tNode, hostLView) {
-  const stateTmplIndex = getTemplateIndexForState(newState, hostLView, tNode);
-  if (stateTmplIndex !== null) {
-    lDetails[DEFER_BLOCK_STATE] = newState;
-    const hostTView = hostLView[TVIEW];
-    const adjustedIndex = stateTmplIndex + HEADER_OFFSET;
-    const tNode2 = getTNode(hostTView, adjustedIndex);
-    const viewIndex = 0;
-    removeLViewFromLContainer(lContainer, viewIndex);
-    const dehydratedView = findMatchingDehydratedView(lContainer, tNode2.tView.ssrId);
-    const embeddedLView = createAndRenderEmbeddedLView(hostLView, tNode2, null, { dehydratedView });
-    addLViewToLContainer(lContainer, embeddedLView, viewIndex, shouldAddViewToDom(tNode2, dehydratedView));
-    markViewDirty(embeddedLView);
-  }
-}
-function applyDeferBlockStateWithScheduling(newState, lDetails, lContainer, tNode, hostLView) {
-  const now = Date.now();
-  const hostTView = hostLView[TVIEW];
-  const tDetails = getTDeferBlockDetails(hostTView, tNode);
-  if (lDetails[STATE_IS_FROZEN_UNTIL] === null || lDetails[STATE_IS_FROZEN_UNTIL] <= now) {
-    lDetails[STATE_IS_FROZEN_UNTIL] = null;
-    const loadingAfter = getLoadingBlockAfter(tDetails);
-    const inLoadingAfterPhase = lDetails[LOADING_AFTER_CLEANUP_FN] !== null;
-    if (newState === DeferBlockState.Loading && loadingAfter !== null && !inLoadingAfterPhase) {
-      lDetails[NEXT_DEFER_BLOCK_STATE] = newState;
-      const cleanupFn = scheduleDeferBlockUpdate(loadingAfter, lDetails, tNode, lContainer, hostLView);
-      lDetails[LOADING_AFTER_CLEANUP_FN] = cleanupFn;
-    } else {
-      if (newState > DeferBlockState.Loading && inLoadingAfterPhase) {
-        lDetails[LOADING_AFTER_CLEANUP_FN]();
-        lDetails[LOADING_AFTER_CLEANUP_FN] = null;
-        lDetails[NEXT_DEFER_BLOCK_STATE] = null;
-      }
-      applyDeferBlockState(newState, lDetails, lContainer, tNode, hostLView);
-      const duration = getMinimumDurationForState(tDetails, newState);
-      if (duration !== null) {
-        lDetails[STATE_IS_FROZEN_UNTIL] = now + duration;
-        scheduleDeferBlockUpdate(duration, lDetails, tNode, lContainer, hostLView);
-      }
-    }
-  } else {
-    lDetails[NEXT_DEFER_BLOCK_STATE] = newState;
-  }
-}
-function scheduleDeferBlockUpdate(timeout2, lDetails, tNode, lContainer, hostLView) {
-  const callback = () => {
-    const nextState = lDetails[NEXT_DEFER_BLOCK_STATE];
-    lDetails[STATE_IS_FROZEN_UNTIL] = null;
-    lDetails[NEXT_DEFER_BLOCK_STATE] = null;
-    if (nextState !== null) {
-      renderDeferBlockState(nextState, tNode, lContainer);
-    }
-  };
-  return scheduleTimerTrigger(timeout2, callback, hostLView);
-}
-function isValidStateChange(currentState, newState) {
-  return currentState < newState;
-}
-function triggerPrefetching(tDetails, lView, tNode) {
-  if (lView[INJECTOR$1] && shouldTriggerDeferBlock(lView[INJECTOR$1])) {
-    triggerResourceLoading(tDetails, lView, tNode);
-  }
-}
-function triggerResourceLoading(tDetails, lView, tNode) {
-  const injector = lView[INJECTOR$1];
-  const tView = lView[TVIEW];
-  if (tDetails.loadingState !== DeferDependenciesLoadingState.NOT_STARTED) {
-    return;
-  }
-  const lDetails = getLDeferBlockDetails(lView, tNode);
-  const primaryBlockTNode = getPrimaryBlockTNode(tView, tDetails);
-  tDetails.loadingState = DeferDependenciesLoadingState.IN_PROGRESS;
-  invokeTriggerCleanupFns(1, lDetails);
-  let dependenciesFn = tDetails.dependencyResolverFn;
-  if (ngDevMode) {
-    const deferDependencyInterceptor = injector.get(DEFER_BLOCK_DEPENDENCY_INTERCEPTOR, null, { optional: true });
-    if (deferDependencyInterceptor) {
-      dependenciesFn = deferDependencyInterceptor.intercept(dependenciesFn);
-    }
-  }
-  if (!dependenciesFn) {
-    tDetails.loadingPromise = Promise.resolve().then(() => {
-      tDetails.loadingPromise = null;
-      tDetails.loadingState = DeferDependenciesLoadingState.COMPLETE;
-    });
-    return;
-  }
-  tDetails.loadingPromise = Promise.allSettled(dependenciesFn()).then((results) => {
-    let failed = false;
-    const directiveDefs = [];
-    const pipeDefs = [];
-    for (const result of results) {
-      if (result.status === "fulfilled") {
-        const dependency = result.value;
-        const directiveDef = getComponentDef(dependency) || getDirectiveDef(dependency);
-        if (directiveDef) {
-          directiveDefs.push(directiveDef);
-        } else {
-          const pipeDef = getPipeDef$1(dependency);
-          if (pipeDef) {
-            pipeDefs.push(pipeDef);
-          }
-        }
-      } else {
-        failed = true;
-        break;
-      }
-    }
-    tDetails.loadingPromise = null;
-    if (failed) {
-      tDetails.loadingState = DeferDependenciesLoadingState.FAILED;
-      if (tDetails.errorTmplIndex === null) {
-        const templateLocation = getTemplateLocationDetails(lView);
-        const error = new RuntimeError(750, ngDevMode && `Loading dependencies for \`@defer\` block failed, but no \`@error\` block was configured${templateLocation}. Consider using the \`@error\` block to render an error state.`);
-        handleError(lView, error);
-      }
-    } else {
-      tDetails.loadingState = DeferDependenciesLoadingState.COMPLETE;
-      const primaryBlockTView = primaryBlockTNode.tView;
-      if (directiveDefs.length > 0) {
-        primaryBlockTView.directiveRegistry = addDepsToRegistry(primaryBlockTView.directiveRegistry, directiveDefs);
-      }
-      if (pipeDefs.length > 0) {
-        primaryBlockTView.pipeRegistry = addDepsToRegistry(primaryBlockTView.pipeRegistry, pipeDefs);
-      }
-    }
-  });
-}
-function renderPlaceholder(lView, tNode) {
-  const lContainer = lView[tNode.index];
-  ngDevMode && assertLContainer(lContainer);
-  renderDeferBlockState(DeferBlockState.Placeholder, tNode, lContainer);
-}
-function renderDeferStateAfterResourceLoading(tDetails, tNode, lContainer) {
-  ngDevMode && assertDefined(tDetails.loadingPromise, "Expected loading Promise to exist on this defer block");
-  tDetails.loadingPromise.then(() => {
-    if (tDetails.loadingState === DeferDependenciesLoadingState.COMPLETE) {
-      ngDevMode && assertDeferredDependenciesLoaded(tDetails);
-      renderDeferBlockState(DeferBlockState.Complete, tNode, lContainer);
-    } else if (tDetails.loadingState === DeferDependenciesLoadingState.FAILED) {
-      renderDeferBlockState(DeferBlockState.Error, tNode, lContainer);
-    }
-  });
-}
-function triggerDeferBlock(lView, tNode) {
-  const tView = lView[TVIEW];
-  const lContainer = lView[tNode.index];
-  const injector = lView[INJECTOR$1];
-  ngDevMode && assertLContainer(lContainer);
-  if (!shouldTriggerDeferBlock(injector))
-    return;
-  const lDetails = getLDeferBlockDetails(lView, tNode);
-  const tDetails = getTDeferBlockDetails(tView, tNode);
-  invokeAllTriggerCleanupFns(lDetails);
-  switch (tDetails.loadingState) {
-    case DeferDependenciesLoadingState.NOT_STARTED:
-      renderDeferBlockState(DeferBlockState.Loading, tNode, lContainer);
-      triggerResourceLoading(tDetails, lView, tNode);
-      if (tDetails.loadingState === DeferDependenciesLoadingState.IN_PROGRESS) {
-        renderDeferStateAfterResourceLoading(tDetails, tNode, lContainer);
-      }
-      break;
-    case DeferDependenciesLoadingState.IN_PROGRESS:
-      renderDeferBlockState(DeferBlockState.Loading, tNode, lContainer);
-      renderDeferStateAfterResourceLoading(tDetails, tNode, lContainer);
-      break;
-    case DeferDependenciesLoadingState.COMPLETE:
-      ngDevMode && assertDeferredDependenciesLoaded(tDetails);
-      renderDeferBlockState(DeferBlockState.Complete, tNode, lContainer);
-      break;
-    case DeferDependenciesLoadingState.FAILED:
-      renderDeferBlockState(DeferBlockState.Error, tNode, lContainer);
-      break;
-    default:
-      if (ngDevMode) {
-        throwError2("Unknown defer block state");
-      }
-  }
 }
 function elementStartFirstCreatePass(index, tView, lView, name, attrsIndex, localRefsIndex) {
   ngDevMode && assertFirstCreatePass(tView);
@@ -17894,6 +17999,526 @@ function ɵɵpropertyInterpolateV(propName, values, sanitizer) {
   }
   return ɵɵpropertyInterpolateV;
 }
+function symbolIterator() {
+  return this._results[Symbol.iterator]();
+}
+var _QueryList = class _QueryList {
+  /**
+   * Returns `Observable` of `QueryList` notifying the subscriber of changes.
+   */
+  get changes() {
+    return this._changes ??= new EventEmitter();
+  }
+  /**
+   * @param emitDistinctChangesOnly Whether `QueryList.changes` should fire only when actual change
+   *     has occurred. Or if it should fire when query is recomputed. (recomputing could resolve in
+   *     the same result)
+   */
+  constructor(_emitDistinctChangesOnly = false) {
+    this._emitDistinctChangesOnly = _emitDistinctChangesOnly;
+    this.dirty = true;
+    this._results = [];
+    this._changesDetected = false;
+    this._changes = void 0;
+    this.length = 0;
+    this.first = void 0;
+    this.last = void 0;
+    const proto = _QueryList.prototype;
+    if (!proto[Symbol.iterator])
+      proto[Symbol.iterator] = symbolIterator;
+  }
+  /**
+   * Returns the QueryList entry at `index`.
+   */
+  get(index) {
+    return this._results[index];
+  }
+  /**
+   * See
+   * [Array.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
+   */
+  map(fn) {
+    return this._results.map(fn);
+  }
+  filter(fn) {
+    return this._results.filter(fn);
+  }
+  /**
+   * See
+   * [Array.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+   */
+  find(fn) {
+    return this._results.find(fn);
+  }
+  /**
+   * See
+   * [Array.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+   */
+  reduce(fn, init) {
+    return this._results.reduce(fn, init);
+  }
+  /**
+   * See
+   * [Array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+   */
+  forEach(fn) {
+    this._results.forEach(fn);
+  }
+  /**
+   * See
+   * [Array.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
+   */
+  some(fn) {
+    return this._results.some(fn);
+  }
+  /**
+   * Returns a copy of the internal results list as an Array.
+   */
+  toArray() {
+    return this._results.slice();
+  }
+  toString() {
+    return this._results.toString();
+  }
+  /**
+   * Updates the stored data of the query list, and resets the `dirty` flag to `false`, so that
+   * on change detection, it will not notify of changes to the queries, unless a new change
+   * occurs.
+   *
+   * @param resultsTree The query results to store
+   * @param identityAccessor Optional function for extracting stable object identity from a value
+   *    in the array. This function is executed for each element of the query result list while
+   *    comparing current query list with the new one (provided as a first argument of the `reset`
+   *    function) to detect if the lists are different. If the function is not provided, elements
+   *    are compared as is (without any pre-processing).
+   */
+  reset(resultsTree, identityAccessor) {
+    this.dirty = false;
+    const newResultFlat = flatten(resultsTree);
+    if (this._changesDetected = !arrayEquals(this._results, newResultFlat, identityAccessor)) {
+      this._results = newResultFlat;
+      this.length = newResultFlat.length;
+      this.last = newResultFlat[this.length - 1];
+      this.first = newResultFlat[0];
+    }
+  }
+  /**
+   * Triggers a change event by emitting on the `changes` {@link EventEmitter}.
+   */
+  notifyOnChanges() {
+    if (this._changes !== void 0 && (this._changesDetected || !this._emitDistinctChangesOnly))
+      this._changes.emit(this);
+  }
+  /** internal */
+  setDirty() {
+    this.dirty = true;
+  }
+  /** internal */
+  destroy() {
+    if (this._changes !== void 0) {
+      this._changes.complete();
+      this._changes.unsubscribe();
+    }
+  }
+};
+Symbol.iterator;
+var QueryList = _QueryList;
+var _TemplateRef = class _TemplateRef {
+};
+_TemplateRef.__NG_ELEMENT_ID__ = injectTemplateRef;
+var TemplateRef = _TemplateRef;
+var ViewEngineTemplateRef = TemplateRef;
+var R3TemplateRef = class TemplateRef2 extends ViewEngineTemplateRef {
+  constructor(_declarationLView, _declarationTContainer, elementRef) {
+    super();
+    this._declarationLView = _declarationLView;
+    this._declarationTContainer = _declarationTContainer;
+    this.elementRef = elementRef;
+  }
+  /**
+   * Returns an `ssrId` associated with a TView, which was used to
+   * create this instance of the `TemplateRef`.
+   *
+   * @internal
+   */
+  get ssrId() {
+    return this._declarationTContainer.tView?.ssrId || null;
+  }
+  createEmbeddedView(context2, injector) {
+    return this.createEmbeddedViewImpl(context2, injector);
+  }
+  /**
+   * @internal
+   */
+  createEmbeddedViewImpl(context2, injector, dehydratedView) {
+    const embeddedLView = createAndRenderEmbeddedLView(this._declarationLView, this._declarationTContainer, context2, { injector, dehydratedView });
+    return new ViewRef$1(embeddedLView);
+  }
+};
+function injectTemplateRef() {
+  return createTemplateRef(getCurrentTNode(), getLView());
+}
+function createTemplateRef(hostTNode, hostLView) {
+  if (hostTNode.type & 4) {
+    ngDevMode && assertDefined(hostTNode.tView, "TView must be allocated");
+    return new R3TemplateRef(hostLView, hostTNode, createElementRef(hostTNode, hostLView));
+  }
+  return null;
+}
+var LQuery_ = class _LQuery_ {
+  constructor(queryList) {
+    this.queryList = queryList;
+    this.matches = null;
+  }
+  clone() {
+    return new _LQuery_(this.queryList);
+  }
+  setDirty() {
+    this.queryList.setDirty();
+  }
+};
+var LQueries_ = class _LQueries_ {
+  constructor(queries = []) {
+    this.queries = queries;
+  }
+  createEmbeddedView(tView) {
+    const tQueries = tView.queries;
+    if (tQueries !== null) {
+      const noOfInheritedQueries = tView.contentQueries !== null ? tView.contentQueries[0] : tQueries.length;
+      const viewLQueries = [];
+      for (let i = 0; i < noOfInheritedQueries; i++) {
+        const tQuery = tQueries.getByIndex(i);
+        const parentLQuery = this.queries[tQuery.indexInDeclarationView];
+        viewLQueries.push(parentLQuery.clone());
+      }
+      return new _LQueries_(viewLQueries);
+    }
+    return null;
+  }
+  insertView(tView) {
+    this.dirtyQueriesWithMatches(tView);
+  }
+  detachView(tView) {
+    this.dirtyQueriesWithMatches(tView);
+  }
+  dirtyQueriesWithMatches(tView) {
+    for (let i = 0; i < this.queries.length; i++) {
+      if (getTQuery(tView, i).matches !== null) {
+        this.queries[i].setDirty();
+      }
+    }
+  }
+};
+var TQueryMetadata_ = class {
+  constructor(predicate, flags, read = null) {
+    this.predicate = predicate;
+    this.flags = flags;
+    this.read = read;
+  }
+};
+var TQueries_ = class _TQueries_ {
+  constructor(queries = []) {
+    this.queries = queries;
+  }
+  elementStart(tView, tNode) {
+    ngDevMode && assertFirstCreatePass(tView, "Queries should collect results on the first template pass only");
+    for (let i = 0; i < this.queries.length; i++) {
+      this.queries[i].elementStart(tView, tNode);
+    }
+  }
+  elementEnd(tNode) {
+    for (let i = 0; i < this.queries.length; i++) {
+      this.queries[i].elementEnd(tNode);
+    }
+  }
+  embeddedTView(tNode) {
+    let queriesForTemplateRef = null;
+    for (let i = 0; i < this.length; i++) {
+      const childQueryIndex = queriesForTemplateRef !== null ? queriesForTemplateRef.length : 0;
+      const tqueryClone = this.getByIndex(i).embeddedTView(tNode, childQueryIndex);
+      if (tqueryClone) {
+        tqueryClone.indexInDeclarationView = i;
+        if (queriesForTemplateRef !== null) {
+          queriesForTemplateRef.push(tqueryClone);
+        } else {
+          queriesForTemplateRef = [tqueryClone];
+        }
+      }
+    }
+    return queriesForTemplateRef !== null ? new _TQueries_(queriesForTemplateRef) : null;
+  }
+  template(tView, tNode) {
+    ngDevMode && assertFirstCreatePass(tView, "Queries should collect results on the first template pass only");
+    for (let i = 0; i < this.queries.length; i++) {
+      this.queries[i].template(tView, tNode);
+    }
+  }
+  getByIndex(index) {
+    ngDevMode && assertIndexInRange(this.queries, index);
+    return this.queries[index];
+  }
+  get length() {
+    return this.queries.length;
+  }
+  track(tquery) {
+    this.queries.push(tquery);
+  }
+};
+var TQuery_ = class _TQuery_ {
+  constructor(metadata, nodeIndex = -1) {
+    this.metadata = metadata;
+    this.matches = null;
+    this.indexInDeclarationView = -1;
+    this.crossesNgTemplate = false;
+    this._appliesToNextNode = true;
+    this._declarationNodeIndex = nodeIndex;
+  }
+  elementStart(tView, tNode) {
+    if (this.isApplyingToNode(tNode)) {
+      this.matchTNode(tView, tNode);
+    }
+  }
+  elementEnd(tNode) {
+    if (this._declarationNodeIndex === tNode.index) {
+      this._appliesToNextNode = false;
+    }
+  }
+  template(tView, tNode) {
+    this.elementStart(tView, tNode);
+  }
+  embeddedTView(tNode, childQueryIndex) {
+    if (this.isApplyingToNode(tNode)) {
+      this.crossesNgTemplate = true;
+      this.addMatch(-tNode.index, childQueryIndex);
+      return new _TQuery_(this.metadata);
+    }
+    return null;
+  }
+  isApplyingToNode(tNode) {
+    if (this._appliesToNextNode && (this.metadata.flags & 1) !== 1) {
+      const declarationNodeIdx = this._declarationNodeIndex;
+      let parent = tNode.parent;
+      while (parent !== null && parent.type & 8 && parent.index !== declarationNodeIdx) {
+        parent = parent.parent;
+      }
+      return declarationNodeIdx === (parent !== null ? parent.index : -1);
+    }
+    return this._appliesToNextNode;
+  }
+  matchTNode(tView, tNode) {
+    const predicate = this.metadata.predicate;
+    if (Array.isArray(predicate)) {
+      for (let i = 0; i < predicate.length; i++) {
+        const name = predicate[i];
+        this.matchTNodeWithReadOption(tView, tNode, getIdxOfMatchingSelector(tNode, name));
+        this.matchTNodeWithReadOption(tView, tNode, locateDirectiveOrProvider(tNode, tView, name, false, false));
+      }
+    } else {
+      if (predicate === TemplateRef) {
+        if (tNode.type & 4) {
+          this.matchTNodeWithReadOption(tView, tNode, -1);
+        }
+      } else {
+        this.matchTNodeWithReadOption(tView, tNode, locateDirectiveOrProvider(tNode, tView, predicate, false, false));
+      }
+    }
+  }
+  matchTNodeWithReadOption(tView, tNode, nodeMatchIdx) {
+    if (nodeMatchIdx !== null) {
+      const read = this.metadata.read;
+      if (read !== null) {
+        if (read === ElementRef || read === ViewContainerRef || read === TemplateRef && tNode.type & 4) {
+          this.addMatch(tNode.index, -2);
+        } else {
+          const directiveOrProviderIdx = locateDirectiveOrProvider(tNode, tView, read, false, false);
+          if (directiveOrProviderIdx !== null) {
+            this.addMatch(tNode.index, directiveOrProviderIdx);
+          }
+        }
+      } else {
+        this.addMatch(tNode.index, nodeMatchIdx);
+      }
+    }
+  }
+  addMatch(tNodeIdx, matchIdx) {
+    if (this.matches === null) {
+      this.matches = [tNodeIdx, matchIdx];
+    } else {
+      this.matches.push(tNodeIdx, matchIdx);
+    }
+  }
+};
+function getIdxOfMatchingSelector(tNode, selector) {
+  const localNames = tNode.localNames;
+  if (localNames !== null) {
+    for (let i = 0; i < localNames.length; i += 2) {
+      if (localNames[i] === selector) {
+        return localNames[i + 1];
+      }
+    }
+  }
+  return null;
+}
+function createResultByTNodeType(tNode, currentView) {
+  if (tNode.type & (3 | 8)) {
+    return createElementRef(tNode, currentView);
+  } else if (tNode.type & 4) {
+    return createTemplateRef(tNode, currentView);
+  }
+  return null;
+}
+function createResultForNode(lView, tNode, matchingIdx, read) {
+  if (matchingIdx === -1) {
+    return createResultByTNodeType(tNode, lView);
+  } else if (matchingIdx === -2) {
+    return createSpecialToken(lView, tNode, read);
+  } else {
+    return getNodeInjectable(lView, lView[TVIEW], matchingIdx, tNode);
+  }
+}
+function createSpecialToken(lView, tNode, read) {
+  if (read === ElementRef) {
+    return createElementRef(tNode, lView);
+  } else if (read === TemplateRef) {
+    return createTemplateRef(tNode, lView);
+  } else if (read === ViewContainerRef) {
+    ngDevMode && assertTNodeType(
+      tNode,
+      3 | 12
+      /* TNodeType.AnyContainer */
+    );
+    return createContainerRef(tNode, lView);
+  } else {
+    ngDevMode && throwError2(`Special token to read should be one of ElementRef, TemplateRef or ViewContainerRef but got ${stringify(read)}.`);
+  }
+}
+function materializeViewResults(tView, lView, tQuery, queryIndex) {
+  const lQuery = lView[QUERIES].queries[queryIndex];
+  if (lQuery.matches === null) {
+    const tViewData = tView.data;
+    const tQueryMatches = tQuery.matches;
+    const result = [];
+    for (let i = 0; i < tQueryMatches.length; i += 2) {
+      const matchedNodeIdx = tQueryMatches[i];
+      if (matchedNodeIdx < 0) {
+        result.push(null);
+      } else {
+        ngDevMode && assertIndexInRange(tViewData, matchedNodeIdx);
+        const tNode = tViewData[matchedNodeIdx];
+        result.push(createResultForNode(lView, tNode, tQueryMatches[i + 1], tQuery.metadata.read));
+      }
+    }
+    lQuery.matches = result;
+  }
+  return lQuery.matches;
+}
+function collectQueryResults(tView, lView, queryIndex, result) {
+  const tQuery = tView.queries.getByIndex(queryIndex);
+  const tQueryMatches = tQuery.matches;
+  if (tQueryMatches !== null) {
+    const lViewResults = materializeViewResults(tView, lView, tQuery, queryIndex);
+    for (let i = 0; i < tQueryMatches.length; i += 2) {
+      const tNodeIdx = tQueryMatches[i];
+      if (tNodeIdx > 0) {
+        result.push(lViewResults[i / 2]);
+      } else {
+        const childQueryIndex = tQueryMatches[i + 1];
+        const declarationLContainer = lView[-tNodeIdx];
+        ngDevMode && assertLContainer(declarationLContainer);
+        for (let i2 = CONTAINER_HEADER_OFFSET; i2 < declarationLContainer.length; i2++) {
+          const embeddedLView = declarationLContainer[i2];
+          if (embeddedLView[DECLARATION_LCONTAINER] === embeddedLView[PARENT]) {
+            collectQueryResults(embeddedLView[TVIEW], embeddedLView, childQueryIndex, result);
+          }
+        }
+        if (declarationLContainer[MOVED_VIEWS] !== null) {
+          const embeddedLViews = declarationLContainer[MOVED_VIEWS];
+          for (let i2 = 0; i2 < embeddedLViews.length; i2++) {
+            const embeddedLView = embeddedLViews[i2];
+            collectQueryResults(embeddedLView[TVIEW], embeddedLView, childQueryIndex, result);
+          }
+        }
+      }
+    }
+  }
+  return result;
+}
+function loadQueryInternal(lView, queryIndex) {
+  ngDevMode && assertDefined(lView[QUERIES], "LQueries should be defined when trying to load a query");
+  ngDevMode && assertIndexInRange(lView[QUERIES].queries, queryIndex);
+  return lView[QUERIES].queries[queryIndex].queryList;
+}
+function createLQuery(tView, lView, flags) {
+  const queryList = new QueryList(
+    (flags & 4) === 4
+    /* QueryFlags.emitDistinctChangesOnly */
+  );
+  storeCleanupWithContext(tView, lView, queryList, queryList.destroy);
+  if (lView[QUERIES] === null)
+    lView[QUERIES] = new LQueries_();
+  lView[QUERIES].queries.push(new LQuery_(queryList));
+}
+function createTQuery(tView, metadata, nodeIndex) {
+  if (tView.queries === null)
+    tView.queries = new TQueries_();
+  tView.queries.track(new TQuery_(metadata, nodeIndex));
+}
+function saveContentQueryAndDirectiveIndex(tView, directiveIndex) {
+  const tViewContentQueries = tView.contentQueries || (tView.contentQueries = []);
+  const lastSavedDirectiveIndex = tViewContentQueries.length ? tViewContentQueries[tViewContentQueries.length - 1] : -1;
+  if (directiveIndex !== lastSavedDirectiveIndex) {
+    tViewContentQueries.push(tView.queries.length - 1, directiveIndex);
+  }
+}
+function getTQuery(tView, index) {
+  ngDevMode && assertDefined(tView.queries, "TQueries must be defined to retrieve a TQuery");
+  return tView.queries.getByIndex(index);
+}
+function ɵɵcontentQuery(directiveIndex, predicate, flags, read) {
+  ngDevMode && assertNumber(flags, "Expecting flags");
+  const tView = getTView();
+  if (tView.firstCreatePass) {
+    const tNode = getCurrentTNode();
+    createTQuery(tView, new TQueryMetadata_(predicate, flags, read), tNode.index);
+    saveContentQueryAndDirectiveIndex(tView, directiveIndex);
+    if ((flags & 2) === 2) {
+      tView.staticContentQueries = true;
+    }
+  }
+  createLQuery(tView, getLView(), flags);
+}
+function ɵɵviewQuery(predicate, flags, read) {
+  ngDevMode && assertNumber(flags, "Expecting flags");
+  const tView = getTView();
+  if (tView.firstCreatePass) {
+    createTQuery(tView, new TQueryMetadata_(predicate, flags, read), -1);
+    if ((flags & 2) === 2) {
+      tView.staticViewQueries = true;
+    }
+  }
+  createLQuery(tView, getLView(), flags);
+}
+function ɵɵqueryRefresh(queryList) {
+  const lView = getLView();
+  const tView = getTView();
+  const queryIndex = getCurrentQueryIndex();
+  setCurrentQueryIndex(queryIndex + 1);
+  const tQuery = getTQuery(tView, queryIndex);
+  if (queryList.dirty && isCreationMode(lView) === ((tQuery.metadata.flags & 2) === 2)) {
+    if (tQuery.matches === null) {
+      queryList.reset([]);
+    } else {
+      const result = tQuery.crossesNgTemplate ? collectQueryResults(tView, lView, queryIndex, []) : materializeViewResults(tView, lView, tQuery, queryIndex);
+      queryList.reset(result, unwrapElementRef);
+      queryList.notifyOnChanges();
+    }
+    return true;
+  }
+  return false;
+}
+function ɵɵloadQuery() {
+  return loadQueryInternal(getLView(), getCurrentQueryIndex());
+}
 function store(tView, lView, index, value) {
   if (index >= tView.data.length) {
     tView.data[index] = null;
@@ -18523,8 +19148,9 @@ function getDirectiveMetadata$1(directiveOrComponentInstance) {
   }
   const componentDef = getComponentDef(constructor);
   if (componentDef) {
+    const inputs = extractInputDebugMetadata(componentDef.inputs);
     return {
-      inputs: componentDef.inputs,
+      inputs,
       outputs: componentDef.outputs,
       encapsulation: componentDef.encapsulation,
       changeDetection: componentDef.onPush ? ChangeDetectionStrategy.OnPush : ChangeDetectionStrategy.Default
@@ -18532,7 +19158,8 @@ function getDirectiveMetadata$1(directiveOrComponentInstance) {
   }
   const directiveDef = getDirectiveDef(constructor);
   if (directiveDef) {
-    return { inputs: directiveDef.inputs, outputs: directiveDef.outputs };
+    const inputs = extractInputDebugMetadata(directiveDef.inputs);
+    return { inputs, outputs: directiveDef.outputs };
   }
   return null;
 }
@@ -18594,6 +19221,26 @@ function assertDomElement(value) {
   if (typeof Element !== "undefined" && !(value instanceof Element)) {
     throw new Error("Expecting instance of DOM Element");
   }
+}
+function extractInputDebugMetadata(inputs) {
+  const res = {};
+  for (const key in inputs) {
+    if (!inputs.hasOwnProperty(key)) {
+      continue;
+    }
+    const value = inputs[key];
+    if (value === void 0) {
+      continue;
+    }
+    let minifiedName;
+    if (Array.isArray(value)) {
+      minifiedName = value[0];
+    } else {
+      minifiedName = value;
+    }
+    res[key] = minifiedName;
+  }
+  return res;
 }
 var ASYNC_COMPONENT_METADATA_FN = "__ngAsyncComponentMetadataFn__";
 function getAsyncClassMetadataFn(type) {
@@ -18810,526 +19457,6 @@ function ɵɵpipeBindV(index, slotOffset, values) {
 function isPure(lView, index) {
   return lView[TVIEW].data[index].pure;
 }
-function symbolIterator() {
-  return this._results[Symbol.iterator]();
-}
-var _QueryList = class _QueryList {
-  /**
-   * Returns `Observable` of `QueryList` notifying the subscriber of changes.
-   */
-  get changes() {
-    return this._changes ??= new EventEmitter();
-  }
-  /**
-   * @param emitDistinctChangesOnly Whether `QueryList.changes` should fire only when actual change
-   *     has occurred. Or if it should fire when query is recomputed. (recomputing could resolve in
-   *     the same result)
-   */
-  constructor(_emitDistinctChangesOnly = false) {
-    this._emitDistinctChangesOnly = _emitDistinctChangesOnly;
-    this.dirty = true;
-    this._results = [];
-    this._changesDetected = false;
-    this._changes = void 0;
-    this.length = 0;
-    this.first = void 0;
-    this.last = void 0;
-    const proto = _QueryList.prototype;
-    if (!proto[Symbol.iterator])
-      proto[Symbol.iterator] = symbolIterator;
-  }
-  /**
-   * Returns the QueryList entry at `index`.
-   */
-  get(index) {
-    return this._results[index];
-  }
-  /**
-   * See
-   * [Array.map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)
-   */
-  map(fn) {
-    return this._results.map(fn);
-  }
-  filter(fn) {
-    return this._results.filter(fn);
-  }
-  /**
-   * See
-   * [Array.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
-   */
-  find(fn) {
-    return this._results.find(fn);
-  }
-  /**
-   * See
-   * [Array.reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
-   */
-  reduce(fn, init) {
-    return this._results.reduce(fn, init);
-  }
-  /**
-   * See
-   * [Array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
-   */
-  forEach(fn) {
-    this._results.forEach(fn);
-  }
-  /**
-   * See
-   * [Array.some](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some)
-   */
-  some(fn) {
-    return this._results.some(fn);
-  }
-  /**
-   * Returns a copy of the internal results list as an Array.
-   */
-  toArray() {
-    return this._results.slice();
-  }
-  toString() {
-    return this._results.toString();
-  }
-  /**
-   * Updates the stored data of the query list, and resets the `dirty` flag to `false`, so that
-   * on change detection, it will not notify of changes to the queries, unless a new change
-   * occurs.
-   *
-   * @param resultsTree The query results to store
-   * @param identityAccessor Optional function for extracting stable object identity from a value
-   *    in the array. This function is executed for each element of the query result list while
-   *    comparing current query list with the new one (provided as a first argument of the `reset`
-   *    function) to detect if the lists are different. If the function is not provided, elements
-   *    are compared as is (without any pre-processing).
-   */
-  reset(resultsTree, identityAccessor) {
-    this.dirty = false;
-    const newResultFlat = flatten(resultsTree);
-    if (this._changesDetected = !arrayEquals(this._results, newResultFlat, identityAccessor)) {
-      this._results = newResultFlat;
-      this.length = newResultFlat.length;
-      this.last = newResultFlat[this.length - 1];
-      this.first = newResultFlat[0];
-    }
-  }
-  /**
-   * Triggers a change event by emitting on the `changes` {@link EventEmitter}.
-   */
-  notifyOnChanges() {
-    if (this._changes !== void 0 && (this._changesDetected || !this._emitDistinctChangesOnly))
-      this._changes.emit(this);
-  }
-  /** internal */
-  setDirty() {
-    this.dirty = true;
-  }
-  /** internal */
-  destroy() {
-    if (this._changes !== void 0) {
-      this._changes.complete();
-      this._changes.unsubscribe();
-    }
-  }
-};
-Symbol.iterator;
-var QueryList = _QueryList;
-var _TemplateRef = class _TemplateRef {
-};
-_TemplateRef.__NG_ELEMENT_ID__ = injectTemplateRef;
-var TemplateRef = _TemplateRef;
-var ViewEngineTemplateRef = TemplateRef;
-var R3TemplateRef = class TemplateRef2 extends ViewEngineTemplateRef {
-  constructor(_declarationLView, _declarationTContainer, elementRef) {
-    super();
-    this._declarationLView = _declarationLView;
-    this._declarationTContainer = _declarationTContainer;
-    this.elementRef = elementRef;
-  }
-  /**
-   * Returns an `ssrId` associated with a TView, which was used to
-   * create this instance of the `TemplateRef`.
-   *
-   * @internal
-   */
-  get ssrId() {
-    return this._declarationTContainer.tView?.ssrId || null;
-  }
-  createEmbeddedView(context2, injector) {
-    return this.createEmbeddedViewImpl(context2, injector);
-  }
-  /**
-   * @internal
-   */
-  createEmbeddedViewImpl(context2, injector, dehydratedView) {
-    const embeddedLView = createAndRenderEmbeddedLView(this._declarationLView, this._declarationTContainer, context2, { injector, dehydratedView });
-    return new ViewRef$1(embeddedLView);
-  }
-};
-function injectTemplateRef() {
-  return createTemplateRef(getCurrentTNode(), getLView());
-}
-function createTemplateRef(hostTNode, hostLView) {
-  if (hostTNode.type & 4) {
-    ngDevMode && assertDefined(hostTNode.tView, "TView must be allocated");
-    return new R3TemplateRef(hostLView, hostTNode, createElementRef(hostTNode, hostLView));
-  }
-  return null;
-}
-var LQuery_ = class _LQuery_ {
-  constructor(queryList) {
-    this.queryList = queryList;
-    this.matches = null;
-  }
-  clone() {
-    return new _LQuery_(this.queryList);
-  }
-  setDirty() {
-    this.queryList.setDirty();
-  }
-};
-var LQueries_ = class _LQueries_ {
-  constructor(queries = []) {
-    this.queries = queries;
-  }
-  createEmbeddedView(tView) {
-    const tQueries = tView.queries;
-    if (tQueries !== null) {
-      const noOfInheritedQueries = tView.contentQueries !== null ? tView.contentQueries[0] : tQueries.length;
-      const viewLQueries = [];
-      for (let i = 0; i < noOfInheritedQueries; i++) {
-        const tQuery = tQueries.getByIndex(i);
-        const parentLQuery = this.queries[tQuery.indexInDeclarationView];
-        viewLQueries.push(parentLQuery.clone());
-      }
-      return new _LQueries_(viewLQueries);
-    }
-    return null;
-  }
-  insertView(tView) {
-    this.dirtyQueriesWithMatches(tView);
-  }
-  detachView(tView) {
-    this.dirtyQueriesWithMatches(tView);
-  }
-  dirtyQueriesWithMatches(tView) {
-    for (let i = 0; i < this.queries.length; i++) {
-      if (getTQuery(tView, i).matches !== null) {
-        this.queries[i].setDirty();
-      }
-    }
-  }
-};
-var TQueryMetadata_ = class {
-  constructor(predicate, flags, read = null) {
-    this.predicate = predicate;
-    this.flags = flags;
-    this.read = read;
-  }
-};
-var TQueries_ = class _TQueries_ {
-  constructor(queries = []) {
-    this.queries = queries;
-  }
-  elementStart(tView, tNode) {
-    ngDevMode && assertFirstCreatePass(tView, "Queries should collect results on the first template pass only");
-    for (let i = 0; i < this.queries.length; i++) {
-      this.queries[i].elementStart(tView, tNode);
-    }
-  }
-  elementEnd(tNode) {
-    for (let i = 0; i < this.queries.length; i++) {
-      this.queries[i].elementEnd(tNode);
-    }
-  }
-  embeddedTView(tNode) {
-    let queriesForTemplateRef = null;
-    for (let i = 0; i < this.length; i++) {
-      const childQueryIndex = queriesForTemplateRef !== null ? queriesForTemplateRef.length : 0;
-      const tqueryClone = this.getByIndex(i).embeddedTView(tNode, childQueryIndex);
-      if (tqueryClone) {
-        tqueryClone.indexInDeclarationView = i;
-        if (queriesForTemplateRef !== null) {
-          queriesForTemplateRef.push(tqueryClone);
-        } else {
-          queriesForTemplateRef = [tqueryClone];
-        }
-      }
-    }
-    return queriesForTemplateRef !== null ? new _TQueries_(queriesForTemplateRef) : null;
-  }
-  template(tView, tNode) {
-    ngDevMode && assertFirstCreatePass(tView, "Queries should collect results on the first template pass only");
-    for (let i = 0; i < this.queries.length; i++) {
-      this.queries[i].template(tView, tNode);
-    }
-  }
-  getByIndex(index) {
-    ngDevMode && assertIndexInRange(this.queries, index);
-    return this.queries[index];
-  }
-  get length() {
-    return this.queries.length;
-  }
-  track(tquery) {
-    this.queries.push(tquery);
-  }
-};
-var TQuery_ = class _TQuery_ {
-  constructor(metadata, nodeIndex = -1) {
-    this.metadata = metadata;
-    this.matches = null;
-    this.indexInDeclarationView = -1;
-    this.crossesNgTemplate = false;
-    this._appliesToNextNode = true;
-    this._declarationNodeIndex = nodeIndex;
-  }
-  elementStart(tView, tNode) {
-    if (this.isApplyingToNode(tNode)) {
-      this.matchTNode(tView, tNode);
-    }
-  }
-  elementEnd(tNode) {
-    if (this._declarationNodeIndex === tNode.index) {
-      this._appliesToNextNode = false;
-    }
-  }
-  template(tView, tNode) {
-    this.elementStart(tView, tNode);
-  }
-  embeddedTView(tNode, childQueryIndex) {
-    if (this.isApplyingToNode(tNode)) {
-      this.crossesNgTemplate = true;
-      this.addMatch(-tNode.index, childQueryIndex);
-      return new _TQuery_(this.metadata);
-    }
-    return null;
-  }
-  isApplyingToNode(tNode) {
-    if (this._appliesToNextNode && (this.metadata.flags & 1) !== 1) {
-      const declarationNodeIdx = this._declarationNodeIndex;
-      let parent = tNode.parent;
-      while (parent !== null && parent.type & 8 && parent.index !== declarationNodeIdx) {
-        parent = parent.parent;
-      }
-      return declarationNodeIdx === (parent !== null ? parent.index : -1);
-    }
-    return this._appliesToNextNode;
-  }
-  matchTNode(tView, tNode) {
-    const predicate = this.metadata.predicate;
-    if (Array.isArray(predicate)) {
-      for (let i = 0; i < predicate.length; i++) {
-        const name = predicate[i];
-        this.matchTNodeWithReadOption(tView, tNode, getIdxOfMatchingSelector(tNode, name));
-        this.matchTNodeWithReadOption(tView, tNode, locateDirectiveOrProvider(tNode, tView, name, false, false));
-      }
-    } else {
-      if (predicate === TemplateRef) {
-        if (tNode.type & 4) {
-          this.matchTNodeWithReadOption(tView, tNode, -1);
-        }
-      } else {
-        this.matchTNodeWithReadOption(tView, tNode, locateDirectiveOrProvider(tNode, tView, predicate, false, false));
-      }
-    }
-  }
-  matchTNodeWithReadOption(tView, tNode, nodeMatchIdx) {
-    if (nodeMatchIdx !== null) {
-      const read = this.metadata.read;
-      if (read !== null) {
-        if (read === ElementRef || read === ViewContainerRef || read === TemplateRef && tNode.type & 4) {
-          this.addMatch(tNode.index, -2);
-        } else {
-          const directiveOrProviderIdx = locateDirectiveOrProvider(tNode, tView, read, false, false);
-          if (directiveOrProviderIdx !== null) {
-            this.addMatch(tNode.index, directiveOrProviderIdx);
-          }
-        }
-      } else {
-        this.addMatch(tNode.index, nodeMatchIdx);
-      }
-    }
-  }
-  addMatch(tNodeIdx, matchIdx) {
-    if (this.matches === null) {
-      this.matches = [tNodeIdx, matchIdx];
-    } else {
-      this.matches.push(tNodeIdx, matchIdx);
-    }
-  }
-};
-function getIdxOfMatchingSelector(tNode, selector) {
-  const localNames = tNode.localNames;
-  if (localNames !== null) {
-    for (let i = 0; i < localNames.length; i += 2) {
-      if (localNames[i] === selector) {
-        return localNames[i + 1];
-      }
-    }
-  }
-  return null;
-}
-function createResultByTNodeType(tNode, currentView) {
-  if (tNode.type & (3 | 8)) {
-    return createElementRef(tNode, currentView);
-  } else if (tNode.type & 4) {
-    return createTemplateRef(tNode, currentView);
-  }
-  return null;
-}
-function createResultForNode(lView, tNode, matchingIdx, read) {
-  if (matchingIdx === -1) {
-    return createResultByTNodeType(tNode, lView);
-  } else if (matchingIdx === -2) {
-    return createSpecialToken(lView, tNode, read);
-  } else {
-    return getNodeInjectable(lView, lView[TVIEW], matchingIdx, tNode);
-  }
-}
-function createSpecialToken(lView, tNode, read) {
-  if (read === ElementRef) {
-    return createElementRef(tNode, lView);
-  } else if (read === TemplateRef) {
-    return createTemplateRef(tNode, lView);
-  } else if (read === ViewContainerRef) {
-    ngDevMode && assertTNodeType(
-      tNode,
-      3 | 12
-      /* TNodeType.AnyContainer */
-    );
-    return createContainerRef(tNode, lView);
-  } else {
-    ngDevMode && throwError2(`Special token to read should be one of ElementRef, TemplateRef or ViewContainerRef but got ${stringify(read)}.`);
-  }
-}
-function materializeViewResults(tView, lView, tQuery, queryIndex) {
-  const lQuery = lView[QUERIES].queries[queryIndex];
-  if (lQuery.matches === null) {
-    const tViewData = tView.data;
-    const tQueryMatches = tQuery.matches;
-    const result = [];
-    for (let i = 0; i < tQueryMatches.length; i += 2) {
-      const matchedNodeIdx = tQueryMatches[i];
-      if (matchedNodeIdx < 0) {
-        result.push(null);
-      } else {
-        ngDevMode && assertIndexInRange(tViewData, matchedNodeIdx);
-        const tNode = tViewData[matchedNodeIdx];
-        result.push(createResultForNode(lView, tNode, tQueryMatches[i + 1], tQuery.metadata.read));
-      }
-    }
-    lQuery.matches = result;
-  }
-  return lQuery.matches;
-}
-function collectQueryResults(tView, lView, queryIndex, result) {
-  const tQuery = tView.queries.getByIndex(queryIndex);
-  const tQueryMatches = tQuery.matches;
-  if (tQueryMatches !== null) {
-    const lViewResults = materializeViewResults(tView, lView, tQuery, queryIndex);
-    for (let i = 0; i < tQueryMatches.length; i += 2) {
-      const tNodeIdx = tQueryMatches[i];
-      if (tNodeIdx > 0) {
-        result.push(lViewResults[i / 2]);
-      } else {
-        const childQueryIndex = tQueryMatches[i + 1];
-        const declarationLContainer = lView[-tNodeIdx];
-        ngDevMode && assertLContainer(declarationLContainer);
-        for (let i2 = CONTAINER_HEADER_OFFSET; i2 < declarationLContainer.length; i2++) {
-          const embeddedLView = declarationLContainer[i2];
-          if (embeddedLView[DECLARATION_LCONTAINER] === embeddedLView[PARENT]) {
-            collectQueryResults(embeddedLView[TVIEW], embeddedLView, childQueryIndex, result);
-          }
-        }
-        if (declarationLContainer[MOVED_VIEWS] !== null) {
-          const embeddedLViews = declarationLContainer[MOVED_VIEWS];
-          for (let i2 = 0; i2 < embeddedLViews.length; i2++) {
-            const embeddedLView = embeddedLViews[i2];
-            collectQueryResults(embeddedLView[TVIEW], embeddedLView, childQueryIndex, result);
-          }
-        }
-      }
-    }
-  }
-  return result;
-}
-function ɵɵqueryRefresh(queryList) {
-  const lView = getLView();
-  const tView = getTView();
-  const queryIndex = getCurrentQueryIndex();
-  setCurrentQueryIndex(queryIndex + 1);
-  const tQuery = getTQuery(tView, queryIndex);
-  if (queryList.dirty && isCreationMode(lView) === ((tQuery.metadata.flags & 2) === 2)) {
-    if (tQuery.matches === null) {
-      queryList.reset([]);
-    } else {
-      const result = tQuery.crossesNgTemplate ? collectQueryResults(tView, lView, queryIndex, []) : materializeViewResults(tView, lView, tQuery, queryIndex);
-      queryList.reset(result, unwrapElementRef);
-      queryList.notifyOnChanges();
-    }
-    return true;
-  }
-  return false;
-}
-function ɵɵviewQuery(predicate, flags, read) {
-  ngDevMode && assertNumber(flags, "Expecting flags");
-  const tView = getTView();
-  if (tView.firstCreatePass) {
-    createTQuery(tView, new TQueryMetadata_(predicate, flags, read), -1);
-    if ((flags & 2) === 2) {
-      tView.staticViewQueries = true;
-    }
-  }
-  createLQuery(tView, getLView(), flags);
-}
-function ɵɵcontentQuery(directiveIndex, predicate, flags, read) {
-  ngDevMode && assertNumber(flags, "Expecting flags");
-  const tView = getTView();
-  if (tView.firstCreatePass) {
-    const tNode = getCurrentTNode();
-    createTQuery(tView, new TQueryMetadata_(predicate, flags, read), tNode.index);
-    saveContentQueryAndDirectiveIndex(tView, directiveIndex);
-    if ((flags & 2) === 2) {
-      tView.staticContentQueries = true;
-    }
-  }
-  createLQuery(tView, getLView(), flags);
-}
-function ɵɵloadQuery() {
-  return loadQueryInternal(getLView(), getCurrentQueryIndex());
-}
-function loadQueryInternal(lView, queryIndex) {
-  ngDevMode && assertDefined(lView[QUERIES], "LQueries should be defined when trying to load a query");
-  ngDevMode && assertIndexInRange(lView[QUERIES].queries, queryIndex);
-  return lView[QUERIES].queries[queryIndex].queryList;
-}
-function createLQuery(tView, lView, flags) {
-  const queryList = new QueryList(
-    (flags & 4) === 4
-    /* QueryFlags.emitDistinctChangesOnly */
-  );
-  storeCleanupWithContext(tView, lView, queryList, queryList.destroy);
-  if (lView[QUERIES] === null)
-    lView[QUERIES] = new LQueries_();
-  lView[QUERIES].queries.push(new LQuery_(queryList));
-}
-function createTQuery(tView, metadata, nodeIndex) {
-  if (tView.queries === null)
-    tView.queries = new TQueries_();
-  tView.queries.track(new TQuery_(metadata, nodeIndex));
-}
-function saveContentQueryAndDirectiveIndex(tView, directiveIndex) {
-  const tViewContentQueries = tView.contentQueries || (tView.contentQueries = []);
-  const lastSavedDirectiveIndex = tViewContentQueries.length ? tViewContentQueries[tViewContentQueries.length - 1] : -1;
-  if (directiveIndex !== lastSavedDirectiveIndex) {
-    tViewContentQueries.push(tView.queries.length - 1, directiveIndex);
-  }
-}
-function getTQuery(tView, index) {
-  ngDevMode && assertDefined(tView.queries, "TQueries must be defined to retrieve a TQuery");
-  return tView.queries.getByIndex(index);
-}
 function ɵɵtemplateRefExtractor(tNode, lView) {
   return createTemplateRef(tNode, lView);
 }
@@ -19349,7 +19476,7 @@ function ɵsetClassDebugInfo(type, debugInfo) {
     def.debugInfo = debugInfo;
   }
 }
-var angularCoreEnv = (() => ({
+var angularCoreEnv = /* @__PURE__ */ (() => ({
   "ɵɵattribute": ɵɵattribute,
   "ɵɵattributeInterpolate1": ɵɵattributeInterpolate1,
   "ɵɵattributeInterpolate2": ɵɵattributeInterpolate2,
@@ -19524,7 +19651,8 @@ var angularCoreEnv = (() => ({
   "ɵɵtrustConstantResourceUrl": ɵɵtrustConstantResourceUrl,
   "ɵɵvalidateIframeAttribute": ɵɵvalidateIframeAttribute,
   "forwardRef": forwardRef,
-  "resolveForwardRef": resolveForwardRef
+  "resolveForwardRef": resolveForwardRef,
+  "ɵɵInputFlags": InputFlags
 }))();
 var jitOptions = null;
 function setJitOptions(options) {
@@ -20384,7 +20512,7 @@ var Version = class {
     this.patch = parts.slice(2).join(".");
   }
 };
-var VERSION = new Version("17.0.9");
+var VERSION = new Version("17.1.0");
 var _Console = class _Console {
   log(message) {
     console.log(message);
@@ -20952,7 +21080,6 @@ var _Testability = class _Testability {
     this.registry = registry;
     this._pendingCount = 0;
     this._isZoneStable = true;
-    this._didWork = false;
     this._callbacks = [];
     this.taskTrackingZone = null;
     if (!_testabilityGetter) {
@@ -20967,7 +21094,6 @@ var _Testability = class _Testability {
   _watchAngularEvents() {
     this._ngZone.onUnstable.subscribe({
       next: () => {
-        this._didWork = true;
         this._isZoneStable = false;
       }
     });
@@ -20989,7 +21115,6 @@ var _Testability = class _Testability {
    */
   increasePendingRequestCount() {
     this._pendingCount += 1;
-    this._didWork = true;
     return this._pendingCount;
   }
   /**
@@ -21016,9 +21141,8 @@ var _Testability = class _Testability {
         while (this._callbacks.length !== 0) {
           let cb = this._callbacks.pop();
           clearTimeout(cb.timeoutId);
-          cb.doneCb(this._didWork);
+          cb.doneCb();
         }
-        this._didWork = false;
       });
     } else {
       let pending = this.getPendingTasks();
@@ -21029,7 +21153,6 @@ var _Testability = class _Testability {
         }
         return true;
       });
-      this._didWork = true;
     }
   }
   getPendingTasks() {
@@ -21051,7 +21174,7 @@ var _Testability = class _Testability {
     if (timeout2 && timeout2 > 0) {
       timeoutId = setTimeout(() => {
         this._callbacks = this._callbacks.filter((cb2) => cb2.timeoutId !== timeoutId);
-        cb(this._didWork, this.getPendingTasks());
+        cb();
       }, timeout2);
     }
     this._callbacks.push({ doneCb: cb, timeoutId, updateCb });
@@ -23274,14 +23397,16 @@ export {
   switchMap,
   takeUntil,
   tap,
+  XSS_SECURITY_URL,
+  RuntimeError,
+  formatRuntimeError,
+  ɵINPUT_SIGNAL_BRAND_WRITE_TYPE,
+  input,
   stringify,
   truncateMiddle,
   forwardRef,
   resolveForwardRef,
   isEnvironmentProviders,
-  XSS_SECURITY_URL,
-  RuntimeError,
-  formatRuntimeError,
   NG_COMP_DEF,
   NG_DIR_DEF,
   NG_PIPE_DEF,
@@ -23306,6 +23431,7 @@ export {
   noSideEffects,
   ChangeDetectionStrategy,
   ViewEncapsulation$1,
+  InputFlags,
   ɵɵdefineComponent,
   ɵɵdefineNgModule,
   ɵɵdefineDirective,
@@ -23434,7 +23560,6 @@ export {
   DestroyRef,
   assertNotInReactiveContext,
   EffectScheduler,
-  ZoneAwareQueueingScheduler,
   effect,
   performanceMarkFeature,
   EventEmitter,
@@ -23452,6 +23577,30 @@ export {
   ɵɵCopyDefinitionFeature,
   ɵɵHostDirectivesFeature,
   ɵɵInputTransformsFeature,
+  ViewContainerRef,
+  ɵɵtemplate,
+  DeferBlockState,
+  DeferBlockBehavior,
+  DEFER_BLOCK_DEPENDENCY_INTERCEPTOR,
+  DEFER_BLOCK_CONFIG,
+  ɵɵdeferEnableTimerScheduling,
+  ɵɵdefer,
+  ɵɵdeferWhen,
+  ɵɵdeferPrefetchWhen,
+  ɵɵdeferOnIdle,
+  ɵɵdeferPrefetchOnIdle,
+  ɵɵdeferOnImmediate,
+  ɵɵdeferPrefetchOnImmediate,
+  ɵɵdeferOnTimer,
+  ɵɵdeferPrefetchOnTimer,
+  ɵɵdeferOnHover,
+  ɵɵdeferPrefetchOnHover,
+  ɵɵdeferOnInteraction,
+  ɵɵdeferPrefetchOnInteraction,
+  ɵɵdeferOnViewport,
+  ɵɵdeferPrefetchOnViewport,
+  renderDeferBlockState,
+  triggerResourceLoading,
   ɵɵattribute,
   ɵɵattributeInterpolate1,
   ɵɵattributeInterpolate2,
@@ -23477,35 +23626,11 @@ export {
   ɵɵclassMapInterpolate8,
   ɵɵclassMapInterpolateV,
   ɵɵcomponentInstance,
-  ViewContainerRef,
-  ɵɵtemplate,
   ɵɵconditional,
   ɵɵrepeaterTrackByIndex,
   ɵɵrepeaterTrackByIdentity,
   ɵɵrepeaterCreate,
   ɵɵrepeater,
-  DeferBlockState,
-  DeferBlockBehavior,
-  DEFER_BLOCK_DEPENDENCY_INTERCEPTOR,
-  DEFER_BLOCK_CONFIG,
-  ɵɵdeferEnableTimerScheduling,
-  ɵɵdefer,
-  ɵɵdeferWhen,
-  ɵɵdeferPrefetchWhen,
-  ɵɵdeferOnIdle,
-  ɵɵdeferPrefetchOnIdle,
-  ɵɵdeferOnImmediate,
-  ɵɵdeferPrefetchOnImmediate,
-  ɵɵdeferOnTimer,
-  ɵɵdeferPrefetchOnTimer,
-  ɵɵdeferOnHover,
-  ɵɵdeferPrefetchOnHover,
-  ɵɵdeferOnInteraction,
-  ɵɵdeferPrefetchOnInteraction,
-  ɵɵdeferOnViewport,
-  ɵɵdeferPrefetchOnViewport,
-  renderDeferBlockState,
-  triggerResourceLoading,
   ɵɵelementStart,
   ɵɵelementEnd,
   ɵɵelement,
@@ -23547,6 +23672,12 @@ export {
   ɵɵpropertyInterpolate7,
   ɵɵpropertyInterpolate8,
   ɵɵpropertyInterpolateV,
+  QueryList,
+  TemplateRef,
+  ɵɵcontentQuery,
+  ɵɵviewQuery,
+  ɵɵqueryRefresh,
+  ɵɵloadQuery,
   store,
   ɵɵreference,
   ɵɵstyleMapInterpolate1,
@@ -23610,12 +23741,6 @@ export {
   ɵɵpipeBind3,
   ɵɵpipeBind4,
   ɵɵpipeBindV,
-  QueryList,
-  TemplateRef,
-  ɵɵqueryRefresh,
-  ɵɵviewQuery,
-  ɵɵcontentQuery,
-  ɵɵloadQuery,
   ɵɵtemplateRefExtractor,
   ɵɵgetComponentDepsFactory,
   ɵsetClassDebugInfo,
@@ -23709,14 +23834,14 @@ export {
 
 @angular/core/fesm2022/primitives/signals.mjs:
   (**
-   * @license Angular v17.0.9
+   * @license Angular v17.1.0
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 
 @angular/core/fesm2022/core.mjs:
   (**
-   * @license Angular v17.0.9
+   * @license Angular v17.1.0
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
@@ -23729,5 +23854,14 @@ export {
    * Use of this source code is governed by an MIT-style license that can be
    * found in the LICENSE file at https://angular.io/license
    *)
+
+@angular/core/fesm2022/core.mjs:
+  (*!
+   * @license
+   * Copyright Google LLC All Rights Reserved.
+   *
+   * Use of this source code is governed by an MIT-style license that can be
+   * found in the LICENSE file at https://angular.io/license
+   *)
 */
-//# sourceMappingURL=chunk-7EWUOI4Z.js.map
+//# sourceMappingURL=chunk-7UBRETAF.js.map
