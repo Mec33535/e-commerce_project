@@ -55,7 +55,6 @@
                 @include hero_btn($primary1, $white, 10px, 30px, 45px);
 
                 app-cart-svg {
-                    margin-left: 5px;
                     fill: $white;
                 }
             }

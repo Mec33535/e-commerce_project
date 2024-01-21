@@ -1,1 +1,57 @@
-<p>food-section works!</p>
+<!-- 394 - 1143 -->
+<section class="food_section layout_padding-bottom">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Our Menu
+            </h2>
+        </div>
+        <!-- <ul class="filters_menu">
+            <ng-container *ngFor="let menu of FilterMenu"> -->
+        <!-- Isotope JS Filtering -->
+        <!-- <li [data-filter]="menu.dataFilter" [id]="menu.id"> {{menu.menuText}}</li> -->
+        <!-- <li [id]="menu.id"> {{menu.menuText}}</li>
+            </ng-container>
+        </ul> -->
+
+        <ul class="filters_menu">
+            <li *ngFor="let menu of FilterMenu ">{{menu.filterText}}</li>
+        </ul>
+        <div class="filters-content">
+            <div class="row grid">
+                <ng-container *ngFor="let cards of MenuCards">
+                    <div class="col-sm-6 col-lg-4 all pizza">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img [src]="cards.menuImg" alt="">
+                                </div>
+                                <div class="detail-box">
+                                    <h5>
+                                        {{cards.menuTitle}}
+                                    </h5>
+                                    <p>
+                                        {{cards.menuText}}
+                                    </p>
+                                    <div class="options">
+                                        <h6>
+                                            {{cards.menuPrice}}
+                                        </h6>
+                                        <a href="">
+                                            <app-cart-svg style="margin-right:7px;"></app-cart-svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="btn-box">
+                    <a href="">
+                        View More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
