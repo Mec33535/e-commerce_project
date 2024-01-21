@@ -1,6 +1,7 @@
 <div class="bg-box ">
     <img src="../../assets/hero-bg.jpg" alt="">
 </div>
+<!-- end header section -->
 <header class="header_section">
     <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -92,7 +93,7 @@
                         </svg>
                     </a>
                     <form class="form-inline">
-                        <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                        <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </form>
@@ -105,3 +106,42 @@
     </div>
 </header>
 <!-- end header section -->
+
+
+
+
+<!-- slider section -->
+<!-- Class isimlerinin hepsi scss içindir. Carouselle hiç bir alakaları yoktur -->
+<owl-carousel-o [options]="customOptions" class="slider_section" data-ride="slide" dots="true">
+    <ng-container *ngFor="let slide of sliderStore">
+        <ng-template carouselSlide>
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <div class="detail-box">
+                            <h1>
+                                {{ slide.hText }}
+                            </h1>
+                            <p style="white-space: pre-line;">{{ slide.pText }}</p>
+                            <div>
+                                <a [href]="slide.slidesBtnUrl">
+                                    {{slide.btnText}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ng-container>
+
+
+    <!-- <ng-template carouselIndicator let-index="index">
+        <div class="carousel-indicators" style="background-color: red; width: 20px; height: 20px;">
+            3
+        </div>
+    </ng-template> -->
+
+
+</owl-carousel-o>
+<!-- end slider section -->

@@ -320,3 +320,74 @@ a:focus {
 }
 
 /*end header section*/
+
+/* slider section */
+.slider_section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 45px 0 75px 0;
+
+    .row {
+        align-items: center;
+        display: inline-block;
+    }
+
+    #customCarousel1 {
+        width: 100%;
+        position: unset;
+    }
+
+    .detail-box {
+        color: $white;
+        margin-bottom: 145px;
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        a {
+            @include hero_btn($primary1, $white, 10px, 45px, 45px);
+            margin-top: 10px;
+        }
+
+    }
+
+    .img-box {
+        img {
+            width: 100%;
+        }
+
+    }
+
+
+    .carousel-indicators {
+        position: unset;
+        margin: 0;
+        justify-content: flex-start;
+        align-items: center;
+
+        li {
+            background-color: $white;
+            width: 12px;
+            height: 12px;
+            border-radius: 100%;
+            opacity: 1;
+
+            &.active {
+                width: 20px;
+                height: 20px;
+                background-color: $primary1;
+            }
+        }
+    }
+}
+
+// end slider section
