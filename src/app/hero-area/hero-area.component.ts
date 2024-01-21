@@ -50,7 +50,7 @@ export class HeroAreaComponent {
 
   sliderStore: Array<any> = [
     {
-      id: "customCarousel1",
+      id: "1",
       classNames: "col-md-7 ,col-lg-6",
       hText: "Fast Food Restourant",
       pText: `
@@ -61,7 +61,7 @@ export class HeroAreaComponent {
       slidesBtnUrl: "#"
     },
     {
-      id: "customCarousel1",
+      id: "2",
       classNames: "col-md-7 ,col-lg-6",
       hText: "Fast Food Restourant",
       pText: `
@@ -72,7 +72,7 @@ export class HeroAreaComponent {
       slidesBtnUrl: "#"
     },
     {
-      id: "customCarousel1",
+      id: "3",
       classNames: "col-md-7 ,col-lg-6",
       hText: "Fast Food Restourant",
       pText: `
@@ -83,7 +83,7 @@ export class HeroAreaComponent {
       slidesBtnUrl: "#"
     },
     {
-      id: "customCarousel1",
+      id: "4",
       classNames: "col-md-7 ,col-lg-6",
       hText: "Fast Food Restourant",
       pText: `
@@ -94,7 +94,7 @@ export class HeroAreaComponent {
       slidesBtnUrl: "#"
     },
     {
-      id: "customCarousel1",
+      id: "5",
       classNames: "col-md-7 ,col-lg-6",
       hText: "Fast Food Restourant",
       pText: `
@@ -105,10 +105,10 @@ export class HeroAreaComponent {
       slidesBtnUrl: "#"
     }
   ]
-  currentSlide: number = 0;
-  onSlideChange(event: any) {
-    this.currentSlide = event.currentSlide;
-  }
+  // currentSlide: number = 0;
+  // onSlideChange(event: any) {
+  //   this.currentSlide = event.currentSlide;
+  // }
 
 
 }
