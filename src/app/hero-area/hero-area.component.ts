@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { CartSvgComponent } from '../cart-svg/cart-svg.component';
 
 @Component({
   selector: 'app-hero-area',
@@ -10,13 +11,12 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
   imports: [
     CarouselModule,
     CommonModule,
+    CartSvgComponent,
   ],
   templateUrl: './hero-area.component.html',
   styleUrl: './hero-area.component.scss'
 })
 export class HeroAreaComponent {
-  // console.log(document.querySelector('link[src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.css"]'));
-  // const owlCarousel = document.querySelector('script[src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"]');
   customOptions: OwlOptions = {
     loop: true,
     margin: 0,

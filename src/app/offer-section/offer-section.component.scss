@@ -1,7 +1,6 @@
 @import "../app.component.scss";
 
 // offer section
-
 .offer_section {
     position: relative;
     padding-top: 45px;
@@ -55,14 +54,13 @@
             a {
                 @include hero_btn($primary1, $white, 10px, 30px, 45px);
 
-                svg {
-                    width: 20px;
-                    height: auto;
+                app-cart-svg {
                     margin-left: 5px;
                     fill: $white;
                 }
             }
         }
+
 
         &:hover {
             .img-box {

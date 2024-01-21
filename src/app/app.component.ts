@@ -4,7 +4,6 @@ import { RouterOutlet } from '@angular/router';
 import { HeroAreaComponent } from './hero-area/hero-area.component';
 import { OfferSectionComponent } from './offer-section/offer-section.component';
 import { FoodSectionComponent } from './food-section/food-section.component';
-import { AbsoluteSourceSpan } from '@angular/compiler';
 import { BookSectionComponent } from './book-section/book-section.component';
 import { ClientSectionComponent } from './client-section/client-section.component';
 import { FooterSectionComponent } from './footer-section/footer-section.component';
@@ -27,4 +26,5 @@ import { AboutSectionComponent } from './about-section/about-section.component';
 })
 export class AppComponent {
   title = 'e-commerce-project';
+
 }

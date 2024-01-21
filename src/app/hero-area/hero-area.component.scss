@@ -125,16 +125,14 @@
         justify-content: center;
         align-items: center;
 
-        svg {
-            width: 17px;
-            height: auto;
+        app-cart-svg {
             fill: $white;
             margin-bottom: 2px;
         }
 
         &:hover {
 
-            svg {
+            app-cart-svg {
                 fill: $primary1;
             }
         }
