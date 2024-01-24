@@ -57,22 +57,21 @@
     </header>
     <!-- end header section -->
 
-
-
-
     <!-- slider section -->
-    <!-- Class isimlerinin hepsi scss içindir. Carouselle hiç bir alakaları yoktur -->
-    <owl-carousel-o [options]="customOptions" class="slider_section" data-ride="slide" dots="true">
+    <!-- Owl-Carousel Version -->
+    <owl-carousel-o [options]="customOptions" class="slider_section">
         <ng-container *ngFor="let slide of sliderStore">
-            <ng-template carouselSlide id="customCarousel1">
-                <div class="container">
+            <ng-template carouselSlide>
+                <div class=" container">
                     <div class="row">
-                        <div>
+                        <div [class]="slide.classNames">
                             <div class="detail-box">
                                 <h1>
                                     {{ slide.hText }}
                                 </h1>
-                                <p style="white-space: pre-line;">{{ slide.pText }}</p>
+                                <p>
+                                    {{ slide.pText }}
+                                </p>
                                 <div>
                                     <a [href]="slide.slidesBtnUrl">
                                         {{slide.btnText}}
@@ -84,11 +83,88 @@
                 </div>
             </ng-template>
         </ng-container>
-        <!-- <ng-template carouselIndicator let-index="index">
-        <div class="carousel-indicators" style="background-color: red; width: 20px; height: 20px;">
-            3
-        </div>
-    </ng-template> -->
     </owl-carousel-o>
+
+    <!-- Carousel ama Bootstraple -->
+    <!-- İkisi de sağlıklı bir şekilde çalışıyor (d-none classname'i yer değiştirilebilir)-->
+    <section class="slider_section d-none">
+        <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col-md-7 col-lg-6 ">
+                                <div class="detail-box">
+                                    <h1>
+                                        Fast Food Restaurant-1
+                                    </h1>
+                                    <p>
+                                        Doloremque, itaque aperiam facilis rerum, commodi, temporibus
+                                        sapiente ad
+                                        mollitia laborum quam
+                                        quisquam esse error unde. Tempora ex doloremque, labore, sunt
+                                        repellat
+                                        dolore,
+                                        iste magni quos
+                                        nihil ducimus libero ipsam.
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="" class="btn1">
+                                            Order Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="container ">
+                        <div class="row">
+                            <div class="col-md-7 col-lg-6 ">
+                                <div class="detail-box">
+                                    <h1>
+                                        Fast Food Restaurant
+                                    </h1>
+                                    <p>
+                                        Doloremque, itaque aperiam facilis rerum, commodi, temporibus
+                                        sapiente ad
+                                        mollitia laborum quam
+                                        quisquam esse error unde. Tempora ex doloremque, labore, sunt
+                                        repellat
+                                        dolore,
+                                        iste magni quos
+                                        nihil ducimus libero ipsam.
+                                    </p>
+                                    <div class="btn-box">
+                                        <a href="" class="btn1">
+                                            Order Now
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Arrow -->
+            < <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                <!-- Indicator -->
+                <div class="container">
+                    <ol class="carousel-indicators">
+                        <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+                        <li data-target="#customCarousel1" data-slide-to="1"></li>
+                        <li data-target="#customCarousel1" data-slide-to="2"></li>
+                    </ol>
+                </div>
+        </div>
+    </section>
     <!-- end slider section -->
 </div>

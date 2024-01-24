@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { HeroAreaComponent } from './hero-area/hero-area.component';
 import { OfferSectionComponent } from './offer-section/offer-section.component';
 import { FoodSectionComponent } from './food-section/food-section.component';
@@ -14,13 +14,16 @@ import { AboutSectionComponent } from './about-section/about-section.component';
   standalone: true,
   imports: [CommonModule,
     RouterOutlet,
+    RouterModule,
     HeroAreaComponent,
     OfferSectionComponent,
     FoodSectionComponent,
     AboutSectionComponent,
     BookSectionComponent,
     ClientSectionComponent,
-    FooterSectionComponent],
+    FooterSectionComponent,
+
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

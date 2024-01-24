@@ -30,3 +30,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Elage edebilirsin onu. En son kontrollerde -->
 
 <!-- Isotope Js eklentisine de bak. Amacını anlamadım -->
+
+<!-- owl indicator'leri customize edilecek -->

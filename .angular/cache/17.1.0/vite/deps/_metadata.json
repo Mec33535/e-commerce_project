@@ -1,41 +1,56 @@
 {
-  "hash": "d87e59d6",
-  "configHash": "31c2d938",
-  "lockfileHash": "22b7e50d",
-  "browserHash": "c13f8fd0",
+  "hash": "2a00a226",
+  "configHash": "3d9728f6",
+  "lockfileHash": "9db7f6c7",
+  "browserHash": "3691813c",
   "optimized": {
+    "@angular/animations": {
+      "src": "../../../../../node_modules/@angular/animations/fesm2022/animations.mjs",
+      "file": "@angular_animations.js",
+      "fileHash": "1fb0d441",
+      "needsInterop": false
+    },
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "c1f36de9",
+      "fileHash": "63840a91",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "0987629b",
+      "fileHash": "576831e2",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "2e71f6e3",
+      "fileHash": "d011b7e4",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "aafaef61",
+      "fileHash": "e94ca4b1",
       "needsInterop": false
     },
     "ngx-owl-carousel-o": {
       "src": "../../../../../node_modules/ngx-owl-carousel-o/fesm2022/ngx-owl-carousel-o.mjs",
       "file": "ngx-owl-carousel-o.js",
-      "fileHash": "cc20b3cf",
+      "fileHash": "5a2d2782",
+      "needsInterop": false
+    },
+    "@angular/platform-browser/animations": {
+      "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/animations.mjs",
+      "file": "@angular_platform-browser_animations.js",
+      "fileHash": "d833b15c",
       "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-5WRSTQ74": {
+      "file": "chunk-5WRSTQ74.js"
+    },
     "chunk-ZF7OA4AY": {
       "file": "chunk-ZF7OA4AY.js"
     },

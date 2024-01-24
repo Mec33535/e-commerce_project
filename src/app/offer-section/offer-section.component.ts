@@ -15,12 +15,14 @@ export class OfferSectionComponent {
 
   OfferCards = [
     {
+      offerId: "1-offer",
       offerPic: "../../assets/o1.jpg",
       offerTitle: "Tasty Thursdays",
       offerDiscount: "20%",
 
     },
     {
+      offerId: "2-offer",
       offerPic: "../../assets/o2.jpg",
       offerTitle: "Pizza Days",
       offerDiscount: "15%",

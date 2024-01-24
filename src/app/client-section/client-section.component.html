@@ -1,1 +1,37 @@
-<p>client-section works!</p>
+<!-- client section -->
+
+<section class="client_section layout_padding-bottom">
+    <div class="container">
+        <div class="heading_container heading_center psudo_white_primary mb_45">
+            <h2>
+                What Says Our Customers
+            </h2>
+        </div>
+
+        <!-- <div class="carousel-wrap ro w "> -->
+        <!-- <div class="owl-carousel client_owl-carousel"> -->
+        <owl-carousel-o [options]="customOptions2" class="row .owl-carousel">
+            <ng-container *ngFor="let temp of clients">
+                <ng-template carouselSlide="data-target" class="owl-carousel">
+                    <div class="box">
+                        <div class="detail-box">
+                            <p>
+                                {{temp.clientLorem}}
+                            </p>
+                            <h6>
+                                {{temp.clientName}}
+                            </h6>
+                            <p>
+                                {{temp.clientTitle}}
+                            </p>
+                        </div>
+                        <div class="img-box">
+                            <img [src]="temp.clientPic" class="box-img">
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+        </owl-carousel-o>
+    </div>
+</section>
+<!-- end client section -->
