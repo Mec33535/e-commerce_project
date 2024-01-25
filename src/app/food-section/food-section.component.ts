@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { CartSvgComponent } from '../cart-svg/cart-svg.component';
 import { IsotopeOptions } from 'isotope-layout';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-food-section',
@@ -10,6 +12,7 @@ import { IsotopeOptions } from 'isotope-layout';
   imports: [
     CommonModule,
     CartSvgComponent,
+    RouterLink
   ],
   templateUrl: './food-section.component.html',
   styleUrl: './food-section.component.scss'

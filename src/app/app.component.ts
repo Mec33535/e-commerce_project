@@ -28,6 +28,7 @@ import { AboutSectionComponent } from './about-section/about-section.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
   title = 'e-commerce-project';
 
 }

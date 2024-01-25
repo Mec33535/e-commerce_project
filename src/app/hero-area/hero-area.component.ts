@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartSvgComponent } from '../cart-svg/cart-svg.component';
-// import { trigger } from '@angular/animations';
-import { trigger, state, style, animate, transition } from '@angular/animations';
-import { RouterModule, Routes } from '@angular/router';
-// import {NgbCarousel}
-
+import { RouterLinkActive, RouterModule, Routes, Router } from '@angular/router';
 
 
 @Component({
@@ -17,43 +13,17 @@ import { RouterModule, Routes } from '@angular/router';
     CommonModule,
     CartSvgComponent,
     RouterModule,
-
+    RouterLinkActive
   ],
   templateUrl: './hero-area.component.html',
   styleUrl: './hero-area.component.scss',
-  animations: [
-    trigger('autoHeight', [
-      state('nulled', style({ height: 0 })),
-      state('full', style({ height: '*' })),
-      transition('full => nulled', [
-        style({ height: '*' }),
-        animate('700ms 350ms')
-      ]),
-      transition('nulled => full', [
-        style({ height: 0 }),
-        animate(350)
-      ]),
-    ])
-  ]
 })
-export class HeroAreaComponent implements OnInit {
+export class HeroAreaComponent {
+  constructor(private router: Router) { }
 
-  constructor() {
+  isThisRouterIndex(): boolean {
+    return this.router.url.includes('/index');
   }
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    console.log("merhaba")
-    // window.addEventListener("resize", () => {
-    // Pencerenin genişliğini ve yüksekliğini güncelleyin
-    // const width = window.innerWidth;
-    // const height = window.innerHeight;
-
-    // Kütüphanelerin ihtiyaç duyduğu bilgileri güncelleyin
-    // ...
-    // });
-  }
-
 
   customOptions: OwlOptions = {
     autoplay: true,
@@ -149,10 +119,5 @@ export class HeroAreaComponent implements OnInit {
       slidesBtnUrl: "#"
     }
   ]
-  // currentSlide: number = 0;
-  // onSlideChange(event: any) {
-  //   this.currentSlide = event.currentSlide;
-  // }
-
 
 }
