@@ -13,7 +13,7 @@ import { RouterLinkActive, RouterModule, Routes, Router } from '@angular/router'
     CommonModule,
     CartSvgComponent,
     RouterModule,
-    RouterLinkActive
+    RouterLinkActive,
   ],
   templateUrl: './hero-area.component.html',
   styleUrl: './hero-area.component.scss',

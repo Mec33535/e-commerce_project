@@ -1,0 +1,138 @@
+@import "../app.component.scss";
+$inputSelectors: (
+    'email',
+    'password'
+);
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+
+    .login_section {
+
+        justify-content: center;
+        background: $primary2;
+        color: $white;
+        width: 50%;
+        // height: 100vh;
+        margin: 15px 0;
+        border-radius: 1.5rem;
+
+        .row {
+            align-items: center;
+        }
+
+        .img-box {
+            position: relative;
+            display: flex;
+            justify-content: center;
+
+            img {
+                width: 70%;
+                max-width: 300px;
+                position: relative;
+                z-index: 2;
+            }
+        }
+
+        .heading_container {
+            margin-bottom: 3rem;
+        }
+
+        .detail-box {
+            padding: 0px 50px;
+
+            a {
+                @include hero_btn($primary1, $white, 10px, 45px, 45px);
+                margin-top: 15px;
+            }
+
+
+            .form-email,
+            .form-password {
+                position: relative;
+
+                @each $inputType in $inputSelectors {
+                    input[type="#{$inputType}"] {
+                        color: $white;
+                        position: absolute;
+                        background: none;
+                        border: none;
+                        outline: none;
+                        border-bottom: 1px solid;
+
+                        &:focus,
+                        &:valid,
+                        &:user-invalid {
+                            ~.user_labels {
+                                transform: translateY(-25px);
+                            }
+                        }
+                    }
+                }
+
+                .user_labels {
+                    color: $white;
+                    cursor: text;
+                    left: 5px;
+                    top: 0px;
+                    position: absolute;
+                    transition: 0.3s ease;
+                }
+
+                input~.inputs_required {
+                    position: absolute;
+                    color: $primary1;
+                    display: none;
+                }
+
+                input:user-invalid~.inputs_required {
+                    display: inline;
+                }
+            }
+
+            .checkboxButton {
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+
+                #remember-me {
+
+                    width: 1.15em;
+                    height: 1.15em;
+                    border: 0.15em solid currentColor;
+                    border-radius: 0.15em;
+                    transform: translateY(-0.075em);
+                    cursor: pointer;
+                    color: $white;
+                    opacity: 0.6;
+                    display: grid;
+                    place-content: center;
+                    // box-shadow: rgba($white, 0.19) -5px 3px 2px, rgba(0, 0, 0, 0.23) -5px 3px 6px;
+
+
+
+                    &::before {
+                        content: "";
+                        width: 0.65em;
+                        height: 0.65em;
+                        transform: scale(0);
+                        transition: 120ms transform ease-in-out;
+                        box-shadow: inset 1em 1em $primary1;
+                    }
+
+                    &:checked {
+                        opacity: 0.9;
+                    }
+
+                    &:checked::before {
+                        transform: scale(1);
+                    }
+
+                }
+            }
+
+        }
+
+    }
+}
