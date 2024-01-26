@@ -1,138 +1,226 @@
 @import "../app.component.scss";
 $inputSelectors: (
     'email',
-    'password'
+    'password',
+    'tel',
+    'text'
 );
 
+
 .login-wrapper {
-    display: flex;
+
     justify-content: center;
+    position: relative;
+    display: flex;
 
-    .login_section {
+    .form-button {
+        @include hero_btn($primary1, $white, 10px, 45px, 45px);
+    }
 
-        justify-content: center;
-        background: $primary2;
-        color: $white;
-        width: 50%;
-        // height: 100vh;
-        margin: 15px 0;
-        border-radius: 1.5rem;
+    .login-card {
 
-        .row {
-            align-items: center;
-        }
-
-        .img-box {
+        // position: relative;
+        // width: 50%;
+        .form-check-button {
+            top: 35px;
+            // right: 5px;
+            width: 120px;
+            height: 35px;
+            background: $primary2;
+            margin: 20px auto;
             position: relative;
-            display: flex;
+            border-radius: 50px;
+            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5), 0px 1px 0px rgba(255, 255, 255, 0.2);
+            z-index: 5;
+
+            &:after {
+                content: 'Sign Up';
+                color: $primary1;
+                position: absolute;
+                right: 10px;
+                top: 5px;
+                z-index: 0;
+                font: 12px/26px Arial, sans-serif;
+                font-weight: bold;
+                text-shadow: 1px 1px 0px rgba(255, 255, 255, .15);
+            }
+
+            &:before {
+                content: 'Login';
+                color: $primary1;
+                position: absolute;
+                left: 10px;
+                top: 5px;
+                z-index: 0;
+                font: 12px/26px Arial, sans-serif;
+                font-weight: bold;
+            }
+
+            label {
+                display: block;
+                width: 55px;
+                height: 30px;
+                cursor: pointer;
+                position: absolute;
+                top: 3px;
+                left: 4px;
+                z-index: 1;
+                background: #fcfff4;
+                background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+                border-radius: 50px;
+                transition: all 0.4s ease;
+                box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+            }
+
+            input[type=checkbox] {
+                visibility: hidden;
+
+                &:checked+label {
+                    left: 61px;
+                }
+            }
+        }
+
+        .login_section {
+            // height: fit-content;
+            // width: fit-content;
             justify-content: center;
+            background: $primary2;
+            color: $white;
+            position: relative;
+            margin: 15px 0;
+            border-radius: 1.5rem;
 
-            img {
-                width: 70%;
-                max-width: 300px;
-                position: relative;
-                z-index: 2;
-            }
-        }
 
-        .heading_container {
-            margin-bottom: 3rem;
-        }
 
-        .detail-box {
-            padding: 0px 50px;
-
-            a {
-                @include hero_btn($primary1, $white, 10px, 45px, 45px);
-                margin-top: 15px;
+            .row {
+                align-items: center;
+                padding: 60px 0;
             }
 
+            .burger-icon {
 
-            .form-email,
-            .form-password {
+                // transition: all 1s ease;
+            }
+
+            .img-box {
                 position: relative;
+                display: flex;
+                justify-content: center;
 
-                @each $inputType in $inputSelectors {
-                    input[type="#{$inputType}"] {
-                        color: $white;
-                        position: absolute;
-                        background: none;
-                        border: none;
-                        outline: none;
-                        border-bottom: 1px solid;
 
-                        &:focus,
-                        &:valid,
-                        &:user-invalid {
-                            ~.user_labels {
-                                transform: translateY(-25px);
+                img {
+
+                    width: 70%;
+                    max-width: 300px;
+                    position: relative;
+                    z-index: 2;
+                }
+            }
+
+            .heading_container {
+                margin-bottom: 3rem;
+            }
+
+            .detail-box {
+                padding: 0px 50px;
+
+                a {
+                    @include hero_btn($primary1, $white, 10px, 45px, 45px);
+                    margin-top: 15px;
+                }
+
+
+                .form-inputs {
+                    position: relative;
+
+                    @each $inputType in $inputSelectors {
+                        input[type="#{$inputType}"] {
+                            color: $white;
+                            position: absolute;
+                            background: none;
+                            border: none;
+                            outline: none;
+                            border-bottom: 1px solid;
+
+                            &:focus,
+                            &:valid,
+                            &:user-invalid {
+                                ~.user_labels {
+                                    transform: translateY(-25px);
+                                    opacity: 0.9;
+                                }
                             }
                         }
                     }
+
+                    .user_labels {
+                        color: $white;
+                        cursor: text;
+                        left: 5px;
+                        top: 0px;
+                        position: absolute;
+                        transition: 0.3s ease;
+                        opacity: 0.5;
+                    }
+
+                    input~.inputs_required {
+                        position: absolute;
+                        color: $primary1;
+                        display: none;
+                    }
+
+                    input:user-invalid~.inputs_required {
+                        display: inline;
+                    }
                 }
 
-                .user_labels {
-                    color: $white;
-                    cursor: text;
-                    left: 5px;
-                    top: 0px;
-                    position: absolute;
-                    transition: 0.3s ease;
-                }
+                .checkboxButton {
+                    display: flex;
+                    gap: 1rem;
+                    align-items: center;
+                    margin-bottom: 20px;
 
-                input~.inputs_required {
-                    position: absolute;
-                    color: $primary1;
-                    display: none;
-                }
+                    label {
+                        margin-bottom: 0;
+                    }
 
-                input:user-invalid~.inputs_required {
-                    display: inline;
-                }
-            }
+                    #remember-me {
 
-            .checkboxButton {
-                display: flex;
-                gap: 1rem;
-                align-items: center;
-
-                #remember-me {
-
-                    width: 1.15em;
-                    height: 1.15em;
-                    border: 0.15em solid currentColor;
-                    border-radius: 0.15em;
-                    transform: translateY(-0.075em);
-                    cursor: pointer;
-                    color: $white;
-                    opacity: 0.6;
-                    display: grid;
-                    place-content: center;
-                    // box-shadow: rgba($white, 0.19) -5px 3px 2px, rgba(0, 0, 0, 0.23) -5px 3px 6px;
-
-
-
-                    &::before {
+                        width: 1.15em;
+                        height: 1.15em;
+                        border: 0.15em solid currentColor;
+                        border-radius: 0.15em;
+                        transform: translateY(-0.075em);
+                        cursor: pointer;
+                        color: $white;
+                        opacity: 0.6;
+                        display: grid;
+                        place-content: center;
+                        // box-shadow: rgba($white, 0.19) -5px 3px 2px, rgba(0, 0, 0, 0.23) -5px 3px 6px;
+                        // outline: none;
                         content: "";
-                        width: 0.65em;
-                        height: 0.65em;
-                        transform: scale(0);
-                        transition: 120ms transform ease-in-out;
-                        box-shadow: inset 1em 1em $primary1;
-                    }
 
-                    &:checked {
-                        opacity: 0.9;
-                    }
+                        &::before {
+                            content: "";
+                            width: 0.65em;
+                            height: 0.65em;
+                            transform: scale(0);
+                            transition: 120ms transform ease-in-out;
+                            box-shadow: inset 1em 1em $primary1;
+                        }
 
-                    &:checked::before {
-                        transform: scale(1);
-                    }
+                        &:checked {
+                            opacity: 0.9;
+                        }
 
+                        &:checked::before {
+                            transform: scale(1);
+
+                        }
+                    }
                 }
             }
-
         }
-
     }
 }

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartSvgComponent } from '../cart-svg/cart-svg.component';
 import { RouterLinkActive, RouterModule, Routes, Router } from '@angular/router';
+import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { RouterLinkActive, RouterModule, Routes, Router } from '@angular/router'
   styleUrl: './hero-area.component.scss',
 })
 export class HeroAreaComponent {
+
   constructor(private router: Router) { }
 
   isThisRouterIndex(): boolean {
@@ -34,7 +36,7 @@ export class HeroAreaComponent {
     nav: false,
     lazyLoad: false,
     autoplayHoverPause: true,
-    items: 1,
+    // items: 1,
     responsive: {
       0: {
         items: 1
@@ -119,5 +121,6 @@ export class HeroAreaComponent {
       slidesBtnUrl: "#"
     }
   ]
+
 
 }

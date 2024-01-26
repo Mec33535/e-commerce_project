@@ -1,51 +1,116 @@
 <div class="login-wrapper">
-
-    <section class="login_section layout_padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="detail-box">
-                        <div class="heading_container">
-                            <h2>
-                                Login
-                            </h2>
-                        </div>
-                        <form action="#" method="get" autocomplete="on" class="form-area">
-                            <div class="form-email">
-                                <input type="email" name="uemail" id="user-email" required
-                                    title="Mailinizi Giriniz"><br>
-                                <span class="inputs_required">*Required</span>
-                                <label for="user-email" class="user_labels">EMAIL</label><br><br>
+    <section class="login-card">
+        <div class="form-check-button">
+            <input type="checkbox" value="None" id="form-check-button" name="check" checked (click)="makeVisible()" />
+            <label for="form-check-button"></label>
+        </div>
+        <div class="login_section">
+            <div class="container">
+                <div class="row">
+                    <!-- Login Form -->
+                    <div class="col-md-6 order-1" [ngClass]="{'d-none': isVisible}" id="login_id">
+                        <div class="detail-box">
+                            <div class="heading_container">
+                                <h2>
+                                    Login
+                                </h2>
                             </div>
-                            <div class="form-password">
-                                <input type="password" name="upassword" id="user-password" title="Şifrenizi Giriniz"
-                                    required><br>
-                                <span class="inputs_required">*Required</span>
-                                <label for="user-password" class="user_labels">Password</label><br>
-                            </div>
-                            <div class="checkboxButton">
-                                <input type="checkbox" name="uremember" id="remember-me">
-                                <label class="x" for="remember-me" style="cursor: pointer;">Beni Hatırla</label>
-                            </div>
+                            <form action="#" method="get" autocomplete="on" class="form-area">
+                                <div class="form-inputs">
+                                    <input type="email" name="uemail" id="user-email-login" required
+                                        title="Mailinizi Giriniz"><br>
+                                    <span class="inputs_required">*Required</span>
+                                    <label for="user-email-login" class="user_labels">EMAIL</label><br><br>
+                                </div>
+                                <div class="form-inputs">
+                                    <input type="password" name="upassword" id="user-password-login"
+                                        title="Şifrenizi Giriniz" required><br>
+                                    <span class="inputs_required">*Required</span>
+                                    <label for="user-password-login" class="user_labels">Password</label><br>
+                                </div>
+                                <div class="checkboxButton">
+                                    <input type="checkbox" name="uremember" id="remember-me-login">
+                                    <label class="x" for="remember-me" style="cursor: pointer;">Beni Hatırla</label>
+                                </div>
 
-                            <a href="">
-                                <button type="submit" name="submit" id="submit" title="Giriş Yap">Giriş</button><br>
-                            </a>
+
+                                <button type="submit" name="submit" class="form-button" title="Login">Login</button><br>
 
 
-                            <div class="password-reset">
+
+                                <!-- <div class="password-reset">
                                 <a href="#">Şifremi unuttum*</a>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="img-box">
-                        <img src="../assets/about-img.png" alt="">
-                    </div>
-                </div>
+                            </div> -->
+                            </form>
+                        </div>
 
+                    </div>
+                    <!-- Login Form End-->
+                    <!-- Register Form -->
+                    <div class="col-md-6 order-8" [ngClass]="{'d-none': !isVisible}" id="register_id">
+                        <div class="detail-box">
+                            <div class="heading_container">
+                                <h2>
+                                    Sign up
+                                </h2>
+                            </div>
+                            <form action="#" method="get" autocomplete="on" class="form-area">
+                                <!-- name -->
+                                <div class="form-inputs">
+                                    <input type="text" name="uname" id="user-name-register" title="İsim Giriniz"
+                                        required><br>
+                                    <span class="inputs_required">*Required</span>
+                                    <label for="user-name-register" class="user_labels">Name</label><br><br>
+                                </div>
+                                <!-- mail -->
+                                <div class="form-inputs">
+                                    <input type="email" name="uemail" id="user-email-register" required
+                                        title="Mailinizi Giriniz"><br>
+                                    <span class="inputs_required">*Required</span>
+                                    <label for="user-email-register" class="user_labels">E-mail</label><br><br>
+                                </div>
+                                <!-- Phone Number -->
+                                <div class="form-inputs">
+                                    <input type="tel" name="uphone" id="user-phone-register" pattern="[0-9]{10}"
+                                        title="Telefon Giriniz" required><br>
+                                    <span class="inputs_required">*Required</span>
+                                    <label for="user-phone-register" class="user_labels">+90(Phone)</label><br><br>
+                                </div>
+                                <!-- password -->
+                                <div class="form-inputs">
+                                    <input type="password" name="upassword" id="user-password-register"
+                                        title="Şifrenizi Giriniz" required><br>
+                                    <span class="inputs_required">*Required</span>
+                                    <label for="user-password-register" class="user_labels">Password</label><br>
+                                </div>
+
+
+                                <button type="submit" name="submit" class="form-button"
+                                    title="Sign-up">Sign-up</button><br>
+
+
+                                <!-- <div class="password-reset">
+                                <a href="#">Şifremi unuttum*</a>
+                            </div> -->
+                            </form>
+                        </div>
+
+                    </div>
+                    <!-- Register Form End-->
+                    <!-- Img-Box -->
+                    <div class="col-md-6 burger-icon" [ngClass]="isVisible ? 'order-5' : 'order-2'"
+                        [ngStyle]="{'transform': isVisible ? 'scaleX(-1)' : 'scaleX(1)'}">
+                        <!-- <div class="col-md-6 burger-icon" [ngClass]="{'order-5': isVisible, 'order-2': !isVisible}"> -->
+                        <!-- <div class="col-md-6 burger-icon" [ngStyle]="{'order': isVisible ? 5 : 2}"> -->
+                        <!-- <div class="col-md-6 burger-icon" data-order:5> -->
+                        <div class=" img-box d-none d-md-block">
+                            <img src="../assets/about-img.png" alt="">
+                        </div>
+                    </div>
+                    <!-- Img-Box End-->
+                </div>
             </div>
         </div>
+
     </section>
 </div>
