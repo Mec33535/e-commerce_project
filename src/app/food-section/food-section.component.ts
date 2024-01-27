@@ -19,17 +19,18 @@ import { RouterLink } from '@angular/router';
 })
 export class FoodSectionComponent {
 
-  filterFunction(item: any): boolean {
-    return item.title === "Angular";
-  }
+  // filterFunction(item: any): boolean {
+  //   console.log("hey")
+  //   return item.title === "Angular";
+  // }
 
-  IsotopeModule: IsotopeOptions = {
-    // const data = this.
-    filter: 'data',
-    itemSelector: 'item-selector',
-    layoutMode: 'cellsByRow',
-    sortBy: '3s',
-  }
+  // IsotopeModule: IsotopeOptions = {
+  //   // const data = this.
+  //   filter: 'data',
+  //   itemSelector: 'item-selector',
+  //   layoutMode: 'cellsByRow',
+  //   sortBy: '3s',
+  // }
 
   FilterMenu = [
     {

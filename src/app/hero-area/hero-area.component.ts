@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartSvgComponent } from '../cart-svg/cart-svg.component';
 import { RouterLinkActive, RouterModule, Routes, Router } from '@angular/router';
-import { SearchModalComponent } from '../search-modal/search-modal.component';
 
 
 @Component({
@@ -27,17 +26,45 @@ export class HeroAreaComponent {
     return this.router.url.includes('/index');
   }
 
-  customOptions: OwlOptions = {
+  navbarSection: {
+    navbarItemClass: string;
+    navItems: Array<any>;
+  } = {
+      navbarItemClass: 'nav-item',
+
+      navItems: [
+        {
+          routerLinks: "/index",
+          itemsTitle: "Home"
+        },
+        {
+          routerLinks: "/menu",
+          itemsTitle: "Menu"
+        },
+        {
+          routerLinks: "/about",
+          itemsTitle: "About"
+        },
+        {
+          routerLinks: "/book-table",
+          itemsTitle: "Book Table"
+        }],
+
+    }
+
+
+  owlCustomOptions: OwlOptions = {
     autoplay: true,
-    autoHeight: false,
     loop: true,
-    margin: 0,
     dots: true,
-    nav: false,
     lazyLoad: false,
-    autoplayHoverPause: true,
-    // items: 1,
+    dotsSpeed: 1000,
+    smartSpeed: 800,
+    dotsData: true,
+    // autoplayHoverPause: true,
+    // navText: ["za"],
     responsive: {
+
       0: {
         items: 1
       },
@@ -52,75 +79,44 @@ export class HeroAreaComponent {
       }
     },
 
-    // navText: [
-    //   '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-    //   '<i class="fa fa-angle-right" aria-hidden="true"></i>'
-    // ],
-    dotsSpeed: 1000,
-    // dotsData: {
-    //   value: 1;
-    // },
-
   };
 
+  HeroSliders: {
+    classNames: string,
+    htext: string,
+    btnText: string,
+    slidesBtnUrl: string,
+    sliderStore: Array<any>,
+  } = {
+      classNames: "col-md-7 ,col-lg-6",
+      htext: "Fast Food Restourant",
+      btnText: "Order Now",
+      slidesBtnUrl: "#",
 
-  sliderStore: Array<any> = [
-    {
-      id: "1-slide",
-      classNames: "col-md-7 ,col-lg-6",
-      hText: "Fast Food Restourant",
-      pText: `
+      sliderStore: [
+        {
+          id: "1-slide",
+          pText: `
       Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad 
       mollitialaborum quamquisquam esse error unde. Tempora ex doloremque, labore, 
       sunt repellat dolore, iste magni quosnihil ducimus libero ipsam`,
-      btnText: "Order Now",
-      slidesBtnUrl: "#"
-    },
-    {
-      id: "2-slide",
-      classNames: "col-md-7 ,col-lg-6",
-      hText: "Fast Food Restourant",
-      pText: `
+        },
+        {
+          id: "2-slide",
+          pText: `
       Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad 
       mollitialaborum quamquisquam esse error unde. Tempora ex doloremque, labore, 
       sunt repellat dolore, iste magni quosnihil ducimus libero ipsam`,
-      btnText: "Order Now",
-      slidesBtnUrl: "#"
-    },
-    {
-      id: "3-slide",
-      classNames: "col-md-7 ,col-lg-6",
-      hText: "Fast Food Restourant",
-      pText: `
+        },
+        {
+          id: "3-slide",
+
+          pText: `
       Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad 
       mollitialaborum quamquisquam esse error unde. Tempora ex doloremque, labore, 
       sunt repellat dolore, iste magni quosnihil ducimus libero ipsam`,
-      btnText: "Order Now",
-      slidesBtnUrl: "#"
-    },
-    {
-      id: "4-slide",
-      classNames: "col-md-7 ,col-lg-6",
-      hText: "Fast Food Restourant",
-      pText: `
-      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad 
-      mollitialaborum quamquisquam esse error unde. Tempora ex doloremque, labore, 
-      sunt repellat dolore, iste magni quosnihil ducimus libero ipsam`,
-      btnText: "Order Now",
-      slidesBtnUrl: "#"
-    },
-    {
-      id: "5-slide",
-      classNames: "col-md-7 ,col-lg-6",
-      hText: "Fast Food Restourant",
-      pText: `
-      Doloremque, itaque aperiam facilis rerum, commodi, temporibus sapiente ad 
-      mollitialaborum quamquisquam esse error unde. Tempora ex doloremque, labore, 
-      sunt repellat dolore, iste magni quosnihil ducimus libero ipsam`,
-      btnText: "Order Now",
-      slidesBtnUrl: "#"
+        },
+      ],
     }
-  ]
-
 
 }

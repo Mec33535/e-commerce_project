@@ -5,7 +5,7 @@
         <img src="../../assets/hero-bg.jpg" alt="">
     </div>
 
-    <!-- end header section -->
+    <!-- header section -->
     <header class="header_section">
         <div class="container">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
@@ -22,27 +22,21 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav  mx-auto ">
-                        <li class="nav-item active">
-                            <a class="nav-link" routerLink="/index">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/menu">Menu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/book-table">Book Table</a>
+                    <ul class="navbar-nav mx-auto ">
+                        <li [class]="navbarSection.navbarItemClass" *ngFor="let navbar of navbarSection.navItems"
+                            [routerLinkActive]="['active']">
+                            <a class="nav-link" [routerLink]="navbar.routerLinks">{{navbar.itemsTitle}} </a>
                         </li>
                     </ul>
+
+
                     <div class="user_option">
                         <a routerLink="/login-register" class="user_link">
                             <i class="fa fa-user" aria-hidden="true"></i>
                         </a>
                         <a class="cart_link" href="#">
                             <!-- Navbardaki alışveriş sepeti ikonu-->
-                            <app-cart-svg class="x"></app-cart-svg>
+                            <app-cart-svg></app-cart-svg>
                         </a>
                         <form class="form-inline">
                             <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
@@ -68,22 +62,22 @@
         <!-- <ng-template #name></ng-template> -->
 
 
-        <owl-carousel-o [options]="customOptions" class="slider_section">
-            <ng-container *ngFor="let slide of sliderStore">
+        <owl-carousel-o [options]="owlCustomOptions" class="slider_section">
+            <ng-container *ngFor="let slide of HeroSliders.sliderStore">
                 <ng-template carouselSlide>
                     <div class=" container">
                         <div class="row">
-                            <div [class]="slide.classNames">
+                            <div [class]="HeroSliders.classNames">
                                 <div class="detail-box">
                                     <h1>
-                                        {{ slide.hText }}
+                                        {{ HeroSliders.htext }}
                                     </h1>
                                     <p>
                                         {{ slide.pText }}
                                     </p>
                                     <div>
-                                        <a [href]="slide.slidesBtnUrl">
-                                            {{slide.btnText}}
+                                        <a [href]="HeroSliders.slidesBtnUrl">
+                                            {{HeroSliders.btnText}}
                                         </a>
                                     </div>
                                 </div>
@@ -91,6 +85,7 @@
                         </div>
                     </div>
                 </ng-template>
+                <!-- <ng-template></ng-template> -->
             </ng-container>
         </owl-carousel-o>
     </ng-container>

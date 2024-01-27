@@ -11,19 +11,19 @@
                         <a href="">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <span>
-                                Location
+                                {{footerSection.contactUs.location}}
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span>
-                                Call +01 1234567890
+                                Call {{footerSection.contactUs.phoneNo}}
                             </span>
                         </a>
                         <a href="">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <span>
-                                demo"&#64;"gmail.com
+                                {{footerSection.contactUs.mail}}
                             </span>
                         </a>
                     </div>
@@ -35,25 +35,13 @@
                         Feane
                     </a>
                     <p>
-                        Necessary, making this the first true generator on the Internet. It uses a dictionary of over
-                        200 Latin words, combined with
+                        {{footerSection.Feane.restourantLorem}}
                     </p>
                     <div class="footer_social">
-                        <a href="">
-                            <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+                        <a href="" *ngFor="let socials of footerSection.Feane.socialMedias">
+                            <i [class]="socials.icon" aria-hidden="true"></i>
                         </a>
-                        <a href="">
-                            <i class="fa-brands fa-twitter" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-pinterest" aria-hidden="true"></i>
-                        </a>
+
                     </div>
                 </div>
             </div>
@@ -62,21 +50,21 @@
                     Opening Hours
                 </h4>
                 <p>
-                    Everyday
+                    {{footerSection.openingDays}}
                 </p>
                 <p>
-                    10.00 Am -10.00 Pm
+                    {{footerSection.openingHours}}
                 </p>
             </div>
         </div>
-        <div class="footer-info">
+        <!-- <div class="footer-info">
             <p>
                 &copy; <span id="displayYear"></span> All Rights Reserved By
                 <a href="https://html.design/">Free Html Templates</a><br><br>
                 &copy; <span id="displayYear"></span> Distributed By
                 <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
             </p>
-        </div>
+        </div> -->
     </div>
 </footer>
 <!-- footer section -->

@@ -27,20 +27,26 @@ export class ClientSectionComponent {
       clientName: "john",
       clientTitle: "Title-2",
       clientPic: "../../assets/client2.jpg",
+    },
+    {
+      clientId: "3-clien",
+      clientLorem: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam",
+      clientName: "john",
+      clientTitle: "Title-3",
+      clientPic: "../../assets/client2.jpg",
     }
   ];
-  customOptions2: OwlOptions = {
+  customOptionsClient: OwlOptions = {
     loop: true,
     margin: 0,
     dots: false,
-    nav: true,
     // navText: [],
     autoplay: false,
     autoplayHoverPause: false,
     autoWidth: true,
     navText: [
-      '<i class="fa fa-angle-left" aria-hidden="true"></i>',
-      '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+      '<i class="fa-solid fa-angles-left"></i>',
+      '<i class="fa-solid fa-angles-right"></i>',
     ],
     autoHeight: false,
     responsive: {
@@ -53,7 +59,8 @@ export class ClientSectionComponent {
       1000: {
         items: 2
       }
-    }
+    },
+    nav: true,
   }
 
 

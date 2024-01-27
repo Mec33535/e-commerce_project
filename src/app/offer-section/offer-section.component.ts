@@ -1,13 +1,15 @@
 import { CartSvgComponent } from '../cart-svg/cart-svg.component';
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-offer-section',
   standalone: true,
   imports: [CommonModule,
-    CartSvgComponent],
+    CartSvgComponent,
+    RouterModule],
   templateUrl: './offer-section.component.html',
   styleUrl: './offer-section.component.scss'
 })
