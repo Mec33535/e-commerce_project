@@ -14,13 +14,60 @@ import { FormsModule } from '@angular/forms';
 
 export class LoginRegisterComponent {
   x: number = 5;
-  login: {
-    a: string,
-    order: string
-  } = {
-      a: "a",
-      order: "order-12",
-    };
+  divClass: string = "form-inputs";
+  spanClass: string = "inputs_required";
+  labelClass: string = " user_labels";
+
+  FormLogin: Array<any> = [
+    {
+      type: "email",
+      name: "uLoginemail",
+      id: "user-email-login",
+      title: "Mailinizi Giriniz",
+      labelTitle: "Email"
+    },
+    {
+      type: "password",
+      name: "uLoginpassword",
+      id: "user-password-login",
+      title: "Şifrenizi Giriniz",
+      labelTitle: "Password"
+    }
+
+  ];
+  FormRegister: Array<any> = [
+    {
+      type: "text",
+      name: "uRegistername",
+      id: "user-name-register",
+      title: "İsim Giriniz",
+      labelTitle: "Name"
+    },
+    {
+      type: "email",
+      name: "uRegisteremail",
+      id: "user-email-register",
+      title: "Mailinizi Giriniz",
+      labelTitle: "Email"
+    },
+    {
+      type: "password",
+      name: "uRegisterpassword",
+      id: "user-password-register",
+      title: "Şifrenizi Giriniz",
+      labelTitle: "Password"
+
+    },
+    {
+      type: "tel",
+      name: "uRegisterpassword",
+      id: "user-phone-register",
+      title: "Telefon Giriniz",
+      labelTitle: "+90-(Phone)"
+    },
+
+  ];
+
 
   register: {
     b: string,

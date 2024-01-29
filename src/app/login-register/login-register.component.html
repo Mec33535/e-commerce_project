@@ -16,21 +16,17 @@
                                 </h2>
                             </div>
                             <form action="#" method="get" autocomplete="on" class="form-area">
-                                <div class="form-inputs">
-                                    <input type="email" name="uemail" id="user-email-login" required
-                                        title="Mailinizi Giriniz"><br>
-                                    <span class="inputs_required">*Required</span>
-                                    <label for="user-email-login" class="user_labels">EMAIL</label><br><br>
-                                </div>
-                                <div class="form-inputs">
-                                    <input type="password" name="upassword" id="user-password-login"
-                                        title="Şifrenizi Giriniz" required><br>
-                                    <span class="inputs_required">*Required</span>
-                                    <label for="user-password-login" class="user_labels">Password</label><br>
+                                <div [class]="divClass" *ngFor=" let login of FormLogin ">
+                                    <input [type]="login.type" [name]="login.name" [id]="login.id" required
+                                        [title]="login.title"><br>
+                                    <span [class]="spanClass">*Required</span>
+                                    <label [for]="login.id" [class]="labelClass">{{login.labelTitle |
+                                        uppercase}}</label><br><br>
                                 </div>
                                 <div class="checkboxButton">
                                     <input type="checkbox" name="uremember" id="remember-me-login">
-                                    <label class="x" for="remember-me" style="cursor: pointer;">Beni Hatırla</label>
+                                    <label for="remember-me-login" style="cursor: pointer;">Beni
+                                        Hatırla</label>
                                 </div>
 
 
@@ -55,43 +51,14 @@
                                 </h2>
                             </div>
                             <form action="#" method="get" autocomplete="on" class="form-area">
-                                <!-- name -->
-                                <div class="form-inputs">
-                                    <input type="text" name="uname" id="user-name-register" title="İsim Giriniz"
-                                        required><br>
-                                    <span class="inputs_required">*Required</span>
-                                    <label for="user-name-register" class="user_labels">Name</label><br><br>
+                                <div [class]="divClass" *ngFor="let signup of FormRegister">
+                                    <input [type]="signup.type" [name]="signup.name" [id]="signup.id"
+                                        [title]="signup.title" required><br>
+                                    <span [class]="spanClass">*Required</span>
+                                    <label [for]="signup.id" [class]="labelClass">{{signup.labelTitle}}</label><br><br>
                                 </div>
-                                <!-- mail -->
-                                <div class="form-inputs">
-                                    <input type="email" name="uemail" id="user-email-register" required
-                                        title="Mailinizi Giriniz"><br>
-                                    <span class="inputs_required">*Required</span>
-                                    <label for="user-email-register" class="user_labels">E-mail</label><br><br>
-                                </div>
-                                <!-- Phone Number -->
-                                <div class="form-inputs">
-                                    <input type="tel" name="uphone" id="user-phone-register" pattern="[0-9]{10}"
-                                        title="Telefon Giriniz" required><br>
-                                    <span class="inputs_required">*Required</span>
-                                    <label for="user-phone-register" class="user_labels">+90(Phone)</label><br><br>
-                                </div>
-                                <!-- password -->
-                                <div class="form-inputs">
-                                    <input type="password" name="upassword" id="user-password-register"
-                                        title="Şifrenizi Giriniz" required><br>
-                                    <span class="inputs_required">*Required</span>
-                                    <label for="user-password-register" class="user_labels">Password</label><br>
-                                </div>
-
-
                                 <button type="submit" name="submit" class="form-button"
                                     title="Sign-up">Sign-up</button><br>
-
-
-                                <!-- <div class="password-reset">
-                                <a href="#">Şifremi unuttum*</a>
-                            </div> -->
                             </form>
                         </div>
 
@@ -100,9 +67,6 @@
                     <!-- Img-Box -->
                     <div class="col-md-6 burger-icon" [ngClass]="isVisible ? 'order-5' : 'order-2'"
                         [ngStyle]="{'transform': isVisible ? 'scaleX(-1)' : 'scaleX(1)'}">
-                        <!-- <div class="col-md-6 burger-icon" [ngClass]="{'order-5': isVisible, 'order-2': !isVisible}"> -->
-                        <!-- <div class="col-md-6 burger-icon" [ngStyle]="{'order': isVisible ? 5 : 2}"> -->
-                        <!-- <div class="col-md-6 burger-icon" data-order:5> -->
                         <div class=" img-box d-none d-md-block">
                             <img src="../assets/about-img.png" alt="">
                         </div>

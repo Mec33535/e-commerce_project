@@ -8,6 +8,7 @@ import { BookSectionComponent } from './book-section/book-section.component';
 import { ClientSectionComponent } from './client-section/client-section.component';
 import { FooterSectionComponent } from './footer-section/footer-section.component';
 import { AboutSectionComponent } from './about-section/about-section.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ import { AboutSectionComponent } from './about-section/about-section.component';
     BookSectionComponent,
     ClientSectionComponent,
     FooterSectionComponent,
+    AdminDashboardComponent
 
   ],
   templateUrl: './app.component.html',
