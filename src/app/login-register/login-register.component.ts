@@ -1,23 +1,64 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
+import { UserRegister } from './userRegister';
+import { UserRegisterService } from '../user-register.service';
 
 @Component({
   selector: 'app-login-register',
   standalone: true,
   imports: [CommonModule,
     FormsModule,
+
   ],
   templateUrl: './login-register.component.html',
   styleUrl: './login-register.component.scss'
 })
 
-export class LoginRegisterComponent {
-  x: number = 5;
+export class LoginRegisterComponent implements OnInit {
+
+  userList: UserRegister[] = new Array<UserRegister>();
+
+  // Create (ngForm)
+  userCreate: UserRegister = new UserRegister();
+
+
+
+  constructor(
+    private userRegisterService: UserRegisterService,
+  ) { }
+
+  ngOnInit(): void {
+    // Admine buradan bilgi çekilecek
+    this.userRegisterService
+      .userListRegisterObservable()
+      .subscribe((response) => {
+        // Observable
+        this.userList = response;
+        console.log(response);
+      });
+    // Observable subscribe
+  }
+
+  // Method
+  registerCreate(form: NgForm) {
+    // Formdan gelen verileri göstermek
+    const formData =
+      form.value.name + ' ' + form.value.email + ' ' + form.value.password + ' ' + form.value.number;
+    console.log("Userlisti bastırdım" + JSON.stringify(this.userList))
+
+    // Service subscribe
+    this.userRegisterService
+      .createUserRegisterObservable(this.userCreate)
+      .subscribe((response) => {
+
+        form.reset();
+      });
+  } //end registerCreate
+
   divClass: string = "form-inputs";
   spanClass: string = "inputs_required";
   labelClass: string = " user_labels";
-
   FormLogin: Array<any> = [
     {
       type: "email",
@@ -35,53 +76,11 @@ export class LoginRegisterComponent {
     }
 
   ];
-  FormRegister: Array<any> = [
-    {
-      type: "text",
-      name: "uRegistername",
-      id: "user-name-register",
-      title: "İsim Giriniz",
-      labelTitle: "Name"
-    },
-    {
-      type: "email",
-      name: "uRegisteremail",
-      id: "user-email-register",
-      title: "Mailinizi Giriniz",
-      labelTitle: "Email"
-    },
-    {
-      type: "password",
-      name: "uRegisterpassword",
-      id: "user-password-register",
-      title: "Şifrenizi Giriniz",
-      labelTitle: "Password"
 
-    },
-    {
-      type: "tel",
-      name: "uRegisterpassword",
-      id: "user-phone-register",
-      title: "Telefon Giriniz",
-      labelTitle: "+90-(Phone)"
-    },
-
-  ];
-
-
-  register: {
-    b: string,
-    order: string
-  } = {
-      b: "b",
-      order: "order-5"
-    };
-
-  display = {
-
-  }
   isVisible: boolean = false;
   makeVisible() {
     this.isVisible = !this.isVisible;
   }
+
+
 }

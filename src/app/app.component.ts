@@ -9,6 +9,8 @@ import { ClientSectionComponent } from './client-section/client-section.componen
 import { FooterSectionComponent } from './footer-section/footer-section.component';
 import { AboutSectionComponent } from './about-section/about-section.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UserRegisterService } from './user-register.service';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +25,11 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     BookSectionComponent,
     ClientSectionComponent,
     FooterSectionComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    HttpClientModule
 
   ],
+  providers: [UserRegisterService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
