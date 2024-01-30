@@ -20,8 +20,6 @@ export class AdminDashboardComponent {
   // Create (ngForm)
   userCreate: UserRegister = new UserRegister();
 
-
-
   constructor(
     private UserRegisterService: UserRegisterService,
   ) { }

@@ -61,8 +61,6 @@ export class HeroAreaComponent {
     dotsSpeed: 1000,
     smartSpeed: 800,
     dotsData: true,
-    // autoplayHoverPause: true,
-    // navText: ["za"],
     responsive: {
 
       0: {

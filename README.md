@@ -35,8 +35,8 @@
 - tsc UserRegister.ts
 - tsc -w UserRegister.ts
 - 
-- json-server --watch blog.json (JSON-SERVER)
-- json-server --watch blog.json --port 2222 (JSON-SERVER)
+- json-server --watch jsonServer/user.json (JSON-SERVER)
+- json-server --watch user.json --port 2222 (JSON-SERVER)
 - http://localhost:2222/user
 
 
