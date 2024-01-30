@@ -1,48 +1,5 @@
 {
-  "user": [
-    {
-      "id": "f81e",
-      "name": "213213",
-      "email": "1231232131",
-      "password": "12312321312321",
-      "phone": "123123123123213123"
-    },
-    {
-      "id": "a306",
-      "name": "",
-      "email": "",
-      "password": "",
-      "phone": null
-    },
-    {
-      "id": "5a9e",
-      "name": "",
-      "email": "",
-      "password": "",
-      "phone": null
-    },
-    {
-      "id": "3d1a",
-      "name": "",
-      "email": "",
-      "password": "",
-      "phone": null
-    },
-    {
-      "id": "8c9a",
-      "name": "",
-      "email": "",
-      "password": "",
-      "phone": null
-    },
-    {
-      "id": "b67e",
-      "name": null,
-      "email": null,
-      "password": null,
-      "phone": null
-    }
-  ],
+  "user": [],
   "blog": [
     {
       "id": "1",

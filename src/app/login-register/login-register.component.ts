@@ -47,11 +47,11 @@ export class LoginRegisterComponent implements OnInit {
       form.value.name + ' ' + form.value.email + ' ' + form.value.password + ' ' + form.value.number;
     console.log("Userlisti bastırdım" + JSON.stringify(this.userList))
 
+    this.userCreate.id = Number(Math.ceil(Math.random() * 10000 + 1));
     // Service subscribe
     this.userRegisterService
       .createUserRegisterObservable(this.userCreate)
       .subscribe((response) => {
-
         form.reset();
       });
   } //end registerCreate

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { HeroAreaComponent } from './hero-area/hero-area.component';
 import { OfferSectionComponent } from './offer-section/offer-section.component';
 import { FoodSectionComponent } from './food-section/food-section.component';
@@ -36,5 +36,8 @@ import { UserRegisterService } from './user-register.service';
 export class AppComponent {
 
   title = 'e-commerce-project';
-
+  constructor(private router: Router) { }
+  isThisRouterAdmin(): boolean {
+    return this.router.url.includes('/admin');
+  }
 }

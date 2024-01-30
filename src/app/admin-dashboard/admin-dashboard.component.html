@@ -1,24 +1,3 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
-
-<!-- <head> -->
-<!-- <meta charset="utf-8" /> -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-<!-- <title>Free Bootstrap Admin Template : Binary Admin</title> -->
-<!-- BOOTSTRAP STYLES-->
-<!-- <link href="assets/css/bootstrap.css" rel="stylesheet" /> -->
-<!-- FONTAWESOME STYLES-->
-<!-- <link href="assets/css/font-awesome.css" rel="stylesheet" /> -->
-<!-- MORRIS CHART STYLES-->
-<!-- <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" /> -->
-<!-- CUSTOM STYLES-->
-<!-- <link href="assets/css/custom.css" rel="stylesheet" /> -->
-<!-- GOOGLE FONTS-->
-<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> -->
-<!-- </head> -->
-
-<!-- <body> -->
-<!-- <img src="/src/assets/client1.jpg" style="width: 100px; height: 100px;" alt=""> -->
 <div id="wrapper">
     <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
@@ -47,50 +26,20 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                     <a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="ui.html"><i class="fa fa-desktop fa-2x"></i> UI Elements</a>
+                    <a routerLink="/admin"><i class="fa fa-desktop fa-2x"></i> UI Elements</a>
                 </li>
                 <li>
-                    <a href="tab-panel.html"><i class="fa fa-qrcode fa-2x"></i> Tabs & Panels</a>
+                    <a routerLink="/admin"><i class="fa fa-qrcode fa-2x"></i> Tabs & Panels</a>
                 </li>
                 <li>
-                    <a href="chart.html"><i class="fa-solid fa-chart-simple fa-2x"></i> Morris Charts</a>
+                    <a routerLink="/admin"><i class="fa-solid fa-chart-simple fa-2x"></i> Morris Charts</a>
                 </li>
                 <li>
-                    <a href="table.html"><i class="fa fa-table fa-2x"></i> Table Examples</a>
+                    <a routerLink="/admin"><i class="fa fa-table fa-2x"></i> Table Examples</a>
                 </li>
                 <li>
-                    <a href="form.html"><i class="fa fa-edit fa-2x"></i> Forms </a>
+                    <a routerLink="/admin"><i class="fa fa-edit fa-2x"></i> Forms </a>
                 </li>
-
-
-                <!-- <li>
-                    <a href="#"><i class="fa fa-sitemap fa-3x"></i> Multi-Level Dropdown<span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#">Second Level Link</a>
-                        </li>
-                        <li>
-                            <a href="#">Second Level Link</a>
-                        </li>
-                        <li>
-                            <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-
-                            </ul>
-
-                        </li>
-                    </ul>
-                </li> -->
 
             </ul>
 
@@ -154,6 +103,44 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                     </div>
                 </div>
             </div>
+
+            <!-- /. ROW  -->
+            <div class="row">
+
+                <div class="col-sm-12 col-xs-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Register Table
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let client of userList">
+                                            <td>{{client.id}}</td>
+                                            <td>{{client.name}}</td>
+                                            <td>{{client.email}}</td>
+                                            <td>{{client.password}}</td>
+                                            <td>{{client.phone}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             <!-- /. ROW  -->
             <hr />
             <div class="row">
@@ -214,7 +201,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
 
             </div>
             <!-- /. ROW  -->
-            <div class="row">
+            <div class="row d-none">
 
 
                 <div class="col-md-9 col-sm-12 col-xs-12">
@@ -251,95 +238,11 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                 </div>
 
             </div>
+
+
             <!-- /. ROW  -->
             <div class="row">
-                <div class="col-md-3 col-sm-12 col-xs-12">
-                    <div class="panel panel-primary text-center no-boder bg-color-green">
-                        <div class="panel-body">
-                            <i class="fa fa-comments-o fa-5x"></i>
-                            <h4>200 New Comments </h4>
-                            <h4>See All Comments </h4>
-                        </div>
-                        <div class="panel-footer back-footer-green">
-                            <i class="fa fa-rocket fa-5x"></i>
-                            Lorem ipsum dolor sit amet sit sit, consectetur adipiscing elitsit sit gthn ipsum dolor
-                            sit amet ipsum dolor sit amet
 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-9 col-sm-12 col-xs-12">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Responsive Table Example
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Username</th>
-                                            <th>User No.</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mdo</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>fat</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>twitter</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mdo</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>fat</td>
-                                            <td>100090</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>aa</td>
-                                            <td>100090</td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <!-- /. ROW  -->
-            <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12">
 
                     <div class="chat-panel panel panel-default chat-boder chat-panel-head">
@@ -386,7 +289,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                             <ul class="chat-box">
                                 <li class="left clearfix">
                                     <span class="chat-img pull-left">
-                                        <img style="width: 30px;" src="../../assets/client2.jpg" alt="User"
+                                        <img style="width: 50px;" src="../../assets/client2.jpg" alt="User"
                                             class="img-circle" />
                                     </span>
                                     <div class="chat-body">
@@ -403,7 +306,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                                 <li class="right clearfix">
                                     <span class="chat-img pull-right">
 
-                                        <img style="width: 30px;" src="../../assets/client1.jpg" alt="User"
+                                        <img style="width: 50px;" src="../../assets/client1.jpg" alt="User"
                                             class="img-circle" />
                                     </span>
                                     <div class="chat-body clearfix">
@@ -500,7 +403,7 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
                     </div>
 
                 </div>
-                <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="col-md-6 col-sm-12 col-xs-12 d-none">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Label Examples
@@ -532,21 +435,3 @@ font-size: 16px;"> Last access : 30 May 2014 &nbsp; <a href="#" class="btn btn-d
     </div>
     <!-- /. PAGE WRAPPER  -->
 </div>
-<!-- /. WRAPPER  -->
-<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-<!-- JQUERY SCRIPTS -->
-<!-- <script src="assets/js/jquery-1.10.2.js"></script> -->
-<!-- BOOTSTRAP SCRIPTS -->
-<!-- <script src="assets/js/bootstrap.min.js"></script> -->
-<!-- METISMENU SCRIPTS -->
-<!-- <script src="assets/js/jquery.metisMenu.js"></script> -->
-<!-- MORRIS CHART SCRIPTS -->
-<!-- <script src="assets/js/morris/raphael-2.1.0.min.js"></script> -->
-<!-- <script src="assets/js/morris/morris.js"></script> -->
-<!-- CUSTOM SCRIPTS -->
-<!-- <script src="assets/js/custom.js"></script> -->
-
-
-<!-- </body> -->
-
-<!-- </html> -->

@@ -20,12 +20,6 @@ export class UserRegisterService implements OnInit {
   path: string = 'http://localhost:2222/user';
   pathMongo: string = 'http://localhost:1111/user/register';
   // Constructor
-  /*
-  app.component.ts
-   imports: [
-    HttpClientModule, // Api istekleri icin
-  ],
-  */
   // Api istegi icin: httpClient
   constructor(
     private httpClient: HttpClient,
@@ -34,7 +28,7 @@ export class UserRegisterService implements OnInit {
 
   // ngOnInit
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+
   }
 
 

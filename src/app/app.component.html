@@ -1,5 +1,5 @@
-<app-hero-area></app-hero-area>
+<app-hero-area [ngStyle]="{'display': isThisRouterAdmin() ? 'none' : 'block'}"></app-hero-area>
 <!-- <app-admin-dashboard></app-admin-dashboard> -->
 <router-outlet></router-outlet>
 
-<app-footer-section></app-footer-section>
+<app-footer-section [ngStyle]="{'display': isThisRouterAdmin() ? 'none' : 'block'}"></app-footer-section>

@@ -186,9 +186,22 @@ p {
     line-height: 30px;
 }
 
+.panel {
+
+
+    .panel-body {
+        max-height: 400px;
+        overflow-x: scroll;
+        // overflow: auto;
+        overflow-y: auto;
+    }
+}
+
+
 /*CHAT PANEL*/
 .chat-panel .panel-body {
     height: 450px;
+
     overflow-y: scroll;
 }
 
@@ -215,6 +228,7 @@ p {
 
 .chat-img>img {
     margin-left: 20px;
+    margin-top: 20px;
 }
 
 /*==============================================
