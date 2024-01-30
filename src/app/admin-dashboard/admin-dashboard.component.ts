@@ -35,4 +35,42 @@ export class AdminDashboardComponent {
       });
     // Observable subscribe
   }
+
+  date = new Date();
+  loginDay = this.date.getDate();
+  loginMonth = this.date.getMonth() + 1;
+  loginYear = this.date.getFullYear();
+  chatBox = [
+    {
+      photo: "../../assets/client2.jpg",
+      name: "Jack Sparrow",
+      chat: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
+    },
+    {
+      photo: "../../assets/client1.jpg",
+      name: "Jhonson Deed",
+      chat: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
+    },
+    {
+      photo: "../../assets/client2.jpg",
+      name: "Jack Sparrow",
+      chat: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
+    },
+    {
+      photo: "../../assets/client1.jpg",
+      name: "Jhonson Deed",
+      chat: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
+    },
+    {
+      photo: "../../assets/client2.jpg",
+      name: "Jack Sparrow",
+      chat: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
+    },
+    {
+      photo: "../../assets/client1.jpg",
+      name: "Jhonson Deed",
+      chat: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales."
+    },
+
+  ]
 }
